@@ -98,45 +98,60 @@ function Index() {
 
       {/* HERO */}
       <section id="top" className="relative overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            <MapPin className="h-3.5 w-3.5" /> Twoje miasto · Polska
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.18] [mask-image:radial-gradient(ellipse_at_70%_40%,black_0%,transparent_70%)]"
+          style={{
+            backgroundImage: `url(${heroBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+            filter: "blur(8px) saturate(0.8)",
+          }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+
+        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
+          <div className="flex h-5 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5" />
+            <span className="caret">{typed}</span>
           </div>
           <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[1.05] text-balance md:text-7xl lg:text-8xl">
-            Strony internetowe<br />
-            <span className="italic text-accent">dla lokalnych firm.</span>
+            <span className="reveal-1 inline-block">Strony internetowe</span><br />
+            <span className="reveal-2 inline-block italic text-accent accent-underline">dla lokalnych firm.</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
+          <p className="reveal-3 mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
             Projektuję strony dla kwiaciarni, mechaników, hydraulików i dziesiątek innych branż. Pokazuję gotową stronę — płacisz tylko jeśli ci się spodoba.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a href="#kontakt" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90">
-              Skontaktuj się <ArrowUpRight className="h-4 w-4" />
+          <div className="reveal-4 mt-10 flex flex-wrap items-center gap-3">
+            <a href="#kontakt" className="btn-press inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90">
+              Skontaktuj się <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
-            <a href="#projekty" className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+            <a href="#projekty" className="btn-press inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground hover:bg-secondary">
               Zobacz projekty
             </a>
-            <a href="tel:+48123456789" className="ml-1 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+            <a href="tel:+48123456789" className="btn-press ml-1 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
               <Phone className="h-4 w-4" /> +48 123 456 789
             </a>
           </div>
 
           {/* stats + bullets card */}
           <div className="mt-16 grid gap-6 lg:grid-cols-5">
-            <div className="lg:col-span-3 grid grid-cols-3 gap-4 rounded-2xl border border-border bg-card p-8">
+            <div className="lg:col-span-3 grid grid-cols-3 gap-4 rounded-2xl border border-border bg-card/80 p-8 backdrop-blur-sm">
               {[
-                { n: "47", l: "stron wykonanych" },
-                { n: "23", l: "branż" },
-                { n: "4.9★", l: "ocena klientów" },
+                { n: 47, suffix: "", l: "stron wykonanych" },
+                { n: 23, suffix: "", l: "branż" },
+                { n: 4.9, suffix: "★", l: "ocena klientów", decimals: 1 },
               ].map((s) => (
                 <div key={s.l}>
-                  <div className="font-serif text-4xl md:text-5xl">{s.n}</div>
+                  <div className="font-serif text-4xl md:text-5xl">
+                    <CountUp to={s.n} decimals={s.decimals ?? 0} />{s.suffix}
+                  </div>
                   <div className="mt-2 text-xs uppercase tracking-wider text-muted-foreground">{s.l}</div>
                 </div>
               ))}
             </div>
-            <ul className="lg:col-span-2 grid gap-3 rounded-2xl border border-border bg-secondary/60 p-8 text-sm">
+            <ul className="lg:col-span-2 grid gap-3 rounded-2xl border border-border bg-secondary/60 p-8 text-sm backdrop-blur-sm">
               {[
                 "Oglądasz gotową stronę przed zakupem",
                 "Nie podoba się? Nie płacisz nic",
