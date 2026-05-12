@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowUpRight, Phone, Check, Star, ChevronDown, Mail, MapPin } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,14 +28,14 @@ const nav = [
 ];
 
 const projects = [
-  { tag: "Handel", city: "Warszawa", year: "2024", name: "Kwiaciarnia „Różany Ogród\"", desc: "Galeria bukietów, formularz zamówień, mapa. Wzrost zapytań o 180% w 3 miesiące.", chips: ["Galeria", "Zamówienia"] },
-  { tag: "Usługi", city: "Kraków", year: "2024", name: "Auto-Serwis Nowak", desc: "Lista usług, cennik, zapis na wizytę. Pozycja #1 w Google Maps na „mechanik Kraków\".", chips: ["Cennik", "Zapis online", "SEO"] },
-  { tag: "Usługi", city: "Wrocław", year: "2023", name: "Hydraulik – P. Malinowski", desc: "Numer alarmowy na górze, zakres usług, opinie Google. Wdrożenie w 5 dni.", chips: ["Alarm 24h", "Opinie"] },
-  { tag: "Gastronomia", city: "Gdańsk", year: "2024", name: "Piekarnia „Złoty Kłos\"", desc: "Menu sezonowe, galeria wypieków, zamówienie tortu przez stronę.", chips: ["Menu", "Galeria"] },
-  { tag: "Zdrowie", city: "Poznań", year: "2023", name: "Gabinet dr Wiśniewska", desc: "Profile lekarzy, cennik zabiegów, formularz rejestracji. Integracja z Docplanner.", chips: ["Rejestracja", "Zespół"] },
-  { tag: "Gastronomia", city: "Łódź", year: "2024", name: "Restauracja „Pod Lipą\"", desc: "Menu PDF, rezerwacja stolików, integracja z Glovo. Wersja w 3 językach.", chips: ["Rezerwacje", "Dostawa"] },
-  { tag: "Usługi", city: "Warszawa", year: "2024", name: "Salon Piękności „Aura\"", desc: "Galeria realizacji, cennik zabiegów, rezerwacja online przez Booksy.", chips: ["Booksy", "Galeria"] },
-  { tag: "Usługi", city: "Katowice", year: "2024", name: "Elektryk Kamil – Instalacje", desc: "Zakres usług, zdjęcia realizacji, kontakt alarmowy. Widoczność w Google od 1. tygodnia.", chips: ["Zakres", "Kontakt 24h"] },
+  { tag: "Handel", city: "Warszawa", year: "2024", name: "Kwiaciarnia „Różany Ogród\"", desc: "Galeria bukietów, formularz zamówień, mapa. Wzrost zapytań o 180% w 3 miesiące.", chips: ["Galeria", "Zamówienia"], url: "#" },
+  { tag: "Usługi", city: "Kraków", year: "2024", name: "Auto-Serwis Nowak", desc: "Lista usług, cennik, zapis na wizytę. Pozycja #1 w Google Maps na „mechanik Kraków\".", chips: ["Cennik", "Zapis online", "SEO"], url: "#" },
+  { tag: "Usługi", city: "Wrocław", year: "2023", name: "Hydraulik – P. Malinowski", desc: "Numer alarmowy na górze, zakres usług, opinie Google. Wdrożenie w 5 dni.", chips: ["Alarm 24h", "Opinie"], url: "#" },
+  { tag: "Gastronomia", city: "Gdańsk", year: "2024", name: "Piekarnia „Złoty Kłos\"", desc: "Menu sezonowe, galeria wypieków, zamówienie tortu przez stronę.", chips: ["Menu", "Galeria"], url: "#" },
+  { tag: "Zdrowie", city: "Poznań", year: "2023", name: "Gabinet dr Wiśniewska", desc: "Profile lekarzy, cennik zabiegów, formularz rejestracji. Integracja z Docplanner.", chips: ["Rejestracja", "Zespół"], url: "#" },
+  { tag: "Gastronomia", city: "Łódź", year: "2024", name: "Restauracja „Pod Lipą\"", desc: "Menu PDF, rezerwacja stolików, integracja z Glovo. Wersja w 3 językach.", chips: ["Rezerwacje", "Dostawa"], url: "#" },
+  { tag: "Usługi", city: "Warszawa", year: "2024", name: "Salon Piękności „Aura\"", desc: "Galeria realizacji, cennik zabiegów, rezerwacja online przez Booksy.", chips: ["Booksy", "Galeria"], url: "#" },
+  { tag: "Usługi", city: "Katowice", year: "2024", name: "Elektryk Kamil – Instalacje", desc: "Zakres usług, zdjęcia realizacji, kontakt alarmowy. Widoczność w Google od 1. tygodnia.", chips: ["Zakres", "Kontakt 24h"], url: "#" },
 ];
 
 const filters = ["Wszystkie", "Usługi", "Handel", "Gastronomia", "Zdrowie"] as const;
@@ -71,6 +72,7 @@ function Index() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("Wszystkie");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const visible = projects.filter((p) => filter === "Wszystkie" || p.tag === filter);
+  const typed = useTypewriter("Twoje miasto · Polska", 55, 350);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -96,45 +98,60 @@ function Index() {
 
       {/* HERO */}
       <section id="top" className="relative overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            <MapPin className="h-3.5 w-3.5" /> Twoje miasto · Polska
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.18] [mask-image:radial-gradient(ellipse_at_70%_40%,black_0%,transparent_70%)]"
+          style={{
+            backgroundImage: `url(${heroBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center right",
+            filter: "blur(8px) saturate(0.8)",
+          }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+
+        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
+          <div className="flex h-5 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5" />
+            <span className="caret">{typed}</span>
           </div>
           <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[1.05] text-balance md:text-7xl lg:text-8xl">
-            Strony internetowe<br />
-            <span className="italic text-accent">dla lokalnych firm.</span>
+            <span className="reveal-1 inline-block">Strony internetowe</span><br />
+            <span className="reveal-2 inline-block italic text-accent accent-underline">dla lokalnych firm.</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
+          <p className="reveal-3 mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
             Projektuję strony dla kwiaciarni, mechaników, hydraulików i dziesiątek innych branż. Pokazuję gotową stronę — płacisz tylko jeśli ci się spodoba.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a href="#kontakt" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90">
-              Skontaktuj się <ArrowUpRight className="h-4 w-4" />
+          <div className="reveal-4 mt-10 flex flex-wrap items-center gap-3">
+            <a href="#kontakt" className="btn-press inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90">
+              Skontaktuj się <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
-            <a href="#projekty" className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary">
+            <a href="#projekty" className="btn-press inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground hover:bg-secondary">
               Zobacz projekty
             </a>
-            <a href="tel:+48123456789" className="ml-1 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+            <a href="tel:+48123456789" className="btn-press ml-1 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
               <Phone className="h-4 w-4" /> +48 123 456 789
             </a>
           </div>
 
           {/* stats + bullets card */}
           <div className="mt-16 grid gap-6 lg:grid-cols-5">
-            <div className="lg:col-span-3 grid grid-cols-3 gap-4 rounded-2xl border border-border bg-card p-8">
+            <div className="lg:col-span-3 grid grid-cols-3 gap-4 rounded-2xl border border-border bg-card/80 p-8 backdrop-blur-sm">
               {[
-                { n: "47", l: "stron wykonanych" },
-                { n: "23", l: "branż" },
-                { n: "4.9★", l: "ocena klientów" },
+                { n: 47, suffix: "", l: "stron wykonanych" },
+                { n: 23, suffix: "", l: "branż" },
+                { n: 4.9, suffix: "★", l: "ocena klientów", decimals: 1 },
               ].map((s) => (
                 <div key={s.l}>
-                  <div className="font-serif text-4xl md:text-5xl">{s.n}</div>
+                  <div className="font-serif text-4xl md:text-5xl">
+                    <CountUp to={s.n} decimals={s.decimals ?? 0} />{s.suffix}
+                  </div>
                   <div className="mt-2 text-xs uppercase tracking-wider text-muted-foreground">{s.l}</div>
                 </div>
               ))}
             </div>
-            <ul className="lg:col-span-2 grid gap-3 rounded-2xl border border-border bg-secondary/60 p-8 text-sm">
+            <ul className="lg:col-span-2 grid gap-3 rounded-2xl border border-border bg-secondary/60 p-8 text-sm backdrop-blur-sm">
               {[
                 "Oglądasz gotową stronę przed zakupem",
                 "Nie podoba się? Nie płacisz nic",
@@ -197,7 +214,13 @@ function Index() {
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((p) => (
-              <article key={p.name} className="hover-lift group flex flex-col overflow-hidden rounded-2xl border border-border bg-card">
+              <a
+                key={p.name}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-lift group flex flex-col overflow-hidden rounded-2xl border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
                 <div className="grain relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-secondary to-sand">
                   <div className="absolute inset-6 rounded-lg border border-border bg-card shadow-sm transition-transform duration-500 group-hover:scale-[1.04]">
                     <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
@@ -216,10 +239,13 @@ function Index() {
                     </div>
                   </div>
                   <span className="absolute left-4 top-4 rounded-full bg-card/90 px-2.5 py-1 text-xs backdrop-blur">{p.tag}</span>
+                  <span className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-card/90 text-foreground opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 translate-x-1">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <div className="text-xs uppercase tracking-wider text-muted-foreground">{p.city} · {p.year}</div>
-                  <h3 className="mt-2 font-serif text-2xl">{p.name}</h3>
+                  <h3 className="mt-2 font-serif text-2xl transition-colors group-hover:text-accent">{p.name}</h3>
                   <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.desc}</p>
                   <div className="mt-5 flex flex-wrap gap-1.5">
                     {p.chips.map((c) => (
@@ -227,7 +253,7 @@ function Index() {
                     ))}
                   </div>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         </div>
@@ -337,7 +363,7 @@ function Index() {
               <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">Krótko o firmie (opcjonalnie)</label>
               <textarea rows={4} className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent" placeholder="Czym się zajmujesz, w jakim mieście…" />
             </div>
-            <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground transition-opacity hover:opacity-90">
+            <button type="submit" className="btn-press inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground hover:opacity-90">
               Wyślij — oddzwonię dziś <ArrowUpRight className="h-4 w-4" />
             </button>
           </form>
@@ -355,12 +381,16 @@ function Index() {
                   <div key={f.q}>
                     <button
                       onClick={() => setOpenFaq(open ? null : i)}
-                      className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                      className="flex w-full items-center justify-between gap-6 py-6 text-left transition-colors hover:text-accent"
                     >
                       <span className="font-serif text-xl md:text-2xl">{f.q}</span>
-                      <ChevronDown className={`h-5 w-5 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`h-5 w-5 shrink-0 transition-transform duration-300 ${open ? "rotate-180 text-accent" : ""}`} />
                     </button>
-                    {open && <p className="pb-6 pr-12 text-primary-foreground/70">{f.a}</p>}
+                    <div className={`faq-content ${open ? "open" : ""}`}>
+                      <div>
+                        <p className="pb-6 pr-12 text-primary-foreground/70">{f.a}</p>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
@@ -408,4 +438,42 @@ function Field({ label, name, type = "text", placeholder }: { label: string; nam
       />
     </div>
   );
+}
+
+function useTypewriter(text: string, speed = 60, startDelay = 0) {
+  const [out, setOut] = useState("");
+  useEffect(() => {
+    let i = 0;
+    let id: ReturnType<typeof setInterval> | undefined;
+    const start = setTimeout(() => {
+      id = setInterval(() => {
+        i++;
+        setOut(text.slice(0, i));
+        if (i >= text.length && id) clearInterval(id);
+      }, speed);
+    }, startDelay);
+    return () => { clearTimeout(start); if (id) clearInterval(id); };
+  }, [text, speed, startDelay]);
+  return out;
+}
+
+function CountUp({ to, decimals = 0, duration = 1600 }: { to: number; decimals?: number; duration?: number }) {
+  const [val, setVal] = useState(0);
+  const startedRef = useRef(false);
+  useEffect(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setVal(to * eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+      else setVal(to);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [to, duration]);
+  return <>{val.toFixed(decimals)}</>;
 }
