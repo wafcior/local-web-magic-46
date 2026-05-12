@@ -439,3 +439,41 @@ function Field({ label, name, type = "text", placeholder }: { label: string; nam
     </div>
   );
 }
+
+function useTypewriter(text: string, speed = 60, startDelay = 0) {
+  const [out, setOut] = useState("");
+  useEffect(() => {
+    let i = 0;
+    let id: ReturnType<typeof setInterval> | undefined;
+    const start = setTimeout(() => {
+      id = setInterval(() => {
+        i++;
+        setOut(text.slice(0, i));
+        if (i >= text.length && id) clearInterval(id);
+      }, speed);
+    }, startDelay);
+    return () => { clearTimeout(start); if (id) clearInterval(id); };
+  }, [text, speed, startDelay]);
+  return out;
+}
+
+function CountUp({ to, decimals = 0, duration = 1600 }: { to: number; decimals?: number; duration?: number }) {
+  const [val, setVal] = useState(0);
+  const startedRef = useRef(false);
+  useEffect(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setVal(to * eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+      else setVal(to);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [to, duration]);
+  return <>{val.toFixed(decimals)}</>;
+}
