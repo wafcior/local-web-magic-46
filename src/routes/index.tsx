@@ -72,6 +72,7 @@ function Index() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("Wszystkie");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const visible = projects.filter((p) => filter === "Wszystkie" || p.tag === filter);
+  const typed = useTypewriter("Twoje miasto · Polska", 55, 350);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
