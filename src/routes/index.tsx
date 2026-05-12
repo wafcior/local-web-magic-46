@@ -28,14 +28,14 @@ const nav = [
 ];
 
 const projects = [
-  { tag: "Handel", city: "Warszawa", year: "2024", name: "Kwiaciarnia „Różany Ogród\"", desc: "Galeria bukietów, formularz zamówień, mapa. Wzrost zapytań o 180% w 3 miesiące.", chips: ["Galeria", "Zamówienia"] },
-  { tag: "Usługi", city: "Kraków", year: "2024", name: "Auto-Serwis Nowak", desc: "Lista usług, cennik, zapis na wizytę. Pozycja #1 w Google Maps na „mechanik Kraków\".", chips: ["Cennik", "Zapis online", "SEO"] },
-  { tag: "Usługi", city: "Wrocław", year: "2023", name: "Hydraulik – P. Malinowski", desc: "Numer alarmowy na górze, zakres usług, opinie Google. Wdrożenie w 5 dni.", chips: ["Alarm 24h", "Opinie"] },
-  { tag: "Gastronomia", city: "Gdańsk", year: "2024", name: "Piekarnia „Złoty Kłos\"", desc: "Menu sezonowe, galeria wypieków, zamówienie tortu przez stronę.", chips: ["Menu", "Galeria"] },
-  { tag: "Zdrowie", city: "Poznań", year: "2023", name: "Gabinet dr Wiśniewska", desc: "Profile lekarzy, cennik zabiegów, formularz rejestracji. Integracja z Docplanner.", chips: ["Rejestracja", "Zespół"] },
-  { tag: "Gastronomia", city: "Łódź", year: "2024", name: "Restauracja „Pod Lipą\"", desc: "Menu PDF, rezerwacja stolików, integracja z Glovo. Wersja w 3 językach.", chips: ["Rezerwacje", "Dostawa"] },
-  { tag: "Usługi", city: "Warszawa", year: "2024", name: "Salon Piękności „Aura\"", desc: "Galeria realizacji, cennik zabiegów, rezerwacja online przez Booksy.", chips: ["Booksy", "Galeria"] },
-  { tag: "Usługi", city: "Katowice", year: "2024", name: "Elektryk Kamil – Instalacje", desc: "Zakres usług, zdjęcia realizacji, kontakt alarmowy. Widoczność w Google od 1. tygodnia.", chips: ["Zakres", "Kontakt 24h"] },
+  { tag: "Handel", city: "Warszawa", year: "2024", name: "Kwiaciarnia „Różany Ogród\"", desc: "Galeria bukietów, formularz zamówień, mapa. Wzrost zapytań o 180% w 3 miesiące.", chips: ["Galeria", "Zamówienia"], url: "#" },
+  { tag: "Usługi", city: "Kraków", year: "2024", name: "Auto-Serwis Nowak", desc: "Lista usług, cennik, zapis na wizytę. Pozycja #1 w Google Maps na „mechanik Kraków\".", chips: ["Cennik", "Zapis online", "SEO"], url: "#" },
+  { tag: "Usługi", city: "Wrocław", year: "2023", name: "Hydraulik – P. Malinowski", desc: "Numer alarmowy na górze, zakres usług, opinie Google. Wdrożenie w 5 dni.", chips: ["Alarm 24h", "Opinie"], url: "#" },
+  { tag: "Gastronomia", city: "Gdańsk", year: "2024", name: "Piekarnia „Złoty Kłos\"", desc: "Menu sezonowe, galeria wypieków, zamówienie tortu przez stronę.", chips: ["Menu", "Galeria"], url: "#" },
+  { tag: "Zdrowie", city: "Poznań", year: "2023", name: "Gabinet dr Wiśniewska", desc: "Profile lekarzy, cennik zabiegów, formularz rejestracji. Integracja z Docplanner.", chips: ["Rejestracja", "Zespół"], url: "#" },
+  { tag: "Gastronomia", city: "Łódź", year: "2024", name: "Restauracja „Pod Lipą\"", desc: "Menu PDF, rezerwacja stolików, integracja z Glovo. Wersja w 3 językach.", chips: ["Rezerwacje", "Dostawa"], url: "#" },
+  { tag: "Usługi", city: "Warszawa", year: "2024", name: "Salon Piękności „Aura\"", desc: "Galeria realizacji, cennik zabiegów, rezerwacja online przez Booksy.", chips: ["Booksy", "Galeria"], url: "#" },
+  { tag: "Usługi", city: "Katowice", year: "2024", name: "Elektryk Kamil – Instalacje", desc: "Zakres usług, zdjęcia realizacji, kontakt alarmowy. Widoczność w Google od 1. tygodnia.", chips: ["Zakres", "Kontakt 24h"], url: "#" },
 ];
 
 const filters = ["Wszystkie", "Usługi", "Handel", "Gastronomia", "Zdrowie"] as const;
