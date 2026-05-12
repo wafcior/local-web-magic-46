@@ -381,12 +381,16 @@ function Index() {
                   <div key={f.q}>
                     <button
                       onClick={() => setOpenFaq(open ? null : i)}
-                      className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                      className="flex w-full items-center justify-between gap-6 py-6 text-left transition-colors hover:text-accent"
                     >
                       <span className="font-serif text-xl md:text-2xl">{f.q}</span>
-                      <ChevronDown className={`h-5 w-5 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+                      <ChevronDown className={`h-5 w-5 shrink-0 transition-transform duration-300 ${open ? "rotate-180 text-accent" : ""}`} />
                     </button>
-                    {open && <p className="pb-6 pr-12 text-primary-foreground/70">{f.a}</p>}
+                    <div className={`faq-content ${open ? "open" : ""}`}>
+                      <div>
+                        <p className="pb-6 pr-12 text-primary-foreground/70">{f.a}</p>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
