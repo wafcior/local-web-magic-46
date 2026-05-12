@@ -214,7 +214,13 @@ function Index() {
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((p) => (
-              <article key={p.name} className="hover-lift group flex flex-col overflow-hidden rounded-2xl border border-border bg-card">
+              <a
+                key={p.name}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-lift group flex flex-col overflow-hidden rounded-2xl border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
                 <div className="grain relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-secondary to-sand">
                   <div className="absolute inset-6 rounded-lg border border-border bg-card shadow-sm transition-transform duration-500 group-hover:scale-[1.04]">
                     <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
@@ -233,10 +239,13 @@ function Index() {
                     </div>
                   </div>
                   <span className="absolute left-4 top-4 rounded-full bg-card/90 px-2.5 py-1 text-xs backdrop-blur">{p.tag}</span>
+                  <span className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-card/90 text-foreground opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 translate-x-1">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <div className="text-xs uppercase tracking-wider text-muted-foreground">{p.city} · {p.year}</div>
-                  <h3 className="mt-2 font-serif text-2xl">{p.name}</h3>
+                  <h3 className="mt-2 font-serif text-2xl transition-colors group-hover:text-accent">{p.name}</h3>
                   <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.desc}</p>
                   <div className="mt-5 flex flex-wrap gap-1.5">
                     {p.chips.map((c) => (
@@ -244,7 +253,7 @@ function Index() {
                     ))}
                   </div>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         </div>
