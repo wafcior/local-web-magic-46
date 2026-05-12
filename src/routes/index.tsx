@@ -72,7 +72,7 @@ function Index() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("Wszystkie");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const visible = projects.filter((p) => filter === "Wszystkie" || p.tag === filter);
-  const typed = useTypewriter("Twoje miasto · Polska", 55, 350);
+  const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -442,17 +442,25 @@ function Field({ label, name, type = "text", placeholder }: { label: string; nam
 
 function useTypewriter(text: string, speed = 60, startDelay = 0) {
   const [out, setOut] = useState("");
+  const startedRef = useRef(false);
   useEffect(() => {
+    if (startedRef.current) return;
+    startedRef.current = true;
     let i = 0;
     let id: ReturnType<typeof setInterval> | undefined;
-    const start = setTimeout(() => {
+    const run = () => {
+      setOut(text.slice(0, 1));
+      i = 1;
       id = setInterval(() => {
         i++;
         setOut(text.slice(0, i));
         if (i >= text.length && id) clearInterval(id);
       }, speed);
-    }, startDelay);
-    return () => { clearTimeout(start); if (id) clearInterval(id); };
+    };
+    let start: ReturnType<typeof setTimeout> | undefined;
+    if (startDelay > 0) start = setTimeout(run, startDelay);
+    else run();
+    return () => { if (start) clearTimeout(start); if (id) clearInterval(id); };
   }, [text, speed, startDelay]);
   return out;
 }
