@@ -363,7 +363,7 @@ function Index() {
               <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">Krótko o firmie (opcjonalnie)</label>
               <textarea rows={4} className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent" placeholder="Czym się zajmujesz, w jakim mieście…" />
             </div>
-            <button type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground transition-opacity hover:opacity-90">
+            <button type="submit" className="btn-press inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground hover:opacity-90">
               Wyślij — oddzwonię dziś <ArrowUpRight className="h-4 w-4" />
             </button>
           </form>
