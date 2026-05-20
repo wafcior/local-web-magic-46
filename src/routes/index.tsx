@@ -111,6 +111,26 @@ function Index() {
             backgroundSize: "cover",
             backgroundPosition: "center right",
             filter: "blur(8px) saturate(0.8)",
+            transform: `translate3d(0, ${scrollY * 0.25}px, 0) scale(1.06)`,
+            willChange: "transform",
+          }}
+        />
+        {/* Floating accent blob */}
+        <div
+          aria-hidden
+          className="blob pointer-events-none absolute -right-32 top-10 h-[420px] w-[420px] rounded-full opacity-40"
+          style={{
+            background: "radial-gradient(circle, var(--accent-warm), transparent 60%)",
+            transform: `translate3d(0, ${scrollY * -0.15}px, 0)`,
+          }}
+        />
+        <div
+          aria-hidden
+          className="blob pointer-events-none absolute -left-24 top-72 h-[320px] w-[320px] rounded-full opacity-30"
+          style={{
+            background: "radial-gradient(circle, oklch(0.85 0.08 220), transparent 60%)",
+            animationDelay: "-6s",
+            transform: `translate3d(0, ${scrollY * -0.08}px, 0)`,
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
@@ -120,7 +140,10 @@ function Index() {
             <MapPin className="h-3.5 w-3.5" />
             <span className="caret">{typed}</span>
           </div>
-          <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[1.05] text-balance md:text-7xl lg:text-8xl">
+          <h1
+            className="mt-6 max-w-4xl font-serif text-5xl leading-[1.05] text-balance md:text-7xl lg:text-8xl"
+            style={{ transform: `translate3d(0, ${scrollY * -0.06}px, 0)` }}
+          >
             <span className="reveal-1 inline-block">Strony internetowe</span><br />
             <span className="reveal-2 inline-block italic text-accent accent-underline">dla lokalnych firm.</span>
           </h1>
@@ -129,8 +152,8 @@ function Index() {
           </p>
 
           <div className="reveal-4 mt-10 flex flex-wrap items-center gap-3">
-            <a href="#kontakt" className="btn-press inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90">
-              Skontaktuj się <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            <a href="#kontakt" className="btn-press shimmer group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90">
+              Skontaktuj się <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a href="#projekty" className="btn-press inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground hover:bg-secondary">
               Zobacz projekty
@@ -142,21 +165,21 @@ function Index() {
 
           {/* stats + bullets card */}
           <div className="mt-16 grid gap-6 lg:grid-cols-5">
-            <div className="lg:col-span-3 grid grid-cols-3 gap-4 rounded-2xl border border-border bg-card/80 p-8 backdrop-blur-sm">
+            <Reveal as="div" className="lg:col-span-3 grid grid-cols-3 gap-4 rounded-2xl border border-border bg-card/80 p-8 backdrop-blur-sm spotlight" onMouseMove={spotlightMove}>
               {[
                 { n: 47, suffix: "", l: "stron wykonanych" },
                 { n: 23, suffix: "", l: "branż" },
                 { n: 4.9, suffix: "★", l: "ocena klientów", decimals: 1 },
-              ].map((s) => (
-                <div key={s.l}>
-                  <div className="font-serif text-4xl md:text-5xl">
+              ].map((s, i) => (
+                <div key={s.l} className={`relative z-10 sr-d${i + 1}`}>
+                  <div className="font-serif text-4xl md:text-5xl num-shine">
                     <CountUp to={s.n} decimals={s.decimals ?? 0} />{s.suffix}
                   </div>
                   <div className="mt-2 text-xs uppercase tracking-wider text-muted-foreground">{s.l}</div>
                 </div>
               ))}
-            </div>
-            <ul className="lg:col-span-2 grid gap-3 rounded-2xl border border-border bg-secondary/60 p-8 text-sm backdrop-blur-sm">
+            </Reveal>
+            <Reveal as="ul" className="lg:col-span-2 grid gap-3 rounded-2xl border border-border bg-secondary/60 p-8 text-sm backdrop-blur-sm sr-d2">
               {[
                 "Oglądasz gotową stronę przed zakupem",
                 "Nie podoba się? Nie płacisz nic",
@@ -168,10 +191,23 @@ function Index() {
                   <span>{b}</span>
                 </li>
               ))}
-            </ul>
+            </Reveal>
+          </div>
+        </div>
+
+        {/* Industries marquee */}
+        <div className="marquee-mask relative border-y border-border/60 bg-card/40 py-5 backdrop-blur-sm">
+          <div className="marquee-track flex w-max gap-10 whitespace-nowrap text-sm uppercase tracking-[0.18em] text-muted-foreground">
+            {[...INDUSTRIES, ...INDUSTRIES].map((label, i) => (
+              <span key={i} className="flex items-center gap-3">
+                <Sparkles className="h-3.5 w-3.5 text-accent" />
+                {label}
+              </span>
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* PROCES */}
       <section id="proces" className="border-t border-border bg-secondary/40 py-24">
