@@ -145,4 +145,75 @@
   }
   .faq-content.open { grid-template-rows: 1fr; }
   .faq-content > div { overflow: hidden; }
+
+  /* Scroll reveal */
+  .sr { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.22,.8,.2,1), transform .9s cubic-bezier(.22,.8,.2,1), filter .9s ease; filter: blur(4px); will-change: transform, opacity; }
+  .sr.in { opacity: 1; transform: translateY(0); filter: blur(0); }
+  .sr-d1 { transition-delay: .08s; }
+  .sr-d2 { transition-delay: .16s; }
+  .sr-d3 { transition-delay: .24s; }
+  .sr-d4 { transition-delay: .32s; }
+  .sr-d5 { transition-delay: .4s; }
+
+  /* Floating blob */
+  @keyframes blob-float {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(30px,-20px) scale(1.08); }
+    66% { transform: translate(-20px,15px) scale(.96); }
+  }
+  .blob { animation: blob-float 14s ease-in-out infinite; filter: blur(60px); }
+
+  /* Marquee */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-track { animation: marquee 38s linear infinite; }
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  /* Spotlight on cards */
+  .spotlight { position: relative; isolation: isolate; }
+  .spotlight::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--accent-warm) 18%, transparent), transparent 60%);
+    opacity: 0; transition: opacity .4s ease; z-index: 0;
+  }
+  .spotlight:hover::before { opacity: 1; }
+
+  /* Shimmer sweep on primary buttons */
+  .shimmer { position: relative; overflow: hidden; }
+  .shimmer::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, color-mix(in oklab, white 35%, transparent) 50%, transparent 70%);
+    transform: translateX(-120%); transition: transform .9s ease; pointer-events: none;
+  }
+  .shimmer:hover::after { transform: translateX(120%); }
+
+  /* Tilt-ish hover for project cards */
+  .tilt { transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease; }
+  .tilt:hover { transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translateY(-6px); box-shadow: 0 30px 60px -30px oklch(0 0 0 / .25); }
+
+  /* Number ticker shine */
+  .num-shine {
+    background: linear-gradient(120deg, var(--ink) 0%, var(--ink) 40%, color-mix(in oklab, var(--accent-warm) 75%, var(--ink)) 50%, var(--ink) 60%, var(--ink) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shine 5s ease-in-out infinite;
+  }
+  @keyframes shine { 0%,100% { background-position: 200% 0; } 50% { background-position: 0 0; } }
+
+  /* Nav hide on scroll-down */
+  .nav-hidden { transform: translateY(-110%); }
+
+  /* Soft floating */
+  @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .float-y { animation: float-y 6s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sr, .blob, .marquee-track, .num-shine, .float-y { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+  }
 }
+
