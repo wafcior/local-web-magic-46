@@ -539,3 +539,75 @@ function CountUp({ to, decimals = 0, duration = 1600 }: { to: number; decimals?:
   }, [to, duration]);
   return <>{val.toFixed(decimals)}</>;
 }
+
+function useScrollY() {
+  const [y, setY] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        setY(window.scrollY);
+        raf = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+  return y;
+}
+
+function useHideOnScroll(threshold = 140) {
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < threshold) { setHidden(false); lastY.current = y; return; }
+      const delta = y - lastY.current;
+      if (Math.abs(delta) > 6) {
+        setHidden(delta > 0);
+        lastY.current = y;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [threshold]);
+  return hidden;
+}
+
+type RevealProps = {
+  as?: "div" | "ul" | "section" | "figure" | "li" | "h2" | "p";
+  className?: string;
+  children: ReactNode;
+  onMouseMove?: (e: React.MouseEvent<HTMLElement>) => void;
+};
+
+function Reveal({ as = "div", className = "", children, onMouseMove }: RevealProps) {
+  const ref = useRef<HTMLElement | null>(null);
+  const [shown, setShown] = useState(false);
+  const setRef = useCallback((node: HTMLElement | null) => {
+    ref.current = node;
+    if (!node || shown) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShown(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
+    );
+    io.observe(node);
+  }, [shown]);
+  const Tag = as as keyof React.JSX.IntrinsicElements;
+  // @ts-expect-error dynamic tag accepts ref
+  return <Tag ref={setRef} onMouseMove={onMouseMove} className={`sr ${shown ? "in" : ""} ${className}`}>{children}</Tag>;
+}
+
