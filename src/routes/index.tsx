@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect, useRef } from "react";
-import { ArrowUpRight, Phone, Check, Star, ChevronDown, Mail, MapPin } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import type { ReactNode } from "react";
+import { ArrowUpRight, Phone, Check, Star, ChevronDown, Mail, MapPin, Sparkles } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
