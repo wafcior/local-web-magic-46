@@ -70,6 +70,19 @@ const faqs = [
   { q: "Czy mogę sam edytować treści?", a: "Tak — po wdrożeniu uczę Cię jak samodzielnie aktualizować teksty, zdjęcia i godziny otwarcia." },
 ];
 
+const INDUSTRIES = [
+  "Kwiaciarnie", "Mechanicy", "Hydraulicy", "Piekarnie", "Restauracje",
+  "Gabinety dentystyczne", "Salony piękności", "Elektrycy", "Fryzjerzy",
+  "Warsztaty", "Fizjoterapia", "Sklepy lokalne", "Stolarze", "Fotografowie",
+];
+
+function spotlightMove(e: React.MouseEvent<HTMLElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+  el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+}
+
 function Index() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("Wszystkie");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
