@@ -229,14 +229,15 @@ function Index() {
           <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Jak to działa</h2>
           <p className="mt-4 max-w-xl text-muted-foreground">Od pierwszego kontaktu do gotowej strony — bez ryzyka z Twojej strony.</p>
           <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s) => (
-              <div key={s.n} className="bg-card p-8">
-                <div className="font-serif text-sm text-accent">{s.n}</div>
-                <h3 className="mt-6 font-serif text-2xl">{s.t}</h3>
-                <p className="mt-3 text-sm text-muted-foreground">{s.d}</p>
-              </div>
+            {steps.map((s, i) => (
+              <Reveal key={s.n} className={`sr-d${i + 1} bg-card p-8 spotlight transition-colors hover:bg-card`} onMouseMove={spotlightMove}>
+                <div className="relative z-10 font-serif text-sm text-accent">{s.n}</div>
+                <h3 className="relative z-10 mt-6 font-serif text-2xl">{s.t}</h3>
+                <p className="relative z-10 mt-3 text-sm text-muted-foreground">{s.d}</p>
+              </Reveal>
             ))}
           </div>
+
         </div>
       </section>
 
