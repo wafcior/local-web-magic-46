@@ -255,15 +255,16 @@ function Index() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                  className={`rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
                     filter === f
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-card text-muted-foreground hover:text-foreground"
+                      ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                      : "border-border bg-card text-muted-foreground hover:-translate-y-0.5 hover:text-foreground"
                   }`}
                 >
                   {f}
                 </button>
               ))}
+
             </div>
           </div>
 
