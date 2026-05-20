@@ -75,11 +75,14 @@ function Index() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const visible = projects.filter((p) => filter === "Wszystkie" || p.tag === filter);
   const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
+  const navHidden = useHideOnScroll();
+  const scrollY = useScrollY();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* NAV */}
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
+      <header className={`sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md transition-transform duration-500 ${navHidden ? "nav-hidden" : ""}`}>
+
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-2 font-serif text-xl">
             <span className="inline-block h-2 w-2 rounded-full bg-accent" />
