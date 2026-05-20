@@ -342,15 +342,16 @@ function Index() {
             <p>Mój model jest prosty i uczciwy: najpierw projektuję stronę, potem ją pokazuję. <span className="text-foreground">Nie biorę zaliczek</span>. Jeśli się spodoba — kupujesz. Jeśli nie — rozchodzimy się bez złotówki kosztu.</p>
 
             <div className="grid gap-4 pt-6 sm:grid-cols-2">
-              {trust.map((b) => (
-                <div key={b.t} className="rounded-xl border border-border bg-card p-5">
-                  <div className="flex items-center gap-2 font-medium text-foreground">
+              {trust.map((b, i) => (
+                <Reveal key={b.t} className={`sr-d${(i % 4) + 1} rounded-xl border border-border bg-card p-5 hover-lift spotlight`} onMouseMove={spotlightMove}>
+                  <div className="relative z-10 flex items-center gap-2 font-medium text-foreground">
                     <Check className="h-4 w-4 text-accent" /> {b.t}
                   </div>
-                  <p className="mt-2 text-sm">{b.d}</p>
-                </div>
+                  <p className="relative z-10 mt-2 text-sm">{b.d}</p>
+                </Reveal>
               ))}
             </div>
+
           </div>
         </div>
       </section>
