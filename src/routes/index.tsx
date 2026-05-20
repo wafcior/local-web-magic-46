@@ -362,26 +362,27 @@ function Index() {
           <SectionLabel>Opinie</SectionLabel>
           <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Co mówią właściciele firm.</h2>
           <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {reviews.map((r) => (
-              <figure key={r.n} className="flex flex-col rounded-2xl border border-border bg-card p-8">
-                <div className="flex items-center gap-1 text-accent">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-current" />
+            {reviews.map((r, i) => (
+              <Reveal as="figure" key={r.n} className={`sr-d${(i % 4) + 1} flex flex-col rounded-2xl border border-border bg-card p-8 hover-lift spotlight`} onMouseMove={spotlightMove}>
+                <div className="relative z-10 flex items-center gap-1 text-accent">
+                  {Array.from({ length: 5 }).map((_, k) => (
+                    <Star key={k} className="h-4 w-4 fill-current" style={{ animation: `float-y 4s ease-in-out ${k * 0.15}s infinite` }} />
                   ))}
                 </div>
-                <blockquote className="mt-5 flex-1 font-serif text-xl leading-snug text-foreground">
+                <blockquote className="relative z-10 mt-5 flex-1 font-serif text-xl leading-snug text-foreground">
                   „{r.q}"
                 </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+                <figcaption className="relative z-10 mt-6 flex items-center gap-3 border-t border-border pt-5">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-sm font-medium">{r.i}</div>
                   <div>
                     <div className="text-sm font-medium">{r.n}</div>
                     <div className="text-xs text-muted-foreground">{r.r}</div>
                   </div>
                 </figcaption>
-              </figure>
+              </Reveal>
             ))}
           </div>
+
         </div>
       </section>
 
