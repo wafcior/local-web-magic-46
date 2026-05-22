@@ -678,6 +678,26 @@ function CountUp({ to, decimals = 0, duration = 1600 }: { to: number; decimals?:
   return <>{val.toFixed(decimals)}</>;
 }
 
+function useScrollProgress() {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        setP(max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0);
+        raf = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, []);
+  return p;
+}
+
 function useScrollY() {
   const [y, setY] = useState(0);
   useEffect(() => {
