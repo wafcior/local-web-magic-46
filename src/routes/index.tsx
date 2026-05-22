@@ -414,7 +414,7 @@ function Index() {
               {[
                 { y: "2021", t: "Pierwsza strona", d: "Strona dla warsztatu kolegi. Przyniosła mu 4 telefony w tydzień." },
                 { y: "2022", t: "Pełen etat", d: "Rzucam korpo. Skupiam się na lokalnych firmach z całej Polski." },
-                { y: "2024", t: "47 projektów", d: "Model „płacisz po akceptacji" — 0 zwrotów, 100% klientów poleca dalej." },
+                { y: "2024", t: "47 projektów", d: "Model „płacisz po akceptacji\" — 0 zwrotów, 100% klientów poleca dalej." },
                 { y: "Dziś", t: "Twoja firma?", d: "Pokażę Ci gotową stronę za 5–10 dni. Bez zaliczki, bez ryzyka." },
               ].map((m, i) => (
                 <Reveal key={m.y} className={`timeline-item sr-d${(i % 4) + 1} pb-8 last:pb-0`}>
