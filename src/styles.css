@@ -212,8 +212,52 @@
   @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   .float-y { animation: float-y 6s ease-in-out infinite; }
 
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 60;
+    background: linear-gradient(90deg, var(--accent-warm), color-mix(in oklab, var(--accent-warm) 30%, transparent));
+    transform-origin: left center; will-change: transform;
+  }
+
+  /* Big decorative quote glyph */
+  .quote-glyph {
+    font-family: var(--font-serif);
+    font-size: 14rem; line-height: .7; color: var(--accent-warm);
+    opacity: .14; user-select: none; pointer-events: none;
+  }
+
+  /* Magnetic-ish hover */
+  .magnetic { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .magnetic:hover { transform: translateY(-2px) scale(1.015); }
+
+  /* Horizontal marquee with pause-on-hover for testimonials */
+  @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .scroll-x-track { animation: scroll-x 60s linear infinite; }
+  .scroll-x-track:hover { animation-play-state: paused; }
+
+  /* Image / mockup zoom inside group hover */
+  .zoom-img { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .group:hover .zoom-img { transform: scale(1.06); }
+
+  /* Huge index numeral for projects */
+  .index-num {
+    font-family: var(--font-serif);
+    line-height: 1;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--ink) 70%, transparent), color-mix(in oklab, var(--ink) 8%, transparent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  /* Timeline dot */
+  .timeline-item { position: relative; }
+  .timeline-item::before {
+    content: ""; position: absolute; left: -29px; top: .55em;
+    width: 10px; height: 10px; border-radius: 999px;
+    background: var(--accent-warm);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent-warm) 18%, transparent);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .sr, .blob, .marquee-track, .num-shine, .float-y { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+    .sr, .blob, .marquee-track, .scroll-x-track, .num-shine, .float-y { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
   }
 }
 
