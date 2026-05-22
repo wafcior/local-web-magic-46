@@ -90,11 +90,15 @@ function Index() {
   const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
+  const progress = useScrollProgress();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Scroll progress */}
+      <div className="scroll-progress" style={{ width: "100%", transform: `scaleX(${progress})` }} aria-hidden />
       {/* NAV */}
       <header className={`sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md transition-transform duration-500 ${navHidden ? "nav-hidden" : ""}`}>
+
 
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-2 font-serif text-xl">
