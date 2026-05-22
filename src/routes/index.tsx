@@ -246,85 +246,106 @@ function Index() {
       </section>
 
       {/* PROJEKTY */}
-      <section id="projekty" className="py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="projekty" className="relative overflow-hidden py-28">
+        <div
+          aria-hidden
+          className="blob pointer-events-none absolute -right-40 top-40 h-[460px] w-[460px] rounded-full opacity-20"
+          style={{ background: "radial-gradient(circle, var(--accent-warm), transparent 60%)" }}
+        />
+        <div className="relative mx-auto max-w-7xl px-6">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <SectionLabel>Realizacje</SectionLabel>
-              <h2 className="mt-3 font-serif text-4xl md:text-5xl">Wybrane projekty</h2>
-              <p className="mt-4 max-w-xl text-muted-foreground">Wybierz branżę, żeby zobaczyć podobne realizacje.</p>
+              <SectionLabel>Realizacje · {visible.length}/{projects.length}</SectionLabel>
+              <h2 className="mt-3 font-serif text-5xl md:text-6xl lg:text-7xl text-balance">
+                Wybrane <span className="italic text-accent accent-underline">projekty</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-muted-foreground">Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych klientów.</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {filters.map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
+                  className={`magnetic rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
                     filter === f
                       ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                      : "border-border bg-card text-muted-foreground hover:-translate-y-0.5 hover:text-foreground"
+                      : "border-border bg-card text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {f}
                 </button>
               ))}
-
             </div>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {visible.map((p, idx) => (
-              <Reveal
-                key={p.name}
-                as="div"
-                className={`sr-d${(idx % 3) + 1}`}
-              >
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseMove={spotlightMove}
-                  className="tilt spotlight group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          {/* Bento grid: first card spans 2 cols + 2 rows */}
+          <div className="mt-16 grid auto-rows-[minmax(280px,auto)] gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {visible.map((p, idx) => {
+              const featured = idx === 0;
+              return (
+                <Reveal
+                  key={p.name}
+                  as="div"
+                  className={`sr-d${(idx % 4) + 1} ${featured ? "lg:col-span-2 lg:row-span-2" : ""}`}
                 >
-                  <div className="grain relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-secondary to-sand">
-                    <div className="absolute inset-6 rounded-lg border border-border bg-card shadow-sm transition-transform duration-500 group-hover:scale-[1.04] group-hover:-rotate-1">
-                      <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
-                        <span className="h-2 w-2 rounded-full bg-border" />
-                        <span className="h-2 w-2 rounded-full bg-border" />
-                        <span className="h-2 w-2 rounded-full bg-border" />
-                      </div>
-                      <div className="space-y-2 p-4">
-                        <div className="h-2 w-1/2 rounded bg-secondary" />
-                        <div className="h-2 w-3/4 rounded bg-secondary" />
-                        <div className="mt-3 grid grid-cols-3 gap-1.5">
-                          <div className="aspect-square rounded bg-secondary" />
-                          <div className="aspect-square rounded bg-secondary" />
-                          <div className="aspect-square rounded bg-accent/30 transition-colors group-hover:bg-accent/60" />
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseMove={spotlightMove}
+                    className="tilt spotlight group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  >
+                    {/* Index numeral */}
+                    <span className={`index-num pointer-events-none absolute right-5 top-3 z-20 ${featured ? "text-8xl md:text-9xl" : "text-6xl"}`}>
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+
+                    <div className={`grain relative overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary ${featured ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
+                      <div className="zoom-img absolute inset-5 rounded-xl border border-border bg-card shadow-lg md:inset-8">
+                        <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
+                          <span className="h-2 w-2 rounded-full bg-border" />
+                          <span className="h-2 w-2 rounded-full bg-border" />
+                          <span className="h-2 w-2 rounded-full bg-border" />
+                          <span className="ml-3 text-[10px] uppercase tracking-wider text-muted-foreground">{p.url === "#" ? "preview.localweb.pl" : p.url}</span>
+                        </div>
+                        <div className="space-y-2 p-4 md:p-6">
+                          <div className="h-2.5 w-1/3 rounded bg-accent/40" />
+                          <div className="h-2 w-2/3 rounded bg-secondary" />
+                          <div className="h-2 w-1/2 rounded bg-secondary" />
+                          <div className={`mt-4 grid gap-2 ${featured ? "grid-cols-4" : "grid-cols-3"}`}>
+                            {Array.from({ length: featured ? 8 : 6 }).map((_, k) => (
+                              <div
+                                key={k}
+                                className={`aspect-square rounded ${k === 2 ? "bg-accent/50 transition-colors group-hover:bg-accent" : "bg-secondary"}`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
+                      <span className="absolute left-5 top-5 z-10 rounded-full bg-card/95 px-2.5 py-1 text-xs backdrop-blur">{p.tag}</span>
                     </div>
-                    <span className="absolute left-4 top-4 rounded-full bg-card/90 px-2.5 py-1 text-xs backdrop-blur">{p.tag}</span>
-                    <span className="absolute right-4 top-4 inline-flex h-8 w-8 translate-x-1 items-center justify-center rounded-full bg-card/90 text-foreground opacity-0 backdrop-blur transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-                      <ArrowUpRight className="h-4 w-4" />
-                    </span>
-                  </div>
-                  <div className="relative z-10 flex flex-1 flex-col p-6">
-                    <div className="text-xs uppercase tracking-wider text-muted-foreground">{p.city} · {p.year}</div>
-                    <h3 className="mt-2 font-serif text-2xl transition-colors group-hover:text-accent">{p.name}</h3>
-                    <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.desc}</p>
-                    <div className="mt-5 flex flex-wrap gap-1.5">
-                      {p.chips.map((c) => (
-                        <span key={c} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors group-hover:border-accent/40">{c}</span>
-                      ))}
-                    </div>
-                  </div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
 
+                    <div className="relative z-10 flex flex-1 flex-col p-6 md:p-8">
+                      <div className="flex items-center justify-between text-xs uppercase tracking-wider text-muted-foreground">
+                        <span>{p.city} · {p.year}</span>
+                        <ArrowUpRight className="h-4 w-4 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-accent" />
+                      </div>
+                      <h3 className={`mt-3 font-serif transition-colors group-hover:text-accent ${featured ? "text-3xl md:text-4xl" : "text-2xl"}`}>{p.name}</h3>
+                      <p className="mt-3 flex-1 text-sm text-muted-foreground md:text-base">{p.desc}</p>
+                      <div className="mt-5 flex flex-wrap gap-1.5">
+                        {p.chips.map((c) => (
+                          <span key={c} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors group-hover:border-accent/40">{c}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </section>
+
 
       {/* O MNIE */}
       <section id="o-mnie" className="border-t border-border bg-secondary/40 py-24">
