@@ -348,68 +348,170 @@ function Index() {
 
 
       {/* O MNIE */}
-      <section id="o-mnie" className="border-t border-border bg-secondary/40 py-24">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12">
+      <section id="o-mnie" className="relative overflow-hidden border-t border-border bg-secondary/40 py-28">
+        <div
+          aria-hidden
+          className="blob pointer-events-none absolute -left-32 top-20 h-[420px] w-[420px] rounded-full opacity-25"
+          style={{ background: "radial-gradient(circle, oklch(0.85 0.08 220), transparent 60%)" }}
+        />
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12">
+          {/* Sticky portrait column */}
           <div className="lg:col-span-5">
-            <SectionLabel>O mnie</SectionLabel>
-            <h2 className="mt-3 font-serif text-4xl md:text-5xl text-balance">Kim jestem i dlaczego warto mi zaufać.</h2>
-            <div className="mt-8 flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary font-serif text-xl text-primary-foreground">M</div>
-              <div>
-                <div className="font-medium">Marek</div>
-                <div className="text-sm text-muted-foreground">Założyciel · LocalWeb.pl</div>
-              </div>
+            <div className="lg:sticky lg:top-28">
+              <SectionLabel>O mnie</SectionLabel>
+              <h2 className="mt-4 font-serif text-5xl md:text-6xl text-balance">
+                Cześć, jestem <span className="italic text-accent">Marek</span>.
+              </h2>
+
+              {/* Portrait card */}
+              <Reveal className="mt-10 relative overflow-hidden rounded-3xl border border-border bg-card p-8 spotlight" onMouseMove={spotlightMove}>
+                <div className="relative z-10 flex items-center gap-5">
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary font-serif text-3xl text-primary-foreground">
+                    M
+                    <span className="absolute -inset-1 rounded-full border border-accent/40 animate-ping opacity-60" aria-hidden />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl">Marek</div>
+                    <div className="text-sm text-muted-foreground">Założyciel · LocalWeb.pl</div>
+                    <div className="mt-1 flex items-center gap-1 text-xs text-accent">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                      Dostępny dziś
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
+                  {[
+                    { n: "4+", l: "lata doświadczenia" },
+                    { n: "47", l: "projektów" },
+                    { n: "100%", l: "zwrotów: 0" },
+                  ].map((s) => (
+                    <div key={s.l}>
+                      <div className="font-serif text-2xl text-foreground">{s.n}</div>
+                      <div className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="relative z-10 mt-6 flex flex-wrap gap-1.5">
+                  {["WordPress", "React", "SEO lokalne", "Google Maps", "Copywriting", "Mobile-first"].map((c) => (
+                    <span key={c} className="rounded-full border border-border bg-secondary/60 px-2.5 py-1 text-xs text-muted-foreground">{c}</span>
+                  ))}
+                </div>
+              </Reveal>
             </div>
           </div>
-          <div className="space-y-6 text-[17px] leading-relaxed text-muted-foreground lg:col-span-7">
-            <p>Nazywam się Marek i od ponad <span className="text-foreground">4 lat</span> pomagam lokalnym firmom zaistnieć w internecie. Zaczynałem od stron dla znajomych — dziś mam na koncie ponad <span className="text-foreground">47 projektów w 23 branżach</span>.</p>
-            <p>Specjalizuję się wyłącznie w firmach lokalnych — mechanikach, kwiaciarniach, hydraulikach, piekarniach, gabinetach. Wiem, czego klient szukający takiej firmy w Google oczekuje i jak zaprojektować stronę, która go przekonuje do kontaktu.</p>
-            <p>Mój model jest prosty i uczciwy: najpierw projektuję stronę, potem ją pokazuję. <span className="text-foreground">Nie biorę zaliczek</span>. Jeśli się spodoba — kupujesz. Jeśli nie — rozchodzimy się bez złotówki kosztu.</p>
 
-            <div className="grid gap-4 pt-6 sm:grid-cols-2">
-              {trust.map((b, i) => (
-                <Reveal key={b.t} className={`sr-d${(i % 4) + 1} rounded-xl border border-border bg-card p-5 hover-lift spotlight`} onMouseMove={spotlightMove}>
-                  <div className="relative z-10 flex items-center gap-2 font-medium text-foreground">
-                    <Check className="h-4 w-4 text-accent" /> {b.t}
-                  </div>
-                  <p className="relative z-10 mt-2 text-sm">{b.d}</p>
+          {/* Story + timeline + trust */}
+          <div className="lg:col-span-7">
+            <div className="space-y-6 text-[17px] leading-relaxed text-muted-foreground">
+              <p>Od ponad <span className="text-foreground font-medium">4 lat</span> pomagam lokalnym firmom zaistnieć w internecie. Zaczynałem od stron dla znajomych — dziś mam na koncie ponad <span className="text-foreground font-medium">47 projektów w 23 branżach</span>.</p>
+              <p>Specjalizuję się <span className="text-foreground">wyłącznie</span> w firmach lokalnych. Wiem, czego klient szukający mechanika, kwiaciarni czy gabinetu w Google oczekuje — i jak zaprojektować stronę, która przekonuje go do kontaktu.</p>
+            </div>
+
+            {/* Timeline */}
+            <div className="mt-12 border-l border-border pl-8">
+              {[
+                { y: "2021", t: "Pierwsza strona", d: "Strona dla warsztatu kolegi. Przyniosła mu 4 telefony w tydzień." },
+                { y: "2022", t: "Pełen etat", d: "Rzucam korpo. Skupiam się na lokalnych firmach z całej Polski." },
+                { y: "2024", t: "47 projektów", d: "Model „płacisz po akceptacji" — 0 zwrotów, 100% klientów poleca dalej." },
+                { y: "Dziś", t: "Twoja firma?", d: "Pokażę Ci gotową stronę za 5–10 dni. Bez zaliczki, bez ryzyka." },
+              ].map((m, i) => (
+                <Reveal key={m.y} className={`timeline-item sr-d${(i % 4) + 1} pb-8 last:pb-0`}>
+                  <div className="text-xs uppercase tracking-[0.18em] text-accent">{m.y}</div>
+                  <div className="mt-1 font-serif text-2xl text-foreground">{m.t}</div>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{m.d}</p>
                 </Reveal>
               ))}
             </div>
 
+            {/* Trust badges */}
+            <div className="mt-12 grid gap-4 sm:grid-cols-2">
+              {trust.map((b, i) => (
+                <Reveal key={b.t} className={`sr-d${(i % 4) + 1} rounded-2xl border border-border bg-card p-5 hover-lift spotlight`} onMouseMove={spotlightMove}>
+                  <div className="relative z-10 flex items-center gap-2 font-medium text-foreground">
+                    <Check className="h-4 w-4 text-accent" /> {b.t}
+                  </div>
+                  <p className="relative z-10 mt-2 text-sm text-muted-foreground">{b.d}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* OPINIE */}
-      <section id="opinie" className="py-24">
+      <section id="opinie" className="relative overflow-hidden py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionLabel>Opinie</SectionLabel>
-          <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Co mówią właściciele firm.</h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {reviews.map((r, i) => (
-              <Reveal as="figure" key={r.n} className={`sr-d${(i % 4) + 1} flex flex-col rounded-2xl border border-border bg-card p-8 hover-lift spotlight`} onMouseMove={spotlightMove}>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <SectionLabel>Opinie · 4.9 ★</SectionLabel>
+              <h2 className="mt-3 max-w-2xl font-serif text-5xl md:text-6xl text-balance">
+                Co mówią <span className="italic text-accent accent-underline">właściciele firm</span>.
+              </h2>
+            </div>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="flex -space-x-2">
+                {reviews.slice(0, 4).map((r) => (
+                  <div key={r.i} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-secondary text-[10px] font-medium">{r.i}</div>
+                ))}
+              </div>
+              <span>+ dziesiątki innych</span>
+            </div>
+          </div>
+
+          {/* Featured big quote */}
+          <Reveal className="mt-14 relative overflow-hidden rounded-3xl border border-border bg-card p-10 md:p-16 spotlight" onMouseMove={spotlightMove}>
+            <span className="quote-glyph absolute -top-8 left-6">"</span>
+            <div className="relative z-10 flex items-center gap-1 text-accent">
+              {Array.from({ length: 5 }).map((_, k) => (
+                <Star key={k} className="h-5 w-5 fill-current" />
+              ))}
+            </div>
+            <blockquote className="relative z-10 mt-6 max-w-4xl font-serif text-3xl leading-snug text-foreground md:text-4xl">
+              „{reviews[0].q}"
+            </blockquote>
+            <figcaption className="relative z-10 mt-8 flex items-center gap-4 border-t border-border pt-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">{reviews[0].i}</div>
+              <div>
+                <div className="font-medium">{reviews[0].n}</div>
+                <div className="text-sm text-muted-foreground">{reviews[0].r}</div>
+              </div>
+            </figcaption>
+          </Reveal>
+        </div>
+
+        {/* Auto-scrolling marquee of other testimonials */}
+        <div className="marquee-mask mt-10 overflow-hidden">
+          <div className="scroll-x-track flex w-max gap-6 px-6">
+            {[...reviews.slice(1), ...reviews.slice(1), ...reviews.slice(1)].map((r, i) => (
+              <figure
+                key={i}
+                onMouseMove={spotlightMove}
+                className="spotlight relative flex w-[380px] shrink-0 flex-col rounded-2xl border border-border bg-card p-6 md:w-[440px]"
+              >
                 <div className="relative z-10 flex items-center gap-1 text-accent">
                   {Array.from({ length: 5 }).map((_, k) => (
-                    <Star key={k} className="h-4 w-4 fill-current" style={{ animation: `float-y 4s ease-in-out ${k * 0.15}s infinite` }} />
+                    <Star key={k} className="h-3.5 w-3.5 fill-current" />
                   ))}
                 </div>
-                <blockquote className="relative z-10 mt-5 flex-1 font-serif text-xl leading-snug text-foreground">
+                <blockquote className="relative z-10 mt-4 flex-1 font-serif text-lg leading-snug text-foreground">
                   „{r.q}"
                 </blockquote>
-                <figcaption className="relative z-10 mt-6 flex items-center gap-3 border-t border-border pt-5">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-sm font-medium">{r.i}</div>
+                <figcaption className="relative z-10 mt-5 flex items-center gap-3 border-t border-border pt-4">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-xs font-medium">{r.i}</div>
                   <div>
                     <div className="text-sm font-medium">{r.n}</div>
                     <div className="text-xs text-muted-foreground">{r.r}</div>
                   </div>
                 </figcaption>
-              </Reveal>
+              </figure>
             ))}
           </div>
-
         </div>
       </section>
+
+
 
       {/* KONTAKT */}
       <section id="kontakt" className="border-t border-border bg-primary text-primary-foreground">
