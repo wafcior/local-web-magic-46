@@ -90,11 +90,15 @@ function Index() {
   const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
+  const progress = useScrollProgress();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Scroll progress */}
+      <div className="scroll-progress" style={{ width: "100%", transform: `scaleX(${progress})` }} aria-hidden />
       {/* NAV */}
       <header className={`sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md transition-transform duration-500 ${navHidden ? "nav-hidden" : ""}`}>
+
 
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-2 font-serif text-xl">
@@ -242,149 +246,272 @@ function Index() {
       </section>
 
       {/* PROJEKTY */}
-      <section id="projekty" className="py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="projekty" className="relative overflow-hidden py-28">
+        <div
+          aria-hidden
+          className="blob pointer-events-none absolute -right-40 top-40 h-[460px] w-[460px] rounded-full opacity-20"
+          style={{ background: "radial-gradient(circle, var(--accent-warm), transparent 60%)" }}
+        />
+        <div className="relative mx-auto max-w-7xl px-6">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <SectionLabel>Realizacje</SectionLabel>
-              <h2 className="mt-3 font-serif text-4xl md:text-5xl">Wybrane projekty</h2>
-              <p className="mt-4 max-w-xl text-muted-foreground">Wybierz branżę, żeby zobaczyć podobne realizacje.</p>
+              <SectionLabel>Realizacje · {visible.length}/{projects.length}</SectionLabel>
+              <h2 className="mt-3 font-serif text-5xl md:text-6xl lg:text-7xl text-balance">
+                Wybrane <span className="italic text-accent accent-underline">projekty</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-muted-foreground">Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych klientów.</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {filters.map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
+                  className={`magnetic rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
                     filter === f
                       ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                      : "border-border bg-card text-muted-foreground hover:-translate-y-0.5 hover:text-foreground"
+                      : "border-border bg-card text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {f}
                 </button>
               ))}
-
             </div>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {visible.map((p, idx) => (
-              <Reveal
-                key={p.name}
-                as="div"
-                className={`sr-d${(idx % 3) + 1}`}
-              >
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseMove={spotlightMove}
-                  className="tilt spotlight group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          {/* Bento grid: first card spans 2 cols + 2 rows */}
+          <div className="mt-16 grid auto-rows-[minmax(280px,auto)] gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {visible.map((p, idx) => {
+              const featured = idx === 0;
+              return (
+                <Reveal
+                  key={p.name}
+                  as="div"
+                  className={`sr-d${(idx % 4) + 1} ${featured ? "lg:col-span-2 lg:row-span-2" : ""}`}
                 >
-                  <div className="grain relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-secondary to-sand">
-                    <div className="absolute inset-6 rounded-lg border border-border bg-card shadow-sm transition-transform duration-500 group-hover:scale-[1.04] group-hover:-rotate-1">
-                      <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
-                        <span className="h-2 w-2 rounded-full bg-border" />
-                        <span className="h-2 w-2 rounded-full bg-border" />
-                        <span className="h-2 w-2 rounded-full bg-border" />
-                      </div>
-                      <div className="space-y-2 p-4">
-                        <div className="h-2 w-1/2 rounded bg-secondary" />
-                        <div className="h-2 w-3/4 rounded bg-secondary" />
-                        <div className="mt-3 grid grid-cols-3 gap-1.5">
-                          <div className="aspect-square rounded bg-secondary" />
-                          <div className="aspect-square rounded bg-secondary" />
-                          <div className="aspect-square rounded bg-accent/30 transition-colors group-hover:bg-accent/60" />
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseMove={spotlightMove}
+                    className="tilt spotlight group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  >
+                    {/* Index numeral */}
+                    <span className={`index-num pointer-events-none absolute right-5 top-3 z-20 ${featured ? "text-8xl md:text-9xl" : "text-6xl"}`}>
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+
+                    <div className={`grain relative overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary ${featured ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
+                      <div className="zoom-img absolute inset-5 rounded-xl border border-border bg-card shadow-lg md:inset-8">
+                        <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
+                          <span className="h-2 w-2 rounded-full bg-border" />
+                          <span className="h-2 w-2 rounded-full bg-border" />
+                          <span className="h-2 w-2 rounded-full bg-border" />
+                          <span className="ml-3 text-[10px] uppercase tracking-wider text-muted-foreground">{p.url === "#" ? "preview.localweb.pl" : p.url}</span>
+                        </div>
+                        <div className="space-y-2 p-4 md:p-6">
+                          <div className="h-2.5 w-1/3 rounded bg-accent/40" />
+                          <div className="h-2 w-2/3 rounded bg-secondary" />
+                          <div className="h-2 w-1/2 rounded bg-secondary" />
+                          <div className={`mt-4 grid gap-2 ${featured ? "grid-cols-4" : "grid-cols-3"}`}>
+                            {Array.from({ length: featured ? 8 : 6 }).map((_, k) => (
+                              <div
+                                key={k}
+                                className={`aspect-square rounded ${k === 2 ? "bg-accent/50 transition-colors group-hover:bg-accent" : "bg-secondary"}`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
+                      <span className="absolute left-5 top-5 z-10 rounded-full bg-card/95 px-2.5 py-1 text-xs backdrop-blur">{p.tag}</span>
                     </div>
-                    <span className="absolute left-4 top-4 rounded-full bg-card/90 px-2.5 py-1 text-xs backdrop-blur">{p.tag}</span>
-                    <span className="absolute right-4 top-4 inline-flex h-8 w-8 translate-x-1 items-center justify-center rounded-full bg-card/90 text-foreground opacity-0 backdrop-blur transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-                      <ArrowUpRight className="h-4 w-4" />
-                    </span>
-                  </div>
-                  <div className="relative z-10 flex flex-1 flex-col p-6">
-                    <div className="text-xs uppercase tracking-wider text-muted-foreground">{p.city} · {p.year}</div>
-                    <h3 className="mt-2 font-serif text-2xl transition-colors group-hover:text-accent">{p.name}</h3>
-                    <p className="mt-3 flex-1 text-sm text-muted-foreground">{p.desc}</p>
-                    <div className="mt-5 flex flex-wrap gap-1.5">
-                      {p.chips.map((c) => (
-                        <span key={c} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors group-hover:border-accent/40">{c}</span>
-                      ))}
-                    </div>
-                  </div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
 
+                    <div className="relative z-10 flex flex-1 flex-col p-6 md:p-8">
+                      <div className="flex items-center justify-between text-xs uppercase tracking-wider text-muted-foreground">
+                        <span>{p.city} · {p.year}</span>
+                        <ArrowUpRight className="h-4 w-4 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-accent" />
+                      </div>
+                      <h3 className={`mt-3 font-serif transition-colors group-hover:text-accent ${featured ? "text-3xl md:text-4xl" : "text-2xl"}`}>{p.name}</h3>
+                      <p className="mt-3 flex-1 text-sm text-muted-foreground md:text-base">{p.desc}</p>
+                      <div className="mt-5 flex flex-wrap gap-1.5">
+                        {p.chips.map((c) => (
+                          <span key={c} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground transition-colors group-hover:border-accent/40">{c}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </section>
 
+
       {/* O MNIE */}
-      <section id="o-mnie" className="border-t border-border bg-secondary/40 py-24">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12">
+      <section id="o-mnie" className="relative overflow-hidden border-t border-border bg-secondary/40 py-28">
+        <div
+          aria-hidden
+          className="blob pointer-events-none absolute -left-32 top-20 h-[420px] w-[420px] rounded-full opacity-25"
+          style={{ background: "radial-gradient(circle, oklch(0.85 0.08 220), transparent 60%)" }}
+        />
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12">
+          {/* Sticky portrait column */}
           <div className="lg:col-span-5">
-            <SectionLabel>O mnie</SectionLabel>
-            <h2 className="mt-3 font-serif text-4xl md:text-5xl text-balance">Kim jestem i dlaczego warto mi zaufać.</h2>
-            <div className="mt-8 flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary font-serif text-xl text-primary-foreground">M</div>
-              <div>
-                <div className="font-medium">Marek</div>
-                <div className="text-sm text-muted-foreground">Założyciel · LocalWeb.pl</div>
-              </div>
+            <div className="lg:sticky lg:top-28">
+              <SectionLabel>O mnie</SectionLabel>
+              <h2 className="mt-4 font-serif text-5xl md:text-6xl text-balance">
+                Cześć, jestem <span className="italic text-accent">Marek</span>.
+              </h2>
+
+              {/* Portrait card */}
+              <Reveal className="mt-10 relative overflow-hidden rounded-3xl border border-border bg-card p-8 spotlight" onMouseMove={spotlightMove}>
+                <div className="relative z-10 flex items-center gap-5">
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary font-serif text-3xl text-primary-foreground">
+                    M
+                    <span className="absolute -inset-1 rounded-full border border-accent/40 animate-ping opacity-60" aria-hidden />
+                  </div>
+                  <div>
+                    <div className="font-serif text-2xl">Marek</div>
+                    <div className="text-sm text-muted-foreground">Założyciel · LocalWeb.pl</div>
+                    <div className="mt-1 flex items-center gap-1 text-xs text-accent">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                      Dostępny dziś
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
+                  {[
+                    { n: "4+", l: "lata doświadczenia" },
+                    { n: "47", l: "projektów" },
+                    { n: "100%", l: "zwrotów: 0" },
+                  ].map((s) => (
+                    <div key={s.l}>
+                      <div className="font-serif text-2xl text-foreground">{s.n}</div>
+                      <div className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="relative z-10 mt-6 flex flex-wrap gap-1.5">
+                  {["WordPress", "React", "SEO lokalne", "Google Maps", "Copywriting", "Mobile-first"].map((c) => (
+                    <span key={c} className="rounded-full border border-border bg-secondary/60 px-2.5 py-1 text-xs text-muted-foreground">{c}</span>
+                  ))}
+                </div>
+              </Reveal>
             </div>
           </div>
-          <div className="space-y-6 text-[17px] leading-relaxed text-muted-foreground lg:col-span-7">
-            <p>Nazywam się Marek i od ponad <span className="text-foreground">4 lat</span> pomagam lokalnym firmom zaistnieć w internecie. Zaczynałem od stron dla znajomych — dziś mam na koncie ponad <span className="text-foreground">47 projektów w 23 branżach</span>.</p>
-            <p>Specjalizuję się wyłącznie w firmach lokalnych — mechanikach, kwiaciarniach, hydraulikach, piekarniach, gabinetach. Wiem, czego klient szukający takiej firmy w Google oczekuje i jak zaprojektować stronę, która go przekonuje do kontaktu.</p>
-            <p>Mój model jest prosty i uczciwy: najpierw projektuję stronę, potem ją pokazuję. <span className="text-foreground">Nie biorę zaliczek</span>. Jeśli się spodoba — kupujesz. Jeśli nie — rozchodzimy się bez złotówki kosztu.</p>
 
-            <div className="grid gap-4 pt-6 sm:grid-cols-2">
-              {trust.map((b, i) => (
-                <Reveal key={b.t} className={`sr-d${(i % 4) + 1} rounded-xl border border-border bg-card p-5 hover-lift spotlight`} onMouseMove={spotlightMove}>
-                  <div className="relative z-10 flex items-center gap-2 font-medium text-foreground">
-                    <Check className="h-4 w-4 text-accent" /> {b.t}
-                  </div>
-                  <p className="relative z-10 mt-2 text-sm">{b.d}</p>
+          {/* Story + timeline + trust */}
+          <div className="lg:col-span-7">
+            <div className="space-y-6 text-[17px] leading-relaxed text-muted-foreground">
+              <p>Od ponad <span className="text-foreground font-medium">4 lat</span> pomagam lokalnym firmom zaistnieć w internecie. Zaczynałem od stron dla znajomych — dziś mam na koncie ponad <span className="text-foreground font-medium">47 projektów w 23 branżach</span>.</p>
+              <p>Specjalizuję się <span className="text-foreground">wyłącznie</span> w firmach lokalnych. Wiem, czego klient szukający mechanika, kwiaciarni czy gabinetu w Google oczekuje — i jak zaprojektować stronę, która przekonuje go do kontaktu.</p>
+            </div>
+
+            {/* Timeline */}
+            <div className="mt-12 border-l border-border pl-8">
+              {[
+                { y: "2021", t: "Pierwsza strona", d: "Strona dla warsztatu kolegi. Przyniosła mu 4 telefony w tydzień." },
+                { y: "2022", t: "Pełen etat", d: "Rzucam korpo. Skupiam się na lokalnych firmach z całej Polski." },
+                { y: "2024", t: "47 projektów", d: "Model „płacisz po akceptacji\" — 0 zwrotów, 100% klientów poleca dalej." },
+                { y: "Dziś", t: "Twoja firma?", d: "Pokażę Ci gotową stronę za 5–10 dni. Bez zaliczki, bez ryzyka." },
+              ].map((m, i) => (
+                <Reveal key={m.y} className={`timeline-item sr-d${(i % 4) + 1} pb-8 last:pb-0`}>
+                  <div className="text-xs uppercase tracking-[0.18em] text-accent">{m.y}</div>
+                  <div className="mt-1 font-serif text-2xl text-foreground">{m.t}</div>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{m.d}</p>
                 </Reveal>
               ))}
             </div>
 
+            {/* Trust badges */}
+            <div className="mt-12 grid gap-4 sm:grid-cols-2">
+              {trust.map((b, i) => (
+                <Reveal key={b.t} className={`sr-d${(i % 4) + 1} rounded-2xl border border-border bg-card p-5 hover-lift spotlight`} onMouseMove={spotlightMove}>
+                  <div className="relative z-10 flex items-center gap-2 font-medium text-foreground">
+                    <Check className="h-4 w-4 text-accent" /> {b.t}
+                  </div>
+                  <p className="relative z-10 mt-2 text-sm text-muted-foreground">{b.d}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* OPINIE */}
-      <section id="opinie" className="py-24">
+      <section id="opinie" className="relative overflow-hidden py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionLabel>Opinie</SectionLabel>
-          <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Co mówią właściciele firm.</h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            {reviews.map((r, i) => (
-              <Reveal as="figure" key={r.n} className={`sr-d${(i % 4) + 1} flex flex-col rounded-2xl border border-border bg-card p-8 hover-lift spotlight`} onMouseMove={spotlightMove}>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <SectionLabel>Opinie · 4.9 ★</SectionLabel>
+              <h2 className="mt-3 max-w-2xl font-serif text-5xl md:text-6xl text-balance">
+                Co mówią <span className="italic text-accent accent-underline">właściciele firm</span>.
+              </h2>
+            </div>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="flex -space-x-2">
+                {reviews.slice(0, 4).map((r) => (
+                  <div key={r.i} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-secondary text-[10px] font-medium">{r.i}</div>
+                ))}
+              </div>
+              <span>+ dziesiątki innych</span>
+            </div>
+          </div>
+
+          {/* Featured big quote */}
+          <Reveal className="mt-14 relative overflow-hidden rounded-3xl border border-border bg-card p-10 md:p-16 spotlight" onMouseMove={spotlightMove}>
+            <span className="quote-glyph absolute -top-8 left-6">"</span>
+            <div className="relative z-10 flex items-center gap-1 text-accent">
+              {Array.from({ length: 5 }).map((_, k) => (
+                <Star key={k} className="h-5 w-5 fill-current" />
+              ))}
+            </div>
+            <blockquote className="relative z-10 mt-6 max-w-4xl font-serif text-3xl leading-snug text-foreground md:text-4xl">
+              „{reviews[0].q}"
+            </blockquote>
+            <figcaption className="relative z-10 mt-8 flex items-center gap-4 border-t border-border pt-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">{reviews[0].i}</div>
+              <div>
+                <div className="font-medium">{reviews[0].n}</div>
+                <div className="text-sm text-muted-foreground">{reviews[0].r}</div>
+              </div>
+            </figcaption>
+          </Reveal>
+        </div>
+
+        {/* Auto-scrolling marquee of other testimonials */}
+        <div className="marquee-mask mt-10 overflow-hidden">
+          <div className="scroll-x-track flex w-max gap-6 px-6">
+            {[...reviews.slice(1), ...reviews.slice(1), ...reviews.slice(1)].map((r, i) => (
+              <figure
+                key={i}
+                onMouseMove={spotlightMove}
+                className="spotlight relative flex w-[380px] shrink-0 flex-col rounded-2xl border border-border bg-card p-6 md:w-[440px]"
+              >
                 <div className="relative z-10 flex items-center gap-1 text-accent">
                   {Array.from({ length: 5 }).map((_, k) => (
-                    <Star key={k} className="h-4 w-4 fill-current" style={{ animation: `float-y 4s ease-in-out ${k * 0.15}s infinite` }} />
+                    <Star key={k} className="h-3.5 w-3.5 fill-current" />
                   ))}
                 </div>
-                <blockquote className="relative z-10 mt-5 flex-1 font-serif text-xl leading-snug text-foreground">
+                <blockquote className="relative z-10 mt-4 flex-1 font-serif text-lg leading-snug text-foreground">
                   „{r.q}"
                 </blockquote>
-                <figcaption className="relative z-10 mt-6 flex items-center gap-3 border-t border-border pt-5">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-sm font-medium">{r.i}</div>
+                <figcaption className="relative z-10 mt-5 flex items-center gap-3 border-t border-border pt-4">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-xs font-medium">{r.i}</div>
                   <div>
                     <div className="text-sm font-medium">{r.n}</div>
                     <div className="text-xs text-muted-foreground">{r.r}</div>
                   </div>
                 </figcaption>
-              </Reveal>
+              </figure>
             ))}
           </div>
-
         </div>
       </section>
+
+
 
       {/* KONTAKT */}
       <section id="kontakt" className="border-t border-border bg-primary text-primary-foreground">
@@ -549,6 +676,26 @@ function CountUp({ to, decimals = 0, duration = 1600 }: { to: number; decimals?:
     return () => cancelAnimationFrame(raf);
   }, [to, duration]);
   return <>{val.toFixed(decimals)}</>;
+}
+
+function useScrollProgress() {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const h = document.documentElement;
+        const max = h.scrollHeight - h.clientHeight;
+        setP(max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0);
+        raf = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, []);
+  return p;
 }
 
 function useScrollY() {
