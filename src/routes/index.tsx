@@ -91,6 +91,13 @@ function Index() {
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
   const progress = useScrollProgress();
+  const { containerRef: pinRef, active: activeProject, progress: pinProgress } = usePinnedIndex(visible.length);
+  const scrollToProject = useCallback((i: number) => {
+    const el = pinRef.current; if (!el) return;
+    const total = el.offsetHeight - window.innerHeight;
+    const target = el.offsetTop + (i / Math.max(1, visible.length - 1)) * total;
+    window.scrollTo({ top: target, behavior: "smooth" });
+  }, [pinRef, visible.length]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
