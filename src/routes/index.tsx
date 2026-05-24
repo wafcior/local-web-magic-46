@@ -785,6 +785,40 @@ function useScrollY() {
   return y;
 }
 
+function usePinnedIndex(count: number) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const el = containerRef.current;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const total = el.offsetHeight - window.innerHeight;
+          const scrolled = Math.min(total, Math.max(0, -rect.top));
+          const p = total > 0 ? scrolled / total : 0;
+          setProgress(p);
+          const idx = Math.min(count - 1, Math.max(0, Math.floor(p * count * 0.9999)));
+          setActive(idx);
+        }
+        raf = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [count]);
+  return { containerRef, active, progress };
+}
+
 function useHideOnScroll(threshold = 140) {
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
