@@ -233,6 +233,12 @@ function Index() {
               ))}
             </Reveal>
           </div>
+
+          {/* scroll cue */}
+          <a href="#projekty" className="mt-14 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground">
+            <span>Przewiń, aby zobaczyć projekty</span>
+            <ChevronDown className="h-4 w-4 animate-bounce text-accent" />
+          </a>
         </div>
 
         {/* Industries marquee */}
