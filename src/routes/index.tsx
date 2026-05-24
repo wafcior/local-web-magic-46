@@ -160,6 +160,22 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
 
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
+          {/* trust pill */}
+          <div className="reveal-1 mb-6 inline-flex items-center gap-3 rounded-full border border-border bg-card/70 py-1.5 pl-1.5 pr-4 text-xs text-muted-foreground backdrop-blur-sm">
+            <span className="flex -space-x-1.5">
+              {["MK", "PN", "TM", "AW"].map((i, k) => (
+                <span key={i} className="flex h-5 w-5 items-center justify-center rounded-full border border-background bg-secondary text-[9px] font-medium text-foreground" style={{ zIndex: 4 - k }}>{i}</span>
+              ))}
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+              </span>
+              47 firm zaufało · <span className="text-foreground">dostępny dziś</span>
+            </span>
+          </div>
+
           <div className="flex h-5 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
             <MapPin className="h-3.5 w-3.5" />
             <span className="caret">{typed}</span>
