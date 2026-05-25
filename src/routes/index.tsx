@@ -100,7 +100,7 @@ function Index() {
   }, [pinRef, visible.length]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen overflow-x-clip bg-background text-foreground">
       {/* Scroll progress */}
       <div className="scroll-progress" style={{ width: "100%", transform: `scaleX(${progress})` }} aria-hidden />
       {/* NAV */}
@@ -275,51 +275,50 @@ function Index() {
       </section>
 
       {/* PROJEKTY — sticky pinned showcase */}
-      <section id="projekty" className="relative">
+      <section id="projekty" className="relative overflow-x-clip">
         <div
           aria-hidden
           className="blob pointer-events-none absolute -right-40 top-40 h-[460px] w-[460px] rounded-full opacity-20"
           style={{ background: "radial-gradient(circle, var(--accent-warm), transparent 60%)" }}
         />
-        <div className="relative mx-auto max-w-7xl px-6 pt-28">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <SectionLabel>Realizacje · {visible.length}/{projects.length}</SectionLabel>
-              <h2 className="mt-3 font-serif text-5xl md:text-6xl lg:text-7xl text-balance">
-                Wybrane <span className="italic text-accent accent-underline">projekty</span>
-              </h2>
-              <p className="mt-5 max-w-xl text-muted-foreground">Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych klientów. Przewijaj, aby zobaczyć kolejne.</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {filters.map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={`magnetic rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
-                    filter === f
-                      ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                      : "border-border bg-card text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Pinned scroll container */}
         <div
           ref={pinRef as React.RefObject<HTMLDivElement>}
-          className="relative mt-12"
-          style={{ height: `${Math.max(1, visible.length) * 85 + 40}vh` }}
+          className="relative pt-20"
+          style={{ height: `${Math.max(1, visible.length) * 35 + 72}vh` }}
         >
-          <div className="sticky top-0 h-screen overflow-hidden">
-            <div className="mx-auto grid h-full max-w-7xl grid-cols-12 gap-6 px-6 py-10 lg:py-14">
-              {/* Featured project — swaps on scroll */}
-              <div className="relative col-span-12 lg:col-span-8">
+          <div className="sticky top-20 h-[calc(100svh-5rem)] overflow-hidden">
+            <div className="mx-auto flex h-full max-w-[1500px] flex-col gap-8 px-6 pb-6 lg:gap-10">
+              <div className="flex shrink-0 flex-wrap items-end justify-between gap-6">
+                <div>
+                  <SectionLabel>Realizacje · {visible.length}/{projects.length}</SectionLabel>
+                  <h2 className="mt-3 font-serif text-4xl text-balance md:text-6xl lg:text-7xl">
+                    Wybrane <span className="italic text-accent accent-underline">projekty</span>
+                  </h2>
+                  <p className="mt-5 max-w-2xl text-sm text-muted-foreground md:text-base">Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych klientów. Przewijaj, aby zobaczyć kolejne.</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {filters.map((f) => (
+                    <button
+                      key={f}
+                      onClick={() => setFilter(f)}
+                      className={`magnetic rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
+                        filter === f
+                          ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                          : "border-border bg-card text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {f}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1.55fr)_minmax(360px,0.95fr)] xl:gap-8">
+                {/* Featured project — swaps on scroll */}
+                <div className="relative h-[58svh] min-h-[460px] sm:h-[62svh] lg:h-full">
                 {visible.map((p, i) => {
                   const isActive = i === activeProject;
+                  const isBefore = i < activeProject;
                   return (
                     <a
                       key={p.name + i}
@@ -329,49 +328,76 @@ function Index() {
                       onMouseMove={spotlightMove}
                       aria-hidden={!isActive}
                       tabIndex={isActive ? 0 : -1}
-                      className={`spotlight group absolute inset-0 flex flex-col overflow-hidden rounded-3xl border border-border bg-card transition-all duration-700 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                      className={`spotlight group absolute inset-0 flex flex-col overflow-hidden rounded-[2rem] border border-border bg-card transition-[opacity,transform,filter] duration-700 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                         isActive
-                          ? "translate-y-0 scale-100 opacity-100 z-10"
-                          : "pointer-events-none translate-y-8 scale-[0.97] opacity-0"
+                          ? "z-20 translate-y-0 scale-100 opacity-100 blur-0"
+                          : isBefore
+                            ? "pointer-events-none z-10 -translate-y-[7%] scale-[0.965] opacity-0 blur-sm"
+                            : "pointer-events-none z-0 translate-y-[9%] scale-[0.965] opacity-0 blur-sm"
                       }`}
                     >
-                      <span className="index-num pointer-events-none absolute right-6 top-4 z-20 text-8xl md:text-9xl">
+                      <span className="index-num pointer-events-none absolute right-6 top-4 z-20 text-8xl md:text-9xl xl:text-[10rem]">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <div className="grain relative flex-1 overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary">
-                        <div className="zoom-img absolute inset-6 rounded-xl border border-border bg-card shadow-xl md:inset-10">
+                      <div className="grain relative flex-[1.2] overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary">
+                        <div className="zoom-img absolute inset-4 rounded-[1.5rem] border border-border bg-card shadow-xl md:inset-6 xl:inset-8">
                           <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
                             <span className="h-2 w-2 rounded-full bg-border" />
                             <span className="h-2 w-2 rounded-full bg-border" />
                             <span className="h-2 w-2 rounded-full bg-border" />
                             <span className="ml-3 text-[10px] uppercase tracking-wider text-muted-foreground">{p.url === "#" ? "preview.localweb.pl" : p.url}</span>
                           </div>
-                          <div className="space-y-2 p-4 md:p-8">
-                            <div className="h-3 w-1/3 rounded bg-accent/40" />
-                            <div className="h-2 w-2/3 rounded bg-secondary" />
-                            <div className="h-2 w-1/2 rounded bg-secondary" />
-                            <div className="mt-5 grid grid-cols-4 gap-2 md:gap-3">
-                              {Array.from({ length: 8 }).map((_, k) => (
-                                <div
-                                  key={k}
-                                  className={`aspect-square rounded ${k === 2 ? "bg-accent/50 transition-colors group-hover:bg-accent" : "bg-secondary"}`}
-                                />
-                              ))}
+                          <div className="grid h-[calc(100%-37px)] gap-4 p-4 md:grid-cols-[minmax(0,1.15fr)_minmax(220px,0.75fr)] md:p-6 xl:p-8">
+                            <div className="flex min-h-[220px] flex-col justify-between rounded-[1.25rem] bg-secondary/60 p-5 md:min-h-0">
+                              <div>
+                                <div className="h-3 w-28 rounded-full bg-accent/40" />
+                                <div className="mt-4 h-8 w-3/4 rounded-full bg-card" />
+                                <div className="mt-3 h-3 w-full rounded-full bg-card/80" />
+                                <div className="mt-2 h-3 w-4/5 rounded-full bg-card/80" />
+                              </div>
+                              <div className="grid grid-cols-3 gap-3">
+                                {Array.from({ length: 3 }).map((_, k) => (
+                                  <div key={k} className="rounded-2xl border border-border bg-card p-3">
+                                    <div className="h-14 rounded-xl bg-secondary" />
+                                    <div className="mt-3 h-2 w-3/4 rounded-full bg-secondary" />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="grid grid-rows-[1.15fr_0.85fr] gap-4">
+                              <div className="rounded-[1.25rem] border border-border bg-card p-4">
+                                <div className="grid h-full grid-cols-2 gap-3">
+                                  {Array.from({ length: 4 }).map((_, k) => (
+                                    <div
+                                      key={k}
+                                      className={`rounded-2xl ${k === 1 ? "bg-accent/55 transition-colors group-hover:bg-accent" : "bg-secondary"}`}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="rounded-[1.25rem] bg-secondary/60 p-4">
+                                <div className="h-3 w-20 rounded-full bg-accent/35" />
+                                <div className="mt-4 space-y-2">
+                                  <div className="h-2 w-full rounded-full bg-card" />
+                                  <div className="h-2 w-5/6 rounded-full bg-card" />
+                                  <div className="h-2 w-4/6 rounded-full bg-card" />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <span className="absolute left-6 top-6 z-10 rounded-full bg-card/95 px-3 py-1 text-xs backdrop-blur">{p.tag}</span>
+                        <span className="absolute left-5 top-5 z-10 rounded-full bg-card/95 px-3 py-1 text-xs backdrop-blur md:left-6 md:top-6">{p.tag}</span>
                       </div>
-                      <div className="relative z-10 flex flex-col gap-3 border-t border-border p-6 md:p-8">
+                      <div className="relative z-10 flex flex-col gap-4 border-t border-border p-6 md:p-8 xl:p-10">
                         <div className="flex items-center justify-between text-xs uppercase tracking-wider text-muted-foreground">
                           <span>{p.city} · {p.year}</span>
                           <ArrowUpRight className="h-4 w-4 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </div>
-                        <h3 className="font-serif text-3xl md:text-4xl transition-colors group-hover:text-accent">{p.name}</h3>
-                        <p className="text-sm text-muted-foreground md:text-base">{p.desc}</p>
-                        <div className="flex flex-wrap gap-1.5">
+                        <h3 className="font-serif text-3xl leading-tight transition-colors group-hover:text-accent md:text-4xl xl:text-5xl">{p.name}</h3>
+                        <p className="max-w-3xl text-sm text-muted-foreground md:text-base xl:text-lg">{p.desc}</p>
+                        <div className="flex flex-wrap gap-2">
                           {p.chips.map((c) => (
-                            <span key={c} className="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground">{c}</span>
+                            <span key={c} className="rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground md:text-sm">{c}</span>
                           ))}
                         </div>
                       </div>
@@ -381,29 +407,29 @@ function Index() {
               </div>
 
               {/* Side rail — clickable mini list */}
-              <aside className="hidden lg:col-span-4 lg:flex flex-col">
+                <aside className="hidden min-h-0 lg:flex lg:flex-col">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   <span>{String(activeProject + 1).padStart(2, "0")} <span className="opacity-40">/ {String(visible.length).padStart(2, "0")}</span></span>
                   <span className="opacity-60">Przewijaj ↓</span>
                 </div>
-                <div className="mt-4 flex-1 space-y-2 overflow-y-auto pr-1">
+                <div className="mt-4 flex-1 space-y-3 overflow-y-auto pr-2">
                   {visible.map((p, i) => {
                     const isActive = i === activeProject;
                     return (
                       <button
                         key={p.name + i}
                         onClick={() => scrollToProject(i)}
-                        className={`w-full rounded-xl border p-4 text-left transition-all duration-500 ${
+                        className={`w-full rounded-2xl border p-5 text-left transition-all duration-500 xl:p-6 ${
                           isActive
-                            ? "border-accent/60 bg-card shadow-md translate-x-0"
-                            : "border-border bg-card/40 hover:bg-card hover:translate-x-1"
+                            ? "translate-x-0 border-accent/60 bg-card shadow-md"
+                            : "border-border bg-card/50 hover:translate-x-1 hover:bg-card"
                         }`}
                       >
-                        <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
+                        <div className="flex items-center justify-between gap-3 text-[11px] uppercase tracking-wider text-muted-foreground">
                           <span>{String(i + 1).padStart(2, "0")} · {p.tag}</span>
                           <span>{p.city}</span>
                         </div>
-                        <div className={`mt-1 font-serif text-base leading-tight transition-colors ${isActive ? "text-accent" : "text-foreground"}`}>
+                        <div className={`mt-2 font-serif text-lg leading-tight transition-colors xl:text-[1.45rem] ${isActive ? "text-accent" : "text-foreground"}`}>
                           {p.name}
                         </div>
                       </button>
@@ -419,15 +445,16 @@ function Index() {
               </aside>
 
               {/* Mobile dots */}
-              <div className="col-span-12 flex items-center justify-center gap-2 lg:hidden">
-                {visible.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => scrollToProject(i)}
-                    aria-label={`Projekt ${i + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${i === activeProject ? "w-8 bg-accent" : "w-2 bg-border"}`}
-                  />
-                ))}
+                <div className="flex items-center justify-center gap-2 lg:hidden">
+                  {visible.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => scrollToProject(i)}
+                      aria-label={`Projekt ${i + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${i === activeProject ? "w-8 bg-accent" : "w-2 bg-border"}`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -823,7 +850,7 @@ function usePinnedIndex(count: number) {
           const scrolled = Math.min(total, Math.max(0, -rect.top));
           const p = total > 0 ? scrolled / total : 0;
           setProgress(p);
-          const idx = Math.min(count - 1, Math.max(0, Math.floor(p * count * 0.9999)));
+          const idx = count <= 1 ? 0 : Math.min(count - 1, Math.max(0, Math.round(p * (count - 1))));
           setActive(idx);
         }
         raf = 0;
