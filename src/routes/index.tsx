@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { createElement, useState, useEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 import {
   ArrowUpRight,
@@ -1249,11 +1249,13 @@ function Reveal({ as = "div", className = "", children, onMouseMove }: RevealPro
     },
     [shown],
   );
-  const Tag = as as keyof React.JSX.IntrinsicElements;
-  // @ts-expect-error dynamic tag accepts ref
-  return (
-    <Tag ref={setRef} onMouseMove={onMouseMove} className={`sr ${shown ? "in" : ""} ${className}`}>
-      {children}
-    </Tag>
+  return createElement(
+    as,
+    {
+      ref: setRef,
+      onMouseMove,
+      className: `sr ${shown ? "in" : ""} ${className}`,
+    },
+    children,
   );
 }
