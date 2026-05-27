@@ -601,7 +601,7 @@ function Index() {
                   })}
                 </div>
 
-                {/* Side rail — clickable mini list */}
+                {/* Side rail — animated project previews */}
                 <aside className="hidden min-h-0 lg:flex lg:flex-col">
                   <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
                     <span>
@@ -612,17 +612,26 @@ function Index() {
                     </span>
                     <span className="opacity-60">Przewijaj ↓</span>
                   </div>
-                  <div className="mt-4 flex-1 space-y-4 overflow-hidden pr-1">
+                  <div className="relative mt-4 flex-1 overflow-hidden pr-1">
                     {projects.map((p, i) => {
                       const isActive = i === activeProject;
+                      const offset = i - activeProject;
+                      const isVisiblePreview = offset >= 0 && offset <= 2;
                       return (
                         <div
                           key={p.name + i}
-                          className={`w-full rounded-2xl border p-6 text-left transition-all duration-500 xl:p-7 ${
+                          className={`absolute inset-x-0 rounded-2xl border p-6 text-left transition-[opacity,transform,filter] duration-700 ease-out xl:p-7 ${
                             isActive
-                              ? "translate-x-0 scale-100 border-accent/60 bg-card shadow-md"
-                              : "scale-[0.985] border-border bg-card/50 opacity-70"
+                              ? "border-accent/60 bg-card shadow-md"
+                              : "border-border bg-card/70"
                           }`}
+                          style={{
+                            transform: `translate3d(0, ${Math.max(0, offset) * 156}px, 0) scale(${isActive ? 1 : 0.96 - Math.max(0, offset - 1) * 0.035})`,
+                            opacity: isVisiblePreview ? (isActive ? 1 : 0.62 - offset * 0.12) : 0,
+                            filter: isVisiblePreview ? "blur(0px)" : "blur(8px)",
+                            zIndex: projects.length - Math.abs(offset),
+                          }}
+                          aria-hidden={!isVisiblePreview}
                         >
                           <div className="flex items-center justify-between gap-3 text-[11px] uppercase tracking-wider text-muted-foreground">
                             <span>
@@ -634,6 +643,17 @@ function Index() {
                             className={`mt-3 font-serif text-xl leading-tight transition-colors xl:text-[1.65rem] ${isActive ? "text-accent" : "text-foreground"}`}
                           >
                             {p.name}
+                          </div>
+                          <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                            {p.desc}
+                          </p>
+                          <div className="mt-5 h-24 overflow-hidden rounded-xl border border-border bg-secondary/60 p-3">
+                            <div className="h-2 w-24 rounded-full bg-accent/40" />
+                            <div className="mt-3 grid grid-cols-3 gap-2">
+                              <span className="h-12 rounded-lg bg-card" />
+                              <span className="h-12 rounded-lg bg-card" />
+                              <span className="h-12 rounded-lg bg-accent/45" />
+                            </div>
                           </div>
                         </div>
                       );
