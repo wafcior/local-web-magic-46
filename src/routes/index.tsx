@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { createElement, useState, useEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 import {
   ArrowUpRight,
@@ -122,8 +122,6 @@ const projects = [
   },
 ];
 
-const filters = ["Wszystkie", "Usługi", "Handel", "Gastronomia", "Zdrowie"] as const;
-
 const steps = [
   { n: "01", t: "Kontakt", d: "Krótka rozmowa o Twojej firmie — bez zobowiązań i bez opłat." },
   {
@@ -233,9 +231,7 @@ function spotlightMove(e: React.MouseEvent<HTMLElement>) {
 }
 
 function Index() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("Wszystkie");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const visible = projects.filter((p) => filter === "Wszystkie" || p.tag === filter);
   const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
@@ -244,17 +240,7 @@ function Index() {
     containerRef: pinRef,
     active: activeProject,
     progress: pinProgress,
-  } = usePinnedIndex(visible.length);
-  const scrollToProject = useCallback(
-    (i: number) => {
-      const el = pinRef.current;
-      if (!el) return;
-      const total = el.offsetHeight - window.innerHeight;
-      const target = el.offsetTop + (i / Math.max(1, visible.length - 1)) * total;
-      window.scrollTo({ top: target, behavior: "smooth" });
-    },
-    [pinRef, visible.length],
-  );
+  } = usePinnedIndex(projects.length);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-background text-foreground">
@@ -488,15 +474,15 @@ function Index() {
         />
         <div
           ref={pinRef as React.RefObject<HTMLDivElement>}
-          className="relative pt-20"
-          style={{ height: `${Math.max(1, visible.length) * 35 + 72}vh` }}
+          className="relative pt-16"
+          style={{ height: `${Math.max(1, projects.length) * 24 + 86}vh` }}
         >
-          <div className="sticky top-20 h-[calc(100svh-5rem)] overflow-hidden">
-            <div className="mx-auto flex h-full max-w-[1500px] flex-col gap-8 px-6 pb-6 lg:gap-10">
-              <div className="flex shrink-0 flex-wrap items-end justify-between gap-6">
+          <div className="sticky top-16 h-[calc(100svh-4rem)] overflow-hidden">
+            <div className="mx-auto flex h-full max-w-[1680px] flex-col gap-6 px-6 pb-5 lg:gap-7">
+              <div className="shrink-0">
                 <div>
                   <SectionLabel>
-                    Realizacje · {visible.length}/{projects.length}
+                    Realizacje · {projects.length}/{projects.length}
                   </SectionLabel>
                   <h2 className="mt-3 font-serif text-4xl text-balance md:text-6xl lg:text-7xl">
                     Wybrane <span className="italic text-accent accent-underline">projekty</span>
@@ -506,44 +492,25 @@ function Index() {
                     klientów. Przewijaj, aby zobaczyć kolejne.
                   </p>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {filters.map((f) => (
-                    <button
-                      key={f}
-                      onClick={() => setFilter(f)}
-                      className={`magnetic rounded-full border px-4 py-2 text-sm transition-all duration-300 active:scale-95 ${
-                        filter === f
-                          ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                          : "border-border bg-card text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {f}
-                    </button>
-                  ))}
-                </div>
               </div>
 
-              <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1.55fr)_minmax(360px,0.95fr)] xl:gap-8">
+              <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,2.05fr)_minmax(420px,0.8fr)] xl:gap-8">
                 {/* Featured project — swaps on scroll */}
-                <div className="relative h-[58svh] min-h-[460px] sm:h-[62svh] lg:h-full">
-                  {visible.map((p, i) => {
+                <div className="relative h-[64svh] min-h-[560px] sm:h-[68svh] lg:h-full">
+                  {projects.map((p, i) => {
                     const isActive = i === activeProject;
                     const isBefore = i < activeProject;
                     return (
-                      <a
+                      <article
                         key={p.name + i}
-                        href={p.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         onMouseMove={spotlightMove}
                         aria-hidden={!isActive}
-                        tabIndex={isActive ? 0 : -1}
                         className={`spotlight group absolute inset-0 flex flex-col overflow-hidden rounded-[2rem] border border-border bg-card transition-[opacity,transform,filter] duration-700 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                           isActive
                             ? "z-20 translate-y-0 scale-100 opacity-100 blur-0"
                             : isBefore
-                              ? "pointer-events-none z-10 -translate-y-[7%] scale-[0.965] opacity-0 blur-sm"
-                              : "pointer-events-none z-0 translate-y-[9%] scale-[0.965] opacity-0 blur-sm"
+                              ? "pointer-events-none z-10 -translate-x-[6%] scale-[0.975] opacity-0 blur-sm"
+                              : "pointer-events-none z-0 translate-x-[6%] scale-[0.975] opacity-0 blur-sm"
                         }`}
                       >
                         <span className="index-num pointer-events-none absolute right-6 top-4 z-20 text-8xl md:text-9xl xl:text-[10rem]">
@@ -629,34 +596,42 @@ function Index() {
                             ))}
                           </div>
                         </div>
-                      </a>
+                      </article>
                     );
                   })}
                 </div>
 
-                {/* Side rail — clickable mini list */}
+                {/* Side rail — animated project previews */}
                 <aside className="hidden min-h-0 lg:flex lg:flex-col">
                   <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
                     <span>
                       {String(activeProject + 1).padStart(2, "0")}{" "}
                       <span className="opacity-40">
-                        / {String(visible.length).padStart(2, "0")}
+                        / {String(projects.length).padStart(2, "0")}
                       </span>
                     </span>
                     <span className="opacity-60">Przewijaj ↓</span>
                   </div>
-                  <div className="mt-4 flex-1 space-y-3 overflow-y-auto pr-2">
-                    {visible.map((p, i) => {
+                  <div className="relative mt-4 flex-1 overflow-hidden pr-1">
+                    {projects.map((p, i) => {
                       const isActive = i === activeProject;
+                      const offset = i - activeProject;
+                      const isVisiblePreview = offset >= 0 && offset <= 2;
                       return (
-                        <button
+                        <div
                           key={p.name + i}
-                          onClick={() => scrollToProject(i)}
-                          className={`w-full rounded-2xl border p-5 text-left transition-all duration-500 xl:p-6 ${
+                          className={`absolute inset-x-0 rounded-2xl border p-6 text-left transition-[opacity,transform,filter] duration-700 ease-out xl:p-7 ${
                             isActive
-                              ? "translate-x-0 border-accent/60 bg-card shadow-md"
-                              : "border-border bg-card/50 hover:translate-x-1 hover:bg-card"
+                              ? "border-accent/60 bg-card shadow-md"
+                              : "border-border bg-card/70"
                           }`}
+                          style={{
+                            transform: `translate3d(0, ${Math.max(0, offset) * 156}px, 0) scale(${isActive ? 1 : 0.96 - Math.max(0, offset - 1) * 0.035})`,
+                            opacity: isVisiblePreview ? (isActive ? 1 : 0.62 - offset * 0.12) : 0,
+                            filter: isVisiblePreview ? "blur(0px)" : "blur(8px)",
+                            zIndex: projects.length - Math.abs(offset),
+                          }}
+                          aria-hidden={!isVisiblePreview}
                         >
                           <div className="flex items-center justify-between gap-3 text-[11px] uppercase tracking-wider text-muted-foreground">
                             <span>
@@ -665,11 +640,22 @@ function Index() {
                             <span>{p.city}</span>
                           </div>
                           <div
-                            className={`mt-2 font-serif text-lg leading-tight transition-colors xl:text-[1.45rem] ${isActive ? "text-accent" : "text-foreground"}`}
+                            className={`mt-3 font-serif text-xl leading-tight transition-colors xl:text-[1.65rem] ${isActive ? "text-accent" : "text-foreground"}`}
                           >
                             {p.name}
                           </div>
-                        </button>
+                          <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                            {p.desc}
+                          </p>
+                          <div className="mt-5 h-24 overflow-hidden rounded-xl border border-border bg-secondary/60 p-3">
+                            <div className="h-2 w-24 rounded-full bg-accent/40" />
+                            <div className="mt-3 grid grid-cols-3 gap-2">
+                              <span className="h-12 rounded-lg bg-card" />
+                              <span className="h-12 rounded-lg bg-card" />
+                              <span className="h-12 rounded-lg bg-accent/45" />
+                            </div>
+                          </div>
+                        </div>
                       );
                     })}
                   </div>
@@ -683,11 +669,9 @@ function Index() {
 
                 {/* Mobile dots */}
                 <div className="flex items-center justify-center gap-2 lg:hidden">
-                  {visible.map((_, i) => (
-                    <button
+                  {projects.map((_, i) => (
+                    <span
                       key={i}
-                      onClick={() => scrollToProject(i)}
-                      aria-label={`Projekt ${i + 1}`}
                       className={`h-1.5 rounded-full transition-all duration-300 ${i === activeProject ? "w-8 bg-accent" : "w-2 bg-border"}`}
                     />
                   ))}
@@ -1285,11 +1269,13 @@ function Reveal({ as = "div", className = "", children, onMouseMove }: RevealPro
     },
     [shown],
   );
-  const Tag = as as keyof React.JSX.IntrinsicElements;
-  // @ts-expect-error dynamic tag accepts ref
-  return (
-    <Tag ref={setRef} onMouseMove={onMouseMove} className={`sr ${shown ? "in" : ""} ${className}`}>
-      {children}
-    </Tag>
+  return createElement(
+    as,
+    {
+      ref: setRef,
+      onMouseMove,
+      className: `sr ${shown ? "in" : ""} ${className}`,
+    },
+    children,
   );
 }
