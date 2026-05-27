@@ -122,8 +122,6 @@ const projects = [
   },
 ];
 
-const filters = ["Wszystkie", "Usługi", "Handel", "Gastronomia", "Zdrowie"] as const;
-
 const steps = [
   { n: "01", t: "Kontakt", d: "Krótka rozmowa o Twojej firmie — bez zobowiązań i bez opłat." },
   {
@@ -233,9 +231,7 @@ function spotlightMove(e: React.MouseEvent<HTMLElement>) {
 }
 
 function Index() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("Wszystkie");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const visible = projects.filter((p) => filter === "Wszystkie" || p.tag === filter);
   const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
@@ -244,17 +240,7 @@ function Index() {
     containerRef: pinRef,
     active: activeProject,
     progress: pinProgress,
-  } = usePinnedIndex(visible.length);
-  const scrollToProject = useCallback(
-    (i: number) => {
-      const el = pinRef.current;
-      if (!el) return;
-      const total = el.offsetHeight - window.innerHeight;
-      const target = el.offsetTop + (i / Math.max(1, visible.length - 1)) * total;
-      window.scrollTo({ top: target, behavior: "smooth" });
-    },
-    [pinRef, visible.length],
-  );
+  } = usePinnedIndex(projects.length);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-background text-foreground">
