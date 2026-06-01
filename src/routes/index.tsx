@@ -461,222 +461,93 @@ function Index() {
       </section>
 
       {/* PROJEKTY — sticky pinned showcase */}
-      <section id="projekty" className="relative overflow-x-clip">
+      <section id="projekty" className="relative overflow-hidden border-t border-border bg-background py-28">
         <div
           aria-hidden
-          className="blob pointer-events-none absolute -right-40 top-40 h-[460px] w-[460px] rounded-full opacity-20"
+          className="blob pointer-events-none absolute -right-40 top-32 h-[460px] w-[460px] rounded-full opacity-20"
           style={{ background: "radial-gradient(circle, var(--accent-warm), transparent 60%)" }}
         />
-        <div
-          ref={pinRef as React.RefObject<HTMLDivElement>}
-          className="relative pt-16"
-          style={{ height: `${Math.max(1, projects.length) * 24 + 86}vh` }}
-        >
-          <div className="sticky top-16 h-[calc(100svh-4rem)] overflow-hidden">
-            <div className="mx-auto flex h-full max-w-[1680px] flex-col gap-6 px-6 pb-5 lg:gap-7">
-              <div className="shrink-0">
-                <div>
-                  <SectionLabel>
-                    Realizacje · {projects.length}/{projects.length}
-                  </SectionLabel>
-                  <h2 className="mt-3 font-serif text-4xl text-balance md:text-6xl lg:text-7xl">
-                    Wybrane <span className="italic text-accent accent-underline">projekty</span>
-                  </h2>
-                  <p className="mt-5 max-w-2xl text-sm text-muted-foreground md:text-base">
-                    Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych
-                    klientów. Przewijaj, aby zobaczyć kolejne.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,2.05fr)_minmax(420px,0.8fr)] xl:gap-8">
-                {/* Featured project — swaps on scroll */}
-                <div className="relative h-[64svh] min-h-[560px] sm:h-[68svh] lg:h-full">
-                  {projects.map((p, i) => {
-                    const isActive = i === activeProject;
-                    const isBefore = i < activeProject;
-                    return (
-                      <article
-                        key={p.name + i}
-                        onMouseMove={spotlightMove}
-                        aria-hidden={!isActive}
-                        className={`spotlight group absolute inset-0 flex flex-col overflow-hidden rounded-[2rem] border border-border bg-card transition-[opacity,transform,filter] duration-700 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                          isActive
-                            ? "z-20 translate-y-0 scale-100 opacity-100 blur-0"
-                            : isBefore
-                              ? "pointer-events-none z-10 -translate-x-[6%] scale-[0.975] opacity-0 blur-sm"
-                              : "pointer-events-none z-0 translate-x-[6%] scale-[0.975] opacity-0 blur-sm"
-                        }`}
-                      >
-                        <span className="index-num pointer-events-none absolute right-6 top-4 z-20 text-8xl md:text-9xl xl:text-[10rem]">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <div className="grain relative flex-[1.2] overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary">
-                          <div className="zoom-img absolute inset-4 rounded-[1.5rem] border border-border bg-card shadow-xl md:inset-6 xl:inset-8">
-                            <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
-                              <span className="h-2 w-2 rounded-full bg-border" />
-                              <span className="h-2 w-2 rounded-full bg-border" />
-                              <span className="h-2 w-2 rounded-full bg-border" />
-                              <span className="ml-3 text-[10px] uppercase tracking-wider text-muted-foreground">
-                                {p.url === "#" ? "preview.localweb.pl" : p.url}
-                              </span>
-                            </div>
-                            <div className="grid h-[calc(100%-37px)] gap-4 p-4 md:grid-cols-[minmax(0,1.15fr)_minmax(220px,0.75fr)] md:p-6 xl:p-8">
-                              <div className="flex min-h-[220px] flex-col justify-between rounded-[1.25rem] bg-secondary/60 p-5 md:min-h-0">
-                                <div>
-                                  <div className="h-3 w-28 rounded-full bg-accent/40" />
-                                  <div className="mt-4 h-8 w-3/4 rounded-full bg-card" />
-                                  <div className="mt-3 h-3 w-full rounded-full bg-card/80" />
-                                  <div className="mt-2 h-3 w-4/5 rounded-full bg-card/80" />
-                                </div>
-                                <div className="grid grid-cols-3 gap-3">
-                                  {Array.from({ length: 3 }).map((_, k) => (
-                                    <div
-                                      key={k}
-                                      className="rounded-2xl border border-border bg-card p-3"
-                                    >
-                                      <div className="h-14 rounded-xl bg-secondary" />
-                                      <div className="mt-3 h-2 w-3/4 rounded-full bg-secondary" />
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                              <div className="grid grid-rows-[1.15fr_0.85fr] gap-4">
-                                <div className="rounded-[1.25rem] border border-border bg-card p-4">
-                                  <div className="grid h-full grid-cols-2 gap-3">
-                                    {Array.from({ length: 4 }).map((_, k) => (
-                                      <div
-                                        key={k}
-                                        className={`rounded-2xl ${k === 1 ? "bg-accent/55 transition-colors group-hover:bg-accent" : "bg-secondary"}`}
-                                      />
-                                    ))}
-                                  </div>
-                                </div>
-                                <div className="rounded-[1.25rem] bg-secondary/60 p-4">
-                                  <div className="h-3 w-20 rounded-full bg-accent/35" />
-                                  <div className="mt-4 space-y-2">
-                                    <div className="h-2 w-full rounded-full bg-card" />
-                                    <div className="h-2 w-5/6 rounded-full bg-card" />
-                                    <div className="h-2 w-4/6 rounded-full bg-card" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <span className="absolute left-5 top-5 z-10 rounded-full bg-card/95 px-3 py-1 text-xs backdrop-blur md:left-6 md:top-6">
-                            {p.tag}
-                          </span>
-                        </div>
-                        <div className="relative z-10 flex flex-col gap-4 border-t border-border p-6 md:p-8 xl:p-10">
-                          <div className="flex items-center justify-between text-xs uppercase tracking-wider text-muted-foreground">
-                            <span>
-                              {p.city} · {p.year}
-                            </span>
-                            <ArrowUpRight className="h-4 w-4 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                          </div>
-                          <h3 className="font-serif text-3xl leading-tight transition-colors group-hover:text-accent md:text-4xl xl:text-5xl">
-                            {p.name}
-                          </h3>
-                          <p className="max-w-3xl text-sm text-muted-foreground md:text-base xl:text-lg">
-                            {p.desc}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {p.chips.map((c) => (
-                              <span
-                                key={c}
-                                className="rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground md:text-sm"
-                              >
-                                {c}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-
-                {/* Side rail — animated project previews */}
-                <aside className="hidden min-h-0 lg:flex lg:flex-col">
-                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    <span>
-                      {String(activeProject + 1).padStart(2, "0")}{" "}
-                      <span className="opacity-40">
-                        / {String(projects.length).padStart(2, "0")}
-                      </span>
-                    </span>
-                    <span className="opacity-60">Przewijaj ↓</span>
-                  </div>
-                  <div className="relative mt-4 flex-1 overflow-hidden pr-1">
-                    {projects.map((p, i) => {
-                      const isActive = i === activeProject;
-                      const isBefore = i < activeProject;
-                      return (
-                        <div
-                          key={p.name + i}
-                          className={`absolute inset-x-0 top-0 rounded-2xl border p-6 text-left transition-[opacity,transform,filter] duration-700 ease-out xl:p-7 ${
-                            isActive
-                              ? "border-accent/60 bg-card shadow-md"
-                              : "border-border bg-card/70"
-                          }`}
-                          style={{
-                            transform: isActive
-                              ? "translate3d(0,0,0) scale(1)"
-                              : isBefore
-                                ? "translate3d(-6%,0,0) scale(0.97)"
-                                : "translate3d(6%,0,0) scale(0.97)",
-                            opacity: isActive ? 1 : 0,
-                            filter: isActive ? "blur(0px)" : "blur(8px)",
-                            zIndex: isActive ? 10 : 1,
-                            pointerEvents: isActive ? "auto" : "none",
-                          }}
-                          aria-hidden={!isActive}
-                        >
-                          <div className="flex items-center justify-between gap-3 text-[11px] uppercase tracking-wider text-muted-foreground">
-                            <span>
-                              {String(i + 1).padStart(2, "0")} · {p.tag}
-                            </span>
-                            <span>{p.city}</span>
-                          </div>
-                          <div
-                            className={`mt-3 font-serif text-xl leading-tight transition-colors xl:text-[1.65rem] ${isActive ? "text-accent" : "text-foreground"}`}
-                          >
-                            {p.name}
-                          </div>
-                          <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                            {p.desc}
-                          </p>
-                          <div className="mt-5 h-24 overflow-hidden rounded-xl border border-border bg-secondary/60 p-3">
-                            <div className="h-2 w-24 rounded-full bg-accent/40" />
-                            <div className="mt-3 grid grid-cols-3 gap-2">
-                              <span className="h-12 rounded-lg bg-card" />
-                              <span className="h-12 rounded-lg bg-card" />
-                              <span className="h-12 rounded-lg bg-accent/45" />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="mt-4 h-1 overflow-hidden rounded-full bg-border">
-                    <div
-                      className="h-full bg-accent transition-[width] duration-300 ease-out"
-                      style={{ width: `${Math.round(pinProgress * 100)}%` }}
-                    />
-                  </div>
-                </aside>
-
-                {/* Mobile dots */}
-                <div className="flex items-center justify-center gap-2 lg:hidden">
-                  {projects.map((_, i) => (
-                    <span
-                      key={i}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${i === activeProject ? "w-8 bg-accent" : "w-2 bg-border"}`}
-                    />
-                  ))}
-                </div>
-              </div>
+        <div className="relative mx-auto max-w-[1680px] px-6">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <SectionLabel>Realizacje · {projects.length}/{projects.length}</SectionLabel>
+              <h2 className="mt-3 font-serif text-4xl text-balance md:text-6xl lg:text-7xl">
+                Wybrane <span className="italic text-accent accent-underline">projekty</span>
+              </h2>
+              <p className="mt-5 max-w-2xl text-sm text-muted-foreground md:text-base">
+                Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych klientów.
+              </p>
             </div>
+            <div className="hidden max-w-xs text-right text-sm text-muted-foreground md:block">
+              Duży podgląd strony i konkretne wyniki — bez blokowania przewijania i bez uciekających
+              kafli.
+            </div>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-12 xl:auto-rows-[minmax(260px,auto)]">
+            {projects.map((p, i) => {
+              const isHero = i === 0;
+              const isWide = i === 1 || i === 2;
+              return (
+                <Reveal
+                  key={p.name + i}
+                  className={`group spotlight overflow-hidden rounded-[2rem] border border-border bg-card shadow-sm transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-accent/50 hover:shadow-xl ${
+                    isHero
+                      ? "md:col-span-2 xl:col-span-7 xl:row-span-2"
+                      : isWide
+                        ? "xl:col-span-5"
+                        : "xl:col-span-4"
+                  }`}
+                  onMouseMove={spotlightMove}
+                >
+                  <article className="relative z-10 flex h-full flex-col">
+                    <span
+                      className={`index-num pointer-events-none absolute right-5 top-4 z-20 ${isHero ? "text-8xl md:text-[9rem]" : "text-6xl md:text-7xl"}`}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    <div
+                      className={`grain relative overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary ${isHero ? "min-h-[420px] md:min-h-[560px]" : "min-h-[260px] md:min-h-[320px]"}`}
+                    >
+                      <ProjectBrowserMockup project={p} featured={isHero} index={i} />
+                      <span className="absolute left-5 top-5 z-20 rounded-full bg-card/95 px-3 py-1 text-xs backdrop-blur">
+                        {p.tag}
+                      </span>
+                    </div>
+
+                    <div className={`${isHero ? "p-7 md:p-10" : "p-6 md:p-7"}`}>
+                      <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-wider text-muted-foreground">
+                        <span>
+                          {p.city} · {p.year}
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </div>
+                      <h3
+                        className={`mt-4 font-serif leading-tight transition-colors group-hover:text-accent ${isHero ? "text-4xl md:text-6xl" : "text-3xl md:text-4xl"}`}
+                      >
+                        {p.name}
+                      </h3>
+                      <p
+                        className={`mt-4 text-muted-foreground ${isHero ? "max-w-3xl text-base md:text-lg" : "text-sm md:text-base"}`}
+                      >
+                        {p.desc}
+                      </p>
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {p.chips.map((c) => (
+                          <span
+                            key={c}
+                            className="rounded-full border border-border bg-secondary/40 px-3 py-1.5 text-xs text-muted-foreground md:text-sm"
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1046,6 +917,81 @@ function SectionLabel({
     >
       <span className="h-px w-8 bg-current opacity-40" />
       {children}
+    </div>
+  );
+}
+
+function ProjectBrowserMockup({
+  project,
+  featured = false,
+  index,
+}: {
+  project: (typeof projects)[number];
+  featured?: boolean;
+  index: number;
+}) {
+  return (
+    <div
+      className={`zoom-img absolute rounded-[1.5rem] border border-border bg-card shadow-xl ${
+        featured ? "inset-5 md:inset-8" : "inset-4"
+      }`}
+    >
+      <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
+        <span className="h-2 w-2 rounded-full bg-border" />
+        <span className="h-2 w-2 rounded-full bg-border" />
+        <span className="h-2 w-2 rounded-full bg-border" />
+        <span className="ml-3 truncate text-[10px] uppercase tracking-wider text-muted-foreground">
+          preview.localweb.pl/{project.city.toLowerCase()}
+        </span>
+      </div>
+
+      <div
+        className={`grid h-[calc(100%-37px)] gap-4 p-4 ${
+          featured ? "md:grid-cols-[minmax(0,1.2fr)_minmax(240px,0.75fr)] md:p-7" : ""
+        }`}
+      >
+        <div className="flex min-h-0 flex-col justify-between rounded-[1.25rem] bg-secondary/60 p-5">
+          <div>
+            <div className="h-3 w-28 rounded-full bg-accent/40" />
+            <div className="mt-4 h-8 w-4/5 rounded-full bg-card" />
+            <div className="mt-3 h-3 w-full rounded-full bg-card/80" />
+            <div className="mt-2 h-3 w-3/4 rounded-full bg-card/80" />
+          </div>
+          <div className={`mt-6 grid gap-3 ${featured ? "grid-cols-3" : "grid-cols-2"}`}>
+            {Array.from({ length: featured ? 3 : 2 }).map((_, k) => (
+              <div key={k} className="rounded-2xl border border-border bg-card p-3">
+                <div
+                  className={`rounded-xl ${k === index % 3 ? "bg-accent/45" : "bg-secondary"} ${featured ? "h-16" : "h-12"}`}
+                />
+                <div className="mt-3 h-2 w-3/4 rounded-full bg-secondary" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {featured ? (
+          <div className="hidden grid-rows-[1.15fr_0.85fr] gap-4 md:grid">
+            <div className="rounded-[1.25rem] border border-border bg-card p-4">
+              <div className="grid h-full grid-cols-2 gap-3">
+                {Array.from({ length: 4 }).map((_, k) => (
+                  <div
+                    key={k}
+                    className={`rounded-2xl ${k === 1 ? "bg-accent/55 transition-colors group-hover:bg-accent" : "bg-secondary"}`}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="rounded-[1.25rem] bg-secondary/60 p-4">
+              <div className="h-3 w-20 rounded-full bg-accent/35" />
+              <div className="mt-4 space-y-2">
+                <div className="h-2 w-full rounded-full bg-card" />
+                <div className="h-2 w-5/6 rounded-full bg-card" />
+                <div className="h-2 w-4/6 rounded-full bg-card" />
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
