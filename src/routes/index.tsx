@@ -236,11 +236,6 @@ function Index() {
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
   const progress = useScrollProgress();
-  const {
-    containerRef: pinRef,
-    active: activeProject,
-    progress: pinProgress,
-  } = usePinnedIndex(projects.length);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-background text-foreground">
