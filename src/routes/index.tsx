@@ -615,23 +615,27 @@ function Index() {
                   <div className="relative mt-4 flex-1 overflow-hidden pr-1">
                     {projects.map((p, i) => {
                       const isActive = i === activeProject;
-                      const offset = i - activeProject;
-                      const isVisiblePreview = offset >= 0 && offset <= 2;
+                      const isBefore = i < activeProject;
                       return (
                         <div
                           key={p.name + i}
-                          className={`absolute inset-x-0 rounded-2xl border p-6 text-left transition-[opacity,transform,filter] duration-700 ease-out xl:p-7 ${
+                          className={`absolute inset-x-0 top-0 rounded-2xl border p-6 text-left transition-[opacity,transform,filter] duration-700 ease-out xl:p-7 ${
                             isActive
                               ? "border-accent/60 bg-card shadow-md"
                               : "border-border bg-card/70"
                           }`}
                           style={{
-                            transform: `translate3d(0, ${Math.max(0, offset) * 156}px, 0) scale(${isActive ? 1 : 0.96 - Math.max(0, offset - 1) * 0.035})`,
-                            opacity: isVisiblePreview ? (isActive ? 1 : 0.62 - offset * 0.12) : 0,
-                            filter: isVisiblePreview ? "blur(0px)" : "blur(8px)",
-                            zIndex: projects.length - Math.abs(offset),
+                            transform: isActive
+                              ? "translate3d(0,0,0) scale(1)"
+                              : isBefore
+                                ? "translate3d(-6%,0,0) scale(0.97)"
+                                : "translate3d(6%,0,0) scale(0.97)",
+                            opacity: isActive ? 1 : 0,
+                            filter: isActive ? "blur(0px)" : "blur(8px)",
+                            zIndex: isActive ? 10 : 1,
+                            pointerEvents: isActive ? "auto" : "none",
                           }}
-                          aria-hidden={!isVisiblePreview}
+                          aria-hidden={!isActive}
                         >
                           <div className="flex items-center justify-between gap-3 text-[11px] uppercase tracking-wider text-muted-foreground">
                             <span>
