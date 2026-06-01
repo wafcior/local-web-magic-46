@@ -460,7 +460,7 @@ function Index() {
         </div>
       </section>
 
-      {/* PROJEKTY — sticky pinned showcase */}
+      {/* PROJEKTY */}
       <section id="projekty" className="relative overflow-hidden border-t border-border bg-background py-28">
         <div
           aria-hidden
@@ -1125,41 +1125,6 @@ function useScrollY() {
     };
   }, []);
   return y;
-}
-
-function usePinnedIndex(count: number) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        const el = containerRef.current;
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          const total = el.offsetHeight - window.innerHeight;
-          const scrolled = Math.min(total, Math.max(0, -rect.top));
-          const p = total > 0 ? scrolled / total : 0;
-          setProgress(p);
-          const idx =
-            count <= 1 ? 0 : Math.min(count - 1, Math.max(0, Math.round(p * (count - 1))));
-          setActive(idx);
-        }
-        raf = 0;
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [count]);
-  return { containerRef, active, progress };
 }
 
 function useHideOnScroll(threshold = 140) {
