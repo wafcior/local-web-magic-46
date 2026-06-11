@@ -461,96 +461,8 @@ function Index() {
       </section>
 
       {/* PROJEKTY */}
-      <section id="projekty" className="relative overflow-hidden border-t border-border bg-background py-28">
-        <div
-          aria-hidden
-          className="blob pointer-events-none absolute -right-40 top-32 h-[460px] w-[460px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, var(--accent-warm), transparent 60%)" }}
-        />
-        <div className="relative mx-auto max-w-[1680px] px-6">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div>
-              <SectionLabel>Realizacje · {projects.length}/{projects.length}</SectionLabel>
-              <h2 className="mt-3 font-serif text-4xl text-balance md:text-6xl lg:text-7xl">
-                Wybrane <span className="italic text-accent accent-underline">projekty</span>
-              </h2>
-              <p className="mt-5 max-w-2xl text-sm text-muted-foreground md:text-base">
-                Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych klientów.
-              </p>
-            </div>
-            <div className="hidden max-w-xs text-right text-sm text-muted-foreground md:block">
-              Duży podgląd strony i konkretne wyniki — bez blokowania przewijania i bez uciekających
-              kafli.
-            </div>
-          </div>
+      <ProjectsSticky />
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-12 xl:auto-rows-[minmax(260px,auto)]">
-            {projects.map((p, i) => {
-              const isHero = i === 0;
-              const isWide = i === 1 || i === 2;
-              return (
-                <Reveal
-                  key={p.name + i}
-                  className={`group spotlight overflow-hidden rounded-[2rem] border border-border bg-card shadow-sm transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-accent/50 hover:shadow-xl ${
-                    isHero
-                      ? "md:col-span-2 xl:col-span-7 xl:row-span-2"
-                      : isWide
-                        ? "xl:col-span-5"
-                        : "xl:col-span-4"
-                  }`}
-                  onMouseMove={spotlightMove}
-                >
-                  <article className="relative z-10 flex h-full flex-col">
-                    <span
-                      className={`index-num pointer-events-none absolute right-5 top-4 z-20 ${isHero ? "text-8xl md:text-[9rem]" : "text-6xl md:text-7xl"}`}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-
-                    <div
-                      className={`grain relative overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary ${isHero ? "min-h-[420px] md:min-h-[560px]" : "min-h-[260px] md:min-h-[320px]"}`}
-                    >
-                      <ProjectBrowserMockup project={p} featured={isHero} index={i} />
-                      <span className="absolute left-5 top-5 z-20 rounded-full bg-card/95 px-3 py-1 text-xs backdrop-blur">
-                        {p.tag}
-                      </span>
-                    </div>
-
-                    <div className={`${isHero ? "p-7 md:p-10" : "p-6 md:p-7"}`}>
-                      <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-wider text-muted-foreground">
-                        <span>
-                          {p.city} · {p.year}
-                        </span>
-                        <ArrowUpRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </div>
-                      <h3
-                        className={`mt-4 font-serif leading-tight transition-colors group-hover:text-accent ${isHero ? "text-4xl md:text-6xl" : "text-3xl md:text-4xl"}`}
-                      >
-                        {p.name}
-                      </h3>
-                      <p
-                        className={`mt-4 text-muted-foreground ${isHero ? "max-w-3xl text-base md:text-lg" : "text-sm md:text-base"}`}
-                      >
-                        {p.desc}
-                      </p>
-                      <div className="mt-6 flex flex-wrap gap-2">
-                        {p.chips.map((c) => (
-                          <span
-                            key={c}
-                            className="rounded-full border border-border bg-secondary/40 px-3 py-1.5 text-xs text-muted-foreground md:text-sm"
-                          >
-                            {c}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       {/* O MNIE */}
       <section
@@ -921,7 +833,147 @@ function SectionLabel({
   );
 }
 
+function ProjectsSticky() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // total scrollable distance inside the pinned section
+      const total = el.offsetHeight - vh;
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      const progress = total > 0 ? scrolled / total : 0;
+      const idx = Math.min(
+        projects.length - 1,
+        Math.floor(progress * projects.length - 0.0001 < 0 ? 0 : progress * projects.length),
+      );
+      setActive(idx);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const p = projects[active];
+
+  return (
+    <section
+      id="projekty"
+      ref={sectionRef}
+      className="relative border-t border-border bg-background"
+      style={{ height: `${projects.length * 100}vh` }}
+    >
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <div
+          aria-hidden
+          className="blob pointer-events-none absolute -right-40 top-32 h-[460px] w-[460px] rounded-full opacity-20"
+          style={{ background: "radial-gradient(circle, var(--accent-warm), transparent 60%)" }}
+        />
+        <div className="relative mx-auto flex h-full max-w-[1680px] flex-col px-6 py-10">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <SectionLabel>
+                Realizacje · {active + 1}/{projects.length}
+              </SectionLabel>
+              <h2 className="mt-2 font-serif text-3xl text-balance md:text-5xl">
+                Wybrane <span className="italic text-accent accent-underline">projekty</span>
+              </h2>
+              <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+                Każdy projekt — inna branża, ten sam efekt: więcej zapytań od lokalnych klientów.
+                Przewijaj, aby zobaczyć kolejne.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+            {/* Left: big sticky preview card */}
+            <div
+              key={active}
+              className="group spotlight relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl"
+              onMouseMove={spotlightMove}
+              style={{ animation: "soft-rise 0.6s ease-out both" }}
+            >
+              <span className="index-num pointer-events-none absolute right-6 top-4 z-20 text-7xl md:text-[9rem]">
+                {String(active + 1).padStart(2, "0")}
+              </span>
+              <div className="grain relative h-[58%] min-h-[280px] overflow-hidden bg-gradient-to-br from-secondary via-sand to-secondary">
+                <ProjectBrowserMockup project={p} featured index={active} />
+                <span className="absolute left-5 top-5 z-20 rounded-full bg-card/95 px-3 py-1 text-xs backdrop-blur">
+                  {p.tag}
+                </span>
+              </div>
+              <div className="p-6 md:p-8">
+                <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-wider text-muted-foreground">
+                  <span>
+                    {p.city} · {p.year}
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-accent" />
+                </div>
+                <h3 className="mt-3 font-serif text-3xl leading-tight md:text-5xl">{p.name}</h3>
+                <p className="mt-3 max-w-3xl text-sm text-muted-foreground md:text-base">
+                  {p.desc}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.chips.map((c) => (
+                    <span
+                      key={c}
+                      className="rounded-full border border-border bg-secondary/40 px-3 py-1.5 text-xs text-muted-foreground"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: nav indicator */}
+            <ol className="hidden flex-col gap-2 self-stretch overflow-hidden lg:flex">
+              {projects.map((proj, i) => {
+                const isActive = i === active;
+                return (
+                  <li
+                    key={proj.name + i}
+                    className={`flex items-center gap-3 rounded-2xl border px-4 py-3 transition-all duration-500 ${
+                      isActive
+                        ? "border-accent/60 bg-card shadow-md"
+                        : "border-border bg-card/40 opacity-60"
+                    }`}
+                  >
+                    <span
+                      className={`font-serif text-xl tabular-nums ${isActive ? "text-accent" : "text-muted-foreground"}`}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-sm font-medium">{proj.name}</div>
+                      <div className="truncate text-xs text-muted-foreground">
+                        {proj.tag} · {proj.city}
+                      </div>
+                    </div>
+                    {isActive && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProjectBrowserMockup({
+
   project,
   featured = false,
   index,
