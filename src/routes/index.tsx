@@ -478,10 +478,11 @@ function Index() {
       <section id="proces" className="border-t border-border bg-secondary/40 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <SectionLabel>Proces</SectionLabel>
-          <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Jak to działa</h2>
+          <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Jak wygląda współpraca</h2>
           <p className="mt-4 max-w-xl text-muted-foreground">
-            Od pierwszego kontaktu do gotowej strony — bez ryzyka z Twojej strony.
+            Bezpieczny proces od pierwszej rozmowy do uruchomienia gotowej strony.
           </p>
+
           <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <Reveal
