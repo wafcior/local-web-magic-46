@@ -969,9 +969,12 @@ function ProjectsSticky() {
 
           <div className="mt-6 grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
             {/* Left: big sticky preview card */}
-            <div
+            <a
               key={active}
-              className="group spotlight relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl"
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group spotlight relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl block cursor-pointer transition-transform hover:-translate-y-1"
               onMouseMove={spotlightMove}
               style={{ animation: "soft-rise 0.6s ease-out both" }}
             >
@@ -989,7 +992,7 @@ function ProjectsSticky() {
                   <span>
                     {p.city} · {p.year}
                   </span>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 text-accent" />
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </div>
                 <h3 className="mt-3 font-serif text-3xl leading-tight md:text-5xl">{p.name}</h3>
                 <p className="mt-3 max-w-3xl text-sm text-muted-foreground md:text-base">
@@ -1006,7 +1009,8 @@ function ProjectsSticky() {
                   ))}
                 </div>
               </div>
-            </div>
+            </a>
+
 
             {/* Right: nav indicator */}
             <ol className="hidden flex-col gap-2 self-stretch overflow-hidden lg:flex">
