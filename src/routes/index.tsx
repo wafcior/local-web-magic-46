@@ -16,16 +16,16 @@ import heroBg from "@/assets/hero-bg.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LocalWeb.pl — Strony internetowe dla lokalnych firm" },
+      { title: "TwojaStrona — Strony internetowe dla małych i dużych biznesów" },
       {
         name: "description",
         content:
-          "Projektuję strony dla kwiaciarni, mechaników, hydraulików i lokalnych firm w całej Polsce. Płacisz tylko jeśli strona Ci się spodoba.",
+          "Projektujemy profesjonalne strony dla małych i dużych biznesów. Najpierw oglądasz gotowy projekt, a płacisz tylko gdy Ci się spodoba.",
       },
-      { property: "og:title", content: "LocalWeb.pl — Strony dla lokalnych firm" },
+      { property: "og:title", content: "TwojaStrona — Strony dla Twojego biznesu" },
       {
         property: "og:description",
-        content: "Pokazuję gotową stronę przed zakupem. Bez zaliczek, bez ryzyka.",
+        content: "Pokazujemy gotową stronę przed zakupem. Bez zaliczek, bez ryzyka.",
       },
     ],
     links: [
@@ -40,11 +40,46 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+// Brand helpers
+const PHONE_DISPLAY = "+48 726 142 917";
+const PHONE_HREF = "tel:+48726142917";
+const EMAIL = "kontakt@twojastrona.czest.pl";
+
+function BrandLogo({ size = 8 }: { size?: number }) {
+  return (
+    <span
+      aria-hidden
+      className="inline-block rounded-full bg-accent shadow-[0_0_0_3px_color-mix(in_oklab,var(--accent-warm)_25%,transparent)]"
+      style={{ width: `${size}px`, height: `${size}px` }}
+    />
+  );
+}
+
+function BrandName({ className = "" }: { className?: string }) {
+  return <span className={className}>TwojaStrona</span>;
+}
+
+function DomainFull({ className = "" }: { className?: string }) {
+  return (
+    <span className={className}>
+      TwojaStrona<span className="opacity-50">.czest.pl</span>
+    </span>
+  );
+}
+
 const nav = [
   { href: "#projekty", label: "Projekty" },
   { href: "#proces", label: "Jak pracuję" },
   { href: "#o-mnie", label: "O mnie" },
   { href: "#opinie", label: "Opinie" },
+];
+
+const PROJECT_CHIPS = [
+  "Tworzenie stron www",
+  "Wizytówki Google",
+  "Pisanie tekstów",
+  "Wersje na telefon",
+  "Szybki kontakt",
 ];
 
 const projects = [
@@ -54,8 +89,8 @@ const projects = [
     year: "2024",
     name: 'Kwiaciarnia „Różany Ogród"',
     desc: "Galeria bukietów, formularz zamówień, mapa. Wzrost zapytań o 180% w 3 miesiące.",
-    chips: ["Galeria", "Zamówienia"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/rozany-ogrod",
   },
   {
     tag: "Usługi",
@@ -63,8 +98,8 @@ const projects = [
     year: "2024",
     name: "Auto-Serwis Nowak",
     desc: 'Lista usług, cennik, zapis na wizytę. Pozycja #1 w Google Maps na „mechanik Kraków".',
-    chips: ["Cennik", "Zapis online", "SEO"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/auto-serwis-nowak",
   },
   {
     tag: "Usługi",
@@ -72,8 +107,8 @@ const projects = [
     year: "2023",
     name: "Hydraulik – P. Malinowski",
     desc: "Numer alarmowy na górze, zakres usług, opinie Google. Wdrożenie w 5 dni.",
-    chips: ["Alarm 24h", "Opinie"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/hydraulik-malinowski",
   },
   {
     tag: "Gastronomia",
@@ -81,8 +116,8 @@ const projects = [
     year: "2024",
     name: 'Piekarnia „Złoty Kłos"',
     desc: "Menu sezonowe, galeria wypieków, zamówienie tortu przez stronę.",
-    chips: ["Menu", "Galeria"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/zloty-klos",
   },
   {
     tag: "Zdrowie",
@@ -90,8 +125,8 @@ const projects = [
     year: "2023",
     name: "Gabinet dr Wiśniewska",
     desc: "Profile lekarzy, cennik zabiegów, formularz rejestracji. Integracja z Docplanner.",
-    chips: ["Rejestracja", "Zespół"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/dr-wisniewska",
   },
   {
     tag: "Gastronomia",
@@ -99,8 +134,8 @@ const projects = [
     year: "2024",
     name: 'Restauracja „Pod Lipą"',
     desc: "Menu PDF, rezerwacja stolików, integracja z Glovo. Wersja w 3 językach.",
-    chips: ["Rezerwacje", "Dostawa"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/pod-lipa",
   },
   {
     tag: "Usługi",
@@ -108,8 +143,8 @@ const projects = [
     year: "2024",
     name: 'Salon Piękności „Aura"',
     desc: "Galeria realizacji, cennik zabiegów, rezerwacja online przez Booksy.",
-    chips: ["Booksy", "Galeria"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/aura",
   },
   {
     tag: "Usługi",
@@ -117,38 +152,42 @@ const projects = [
     year: "2024",
     name: "Elektryk Kamil – Instalacje",
     desc: "Zakres usług, zdjęcia realizacji, kontakt alarmowy. Widoczność w Google od 1. tygodnia.",
-    chips: ["Zakres", "Kontakt 24h"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/elektryk-kamil",
   },
 ];
 
 const steps = [
-  { n: "01", t: "Kontakt", d: "Krótka rozmowa o Twojej firmie — bez zobowiązań i bez opłat." },
+  {
+    n: "01",
+    t: "Szybka rozmowa",
+    d: "Rozmawiamy o tym, czym zajmuje się Twoja firma i czego dokładnie potrzebujesz. To krótkie spotkanie jest całkowicie darmowe i niezobowiązujące.",
+  },
   {
     n: "02",
-    t: "Tworzę stronę",
-    d: "Projektuję gotową stronę dopasowaną do Twojej branży, zanim cokolwiek zapłacisz.",
+    t: "Projekt testowy",
+    d: "Przygotowuję dla Ciebie pełną wersję demonstracyjną strony. Widzisz gotowy projekt przed dokonaniem opłaty.",
   },
   {
     n: "03",
-    t: "Oglądamy razem",
-    d: "Spotykamy się na Google Meet — pokazuję Ci stronę i omawiam każdy detal.",
+    t: "Prezentacja strony",
+    d: "Łączymy się na platformie Google Meet, gdzie wspólnie przeglądamy gotową witrynę i omawiamy zastosowane rozwiązania.",
   },
   {
     n: "04",
-    t: "Decydujesz",
-    d: "Podoba się — uruchamiamy. Nie podoba się — rozchodzimy się bez żadnych kosztów.",
+    t: "Zielone światło",
+    d: "Jeśli projekt spełnia Twoje oczekiwania, rozliczamy się i wdrażamy stronę na Twoją domenę. W przeciwnym razie możesz zrezygnować bez żadnych kosztów.",
   },
 ];
 
 const trust = [
   {
     t: "Zero ryzyka dla Ciebie",
-    d: "Nie biorę zaliczek. Płacisz dopiero po tym, jak zobaczysz gotową stronę i ją zaakceptujesz.",
+    d: "Nie bierzemy zaliczek. Płacisz dopiero po tym, jak zobaczysz gotową stronę i ją zaakceptujesz.",
   },
   {
-    t: "Znam Twoją branżę",
-    d: "Strony dla mechaników, hydraulików, kwiaciarni, restauracji, gabinetów i wielu innych. Wiem co działa.",
+    t: "Znamy Twoją branżę",
+    d: "Strony dla mechaników, hydraulików, kwiaciarni, restauracji, gabinetów i wielu innych. Wiemy co działa.",
   },
   {
     t: "Mobilna i szybka",
@@ -156,53 +195,65 @@ const trust = [
   },
   {
     t: "Wsparcie po wdrożeniu",
-    d: "Nie znikam po uruchomieniu. Pomagam z poprawkami, aktualizacjami i pytaniami.",
+    d: "Nie znikamy po uruchomieniu. Pomagamy z poprawkami, aktualizacjami i pytaniami.",
   },
 ];
 
 const reviews = [
   {
-    i: "MK",
-    n: "Maria Kowalczyk",
-    r: 'Kwiaciarnia „Różany Ogród", Warszawa',
-    q: "Marek zadzwonił i powiedział że zrobił stronę dla mojej kwiaciarni. Byłam sceptyczna, ale na Google Meet zobaczyłam gotową stronę i od razu kupiłam. Teraz mam 3x więcej zamówień.",
+    i: "MA",
+    n: "Maria",
+    r: 'Kwiaciarnia, Częstochowa',
+    q: "Zadzwonili do mnie z informacją, że przygotowali projekt strony dla mojej kwiaciarni tutaj w Częstochowie. Na początku byłam sceptyczna, ale gdy na spotkaniu online zobaczyłam gotowy, działający szablon, od razu się zdecydowałam. Od tamtej pory mam trzy razy więcej zamówień na bukiety.",
   },
   {
     i: "PN",
     n: "Piotr Nowak",
     r: "Auto-Serwis Nowak, Kraków",
-    q: 'Pokazał mi gotową stronę dla mojego warsztatu. Po 2 miesiącach jestem #1 w Google Maps na „mechanik Kraków". Nie zapłaciłem złotówki zanim zobaczyłem efekt.',
+    q: 'Pokazali mi gotową stronę dla mojego warsztatu. Po 2 miesiącach jestem #1 w Google Maps na „mechanik Kraków". Nie zapłaciłem złotówki zanim zobaczyłem efekt.',
   },
   {
     i: "TM",
     n: "Tomasz Malinowski",
     r: "Hydraulik, Wrocław",
-    q: "Nie miałem strony i nie wiedziałem że mi potrzeba. Marek pokazał jak będzie wyglądać zanim zapłaciłem. W tydzień miałem gotową stronę i nowych klientów z Google.",
+    q: "Nie miałem strony i nie wiedziałem, że jej potrzebuję. Pokazali jak będzie wyglądać zanim zapłaciłem. W tydzień miałem gotową stronę i nowych klientów z Google.",
   },
   {
     i: "AW",
     n: "Anna Wiśniewska",
     r: "Gabinet stomatologiczny, Poznań",
-    q: "Strona wygląda lepiej niż u konkurencji. Pacjenci często pytają kto ją robił. Mogę sama edytować treści, Marek wszystko wytłumaczył. Termin dotrzymany co do dnia.",
+    q: "Strona wygląda lepiej niż u konkurencji. Pacjenci często pytają kto ją robił. Mogę sama edytować treści, wszystko zostało mi wytłumaczone. Termin dotrzymany co do dnia.",
   },
+];
+
+const CZESTOCHOWA_DISTRICTS = [
+  "Śródmieście",
+  "Tysiąclecie",
+  "Północ",
+  "Stradom",
+  "Ostatni Grosz",
+  "Raków",
+  "Błeszno",
+  "Gnaszyn-Kawodrza",
+  "Mirów",
 ];
 
 const faqs = [
   {
-    q: "Ile kosztuje strona?",
-    a: "Cena zależy od zakresu projektu — zadzwoń, omówimy szczegóły i dopasuję ofertę do Twojej firmy i budżetu.",
+    q: "Ile kosztuje stworzenie strony?",
+    a: "Cena zależy od stopnia rozbudowania witryny oraz funkcji, jakich potrzebujesz. Zadzwoń lub napisz, żeby omówić szczegóły, a stworzę dla Ciebie bezpłatną i niezobowiązującą wycenę.",
   },
   {
-    q: "Co jeśli strona mi się nie spodoba?",
-    a: "Nic nie płacisz — to moje ryzyko. Kupujesz tylko jeśli strona Ci się podoba. Żadnych zaliczek, żadnych umów na start.",
+    q: "Co jeśli projekt mi się nie spodoba?",
+    a: "Pracuję etapami i na bieżąco wprowadzam Twoje poprawki. Strona powstaje w stałym kontakcie z Tobą, więc masz pewność, że finalny efekt będzie dokładnie taki, jak chcesz.",
   },
   {
     q: "Jak szybko będzie gotowa?",
     a: "Zazwyczaj 5–10 dni roboczych od akceptacji projektu do uruchomienia strony w internecie.",
   },
   {
-    q: "Czy mogę sam edytować treści?",
-    a: "Tak — po wdrożeniu uczę Cię jak samodzielnie aktualizować teksty, zdjęcia i godziny otwarcia.",
+    q: "Co jeśli będę chciał coś zmienić na stronie?",
+    a: "Oczywiście jest taka możliwość. Strona jest w pełni edytowalna, więc po jej uruchomieniu pomagam w sprawnym wprowadzaniu nowych treści, aktualizacji czy modyfikacji wizualnych.",
   },
 ];
 
@@ -251,9 +302,10 @@ function Index() {
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-2 font-serif text-xl">
-            <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-            LocalWeb<span className="text-muted-foreground">.pl</span>
+            <BrandLogo size={14} />
+            <BrandName />
           </a>
+
           <nav className="hidden items-center gap-8 text-sm md:flex">
             {nav.map((n) => (
               <a
@@ -309,26 +361,10 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
 
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
-          {/* trust pill */}
-          <div className="reveal-1 mb-6 inline-flex items-center gap-3 rounded-full border border-border bg-card/70 py-1.5 pl-1.5 pr-4 text-xs text-muted-foreground backdrop-blur-sm">
-            <span className="flex -space-x-1.5">
-              {["MK", "PN", "TM", "AW"].map((i, k) => (
-                <span
-                  key={i}
-                  className="flex h-5 w-5 items-center justify-center rounded-full border border-background bg-secondary text-[9px] font-medium text-foreground"
-                  style={{ zIndex: 4 - k }}
-                >
-                  {i}
-                </span>
-              ))}
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-              </span>
-              47 firm zaufało · <span className="text-foreground">dostępny dziś</span>
-            </span>
+          {/* location pill */}
+          <div className="reveal-1 mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground backdrop-blur-sm">
+            <MapPin className="h-3 w-3 text-accent" />
+            Polska · Częstochowa
           </div>
 
           <div className="flex h-5 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -342,13 +378,14 @@ function Index() {
             <span className="reveal-1 inline-block">Strony internetowe</span>
             <br />
             <span className="reveal-2 inline-block italic text-accent accent-underline">
-              dla lokalnych firm.
+              dla Twojego biznesu.
             </span>
           </h1>
           <p className="reveal-3 mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Projektuję strony dla kwiaciarni, mechaników, hydraulików i dziesiątek innych branż.
-            Pokazuję gotową stronę — płacisz tylko jeśli ci się spodoba.
+            Projektuję profesjonalne strony dla małych i dużych biznesów. Działasz bez żadnego
+            ryzyka: najpierw oglądasz gotowy projekt, a płacisz tylko wtedy, gdy Ci się spodoba.
           </p>
+
 
           <div className="reveal-4 mt-10 flex flex-wrap items-center gap-3">
             <a
@@ -365,11 +402,12 @@ function Index() {
               Zobacz projekty
             </a>
             <a
-              href="tel:+48123456789"
+              href={PHONE_HREF}
               className="btn-press ml-1 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
-              <Phone className="h-4 w-4" /> +48 123 456 789
+              <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
             </a>
+
           </div>
 
           {/* stats + bullets card */}
@@ -440,10 +478,11 @@ function Index() {
       <section id="proces" className="border-t border-border bg-secondary/40 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <SectionLabel>Proces</SectionLabel>
-          <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Jak to działa</h2>
+          <h2 className="mt-3 max-w-2xl font-serif text-4xl md:text-5xl">Jak wygląda współpraca</h2>
           <p className="mt-4 max-w-xl text-muted-foreground">
-            Od pierwszego kontaktu do gotowej strony — bez ryzyka z Twojej strony.
+            Bezpieczny proces od pierwszej rozmowy do uruchomienia gotowej strony.
           </p>
+
           <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <Reveal
@@ -480,7 +519,7 @@ function Index() {
             <div className="lg:sticky lg:top-28">
               <SectionLabel>O mnie</SectionLabel>
               <h2 className="mt-4 font-serif text-5xl md:text-6xl text-balance">
-                Cześć, jestem <span className="italic text-accent">Marek</span>.
+                Cześć, jestem <span className="italic text-accent">Fabian</span>.
               </h2>
 
               {/* Portrait card */}
@@ -489,16 +528,18 @@ function Index() {
                 onMouseMove={spotlightMove}
               >
                 <div className="relative z-10 flex items-center gap-5">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary font-serif text-3xl text-primary-foreground">
-                    M
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-accent font-serif text-3xl text-accent-foreground">
+                    F
                     <span
                       className="absolute -inset-1 rounded-full border border-accent/40 animate-ping opacity-60"
                       aria-hidden
                     />
                   </div>
                   <div>
-                    <div className="font-serif text-2xl">Marek</div>
-                    <div className="text-sm text-muted-foreground">Założyciel · LocalWeb.pl</div>
+                    <div className="font-serif text-2xl">Fabian</div>
+                    <div className="text-sm text-muted-foreground">
+                      Założyciel · <DomainFull />
+                    </div>
                     <div className="mt-1 flex items-center gap-1 text-xs text-accent">
                       <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                       Dostępny dziś
@@ -508,9 +549,9 @@ function Index() {
 
                 <div className="relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
                   {[
-                    { n: "4+", l: "lata doświadczenia" },
+                    { n: "1+", l: "rok doświadczenia" },
                     { n: "47", l: "projektów" },
-                    { n: "100%", l: "zwrotów: 0" },
+                    { n: "100%", l: "zadowolonych klientów" },
                   ].map((s) => (
                     <div key={s.l}>
                       <div className="font-serif text-2xl text-foreground">{s.n}</div>
@@ -522,14 +563,7 @@ function Index() {
                 </div>
 
                 <div className="relative z-10 mt-6 flex flex-wrap gap-1.5">
-                  {[
-                    "WordPress",
-                    "React",
-                    "SEO lokalne",
-                    "Google Maps",
-                    "Copywriting",
-                    "Mobile-first",
-                  ].map((c) => (
+                  {PROJECT_CHIPS.map((c) => (
                     <span
                       key={c}
                       className="rounded-full border border-border bg-secondary/60 px-2.5 py-1 text-xs text-muted-foreground"
@@ -539,6 +573,7 @@ function Index() {
                   ))}
                 </div>
               </Reveal>
+
             </div>
           </div>
 
@@ -546,40 +581,45 @@ function Index() {
           <div className="lg:col-span-7">
             <div className="space-y-6 text-[17px] leading-relaxed text-muted-foreground">
               <p>
-                Od ponad <span className="text-foreground font-medium">4 lat</span> pomagam lokalnym
-                firmom zaistnieć w internecie. Zaczynałem od stron dla znajomych — dziś mam na
-                koncie ponad{" "}
-                <span className="text-foreground font-medium">47 projektów w 23 branżach</span>.
+                Jako <span className="text-foreground font-medium"><DomainFull /></span> od roku
+                pomagamy lokalnym firmom budować silną i nowoczesną pozycję w sieci. W tym czasie z
+                powodzeniem zrealizowaliśmy ponad{" "}
+                <span className="text-foreground font-medium">47 projektów</span> dla
+                najróżniejszych branż.
               </p>
               <p>
-                Specjalizuję się <span className="text-foreground">wyłącznie</span> w firmach
-                lokalnych. Wiem, czego klient szukający mechanika, kwiaciarni czy gabinetu w Google
-                oczekuje — i jak zaprojektować stronę, która przekonuje go do kontaktu.
+                Specjalizujemy się w tworzeniu stron dla sektorów usługowych. Doskonale wiemy,
+                czego szukają użytkownicy potrzebujący szybkiego kontaktu z mechanikiem,
+                kwiaciarnią czy hydraulikiem. Projektujemy witryny w taki sposób, aby każdy
+                odwiedzający od razu wiedział, dlaczego warto wybrać właśnie Twoją ofertę.
               </p>
             </div>
 
             {/* Timeline */}
-            <div className="mt-12 border-l border-border pl-8">
+            <div className="mt-6 text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              Nasza historia
+            </div>
+            <div className="mt-6 border-l border-border pl-8">
               {[
                 {
-                  y: "2021",
-                  t: "Pierwsza strona",
-                  d: "Strona dla warsztatu kolegi. Przyniosła mu 4 telefony w tydzień.",
+                  y: "Rok temu",
+                  t: "Pierwszy sukces",
+                  d: "Tworzymy pierwszą stronę dla warsztatu. Przyniosła mu 4 telefony już w pierwszym tygodniu działania.",
                 },
                 {
-                  y: "2022",
-                  t: "Pełen etat",
-                  d: "Rzucam korpo. Skupiam się na lokalnych firmach z całej Polski.",
+                  y: "Ostatnie miesiące",
+                  t: "Szybki rozwój",
+                  d: "Rozszerzamy działalność na lokalne firmy w całym kraju. Skupiamy się na realnych wynikach dla klientów.",
                 },
                 {
-                  y: "2024",
+                  y: "W tym roku",
                   t: "47 projektów",
-                  d: 'Model „płacisz po akceptacji" — 0 zwrotów, 100% klientów poleca dalej.',
+                  d: "Model płatności po akceptacji. Zero rezygnacji i sto procent zadowolonych przedsiębiorców.",
                 },
                 {
                   y: "Dziś",
-                  t: "Twoja firma?",
-                  d: "Pokażę Ci gotową stronę za 5–10 dni. Bez zaliczki, bez ryzyka.",
+                  t: "Twoja firma",
+                  d: "Pokażemy Ci gotową stronę w ciągu 5–10 dni. Bez zaliczki i bez ryzyka.",
                 },
               ].map((m, i) => (
                 <Reveal key={m.y} className={`timeline-item sr-d${(i % 4) + 1} pb-8 last:pb-0`}>
@@ -589,6 +629,7 @@ function Index() {
                 </Reveal>
               ))}
             </div>
+
 
             {/* Trust badges */}
             <div className="mt-12 grid gap-4 sm:grid-cols-2">
@@ -691,7 +732,21 @@ function Index() {
             ))}
           </div>
         </div>
+
+        {/* Localizations served */}
+        <div className="mx-auto mt-14 max-w-7xl px-6">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <span>Obsługujemy Częstochowę i okolice:</span>
+            {CZESTOCHOWA_DISTRICTS.map((d, i) => (
+              <span key={d} className="text-foreground/70">
+                {d}
+                {i < CZESTOCHOWA_DISTRICTS.length - 1 ? " ·" : ""}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
+
 
       {/* KONTAKT */}
       <section id="kontakt" className="border-t border-border bg-primary text-primary-foreground">
@@ -703,7 +758,7 @@ function Index() {
               <span className="italic text-accent">oddzwonię dziś.</span>
             </h2>
             <a
-              href="tel:+48123456789"
+              href={PHONE_HREF}
               className="mt-10 flex items-center gap-4 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 transition-colors hover:bg-primary-foreground/10"
             >
               <Phone className="h-6 w-6 text-accent" />
@@ -711,18 +766,28 @@ function Index() {
                 <div className="text-xs uppercase tracking-wider text-primary-foreground/60">
                   Zadzwoń teraz
                 </div>
-                <div className="font-serif text-3xl">+48 123 456 789</div>
+                <div className="font-serif text-3xl">{PHONE_DISPLAY}</div>
               </div>
             </a>
             <div className="mt-6 flex items-center gap-2 text-sm text-primary-foreground/60">
-              <Mail className="h-4 w-4" /> kontakt@localweb.pl
+              <Mail className="h-4 w-4" /> {EMAIL}
             </div>
           </div>
 
           <form
+            action={`mailto:no-reply@twojastrona.czest.pl`}
+            method="POST"
+            encType="text/plain"
             onSubmit={(e) => {
               e.preventDefault();
-              alert("Dziękuję! Oddzwonię dziś.");
+              const form = e.currentTarget;
+              const data = new FormData(form);
+              const body = Array.from(data.entries())
+                .map(([k, v]) => `${k}: ${v}`)
+                .join("\n");
+              window.location.href = `mailto:no-reply@twojastrona.czest.pl?subject=${encodeURIComponent(
+                "Nowe zapytanie ze strony"
+              )}&body=${encodeURIComponent(body)}`;
             }}
             className="lg:col-span-7 space-y-5 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-8"
           >
@@ -730,17 +795,18 @@ function Index() {
               <Field label="Imię" name="name" placeholder="Jan Kowalski" />
               <Field label="Telefon" name="phone" type="tel" placeholder="+48 ..." />
             </div>
+
             <div>
               <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
                 Branża
               </label>
-              <select className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent">
-                <option className="text-foreground">Usługi (mechanik, hydraulik, elektryk…)</option>
-                <option className="text-foreground">Handel (sklep, kwiaciarnia…)</option>
-                <option className="text-foreground">Gastronomia (restauracja, piekarnia…)</option>
-                <option className="text-foreground">Zdrowie (dentysta, fizjoterapeuta…)</option>
-                <option className="text-foreground">Inna branża</option>
-              </select>
+              <input
+                type="text"
+                name="branza"
+                placeholder="usługi (mechanik, hydraulik, elektryk...)"
+                className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground placeholder:text-primary-foreground/30 outline-none transition-colors focus:border-accent"
+              />
+
             </div>
             <div>
               <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
@@ -797,19 +863,27 @@ function Index() {
       <footer className="border-t border-border bg-background">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-12 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="font-serif text-xl">
-              LocalWeb<span className="text-muted-foreground">.pl</span>
+            <div className="flex items-center gap-2 font-serif text-xl">
+              <BrandLogo size={12} />
+              <BrandName />
             </div>
             <p className="mt-1 text-sm text-muted-foreground">
-              Strony internetowe dla lokalnych firm · Spotkania przez Google Meet · Cała Polska
+              <DomainFull /> · Strony internetowe dla firm · Spotkania przez Google Meet
+            </p>
+            <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              Polska · Częstochowa
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-            <a href="tel:+48123456789" className="flex items-center gap-2 hover:text-foreground">
-              <Phone className="h-4 w-4" /> +48 123 456 789
+            <a href={PHONE_HREF} className="flex items-center gap-2 hover:text-foreground">
+              <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
             </a>
-            <span>© 2025 LocalWeb.pl</span>
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-2 hover:text-foreground">
+              <Mail className="h-4 w-4" /> {EMAIL}
+            </a>
+            <span>© 2026 TwojaStrona</span>
           </div>
+
         </div>
       </footer>
     </div>
@@ -869,7 +943,7 @@ function ProjectsSticky() {
       id="projekty"
       ref={sectionRef}
       className="relative border-t border-border bg-background"
-      style={{ height: `${projects.length * 100}vh` }}
+      style={{ height: `${projects.length * 55}vh` }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <div
@@ -895,9 +969,12 @@ function ProjectsSticky() {
 
           <div className="mt-6 grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
             {/* Left: big sticky preview card */}
-            <div
+            <a
               key={active}
-              className="group spotlight relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl"
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group spotlight relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-xl block cursor-pointer transition-transform hover:-translate-y-1"
               onMouseMove={spotlightMove}
               style={{ animation: "soft-rise 0.6s ease-out both" }}
             >
@@ -915,7 +992,7 @@ function ProjectsSticky() {
                   <span>
                     {p.city} · {p.year}
                   </span>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 text-accent" />
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </div>
                 <h3 className="mt-3 font-serif text-3xl leading-tight md:text-5xl">{p.name}</h3>
                 <p className="mt-3 max-w-3xl text-sm text-muted-foreground md:text-base">
@@ -932,7 +1009,8 @@ function ProjectsSticky() {
                   ))}
                 </div>
               </div>
-            </div>
+            </a>
+
 
             {/* Right: nav indicator */}
             <ol className="hidden flex-col gap-2 self-stretch overflow-hidden lg:flex">
@@ -993,7 +1071,7 @@ function ProjectBrowserMockup({
         <span className="h-2 w-2 rounded-full bg-border" />
         <span className="h-2 w-2 rounded-full bg-border" />
         <span className="ml-3 truncate text-[10px] uppercase tracking-wider text-muted-foreground">
-          preview.localweb.pl/{project.city.toLowerCase()}
+          twojastrona.czest.pl/{project.city.toLowerCase()}
         </span>
       </div>
 
