@@ -758,7 +758,7 @@ function Index() {
               <span className="italic text-accent">oddzwonię dziś.</span>
             </h2>
             <a
-              href="tel:+48123456789"
+              href={PHONE_HREF}
               className="mt-10 flex items-center gap-4 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 transition-colors hover:bg-primary-foreground/10"
             >
               <Phone className="h-6 w-6 text-accent" />
@@ -766,18 +766,28 @@ function Index() {
                 <div className="text-xs uppercase tracking-wider text-primary-foreground/60">
                   Zadzwoń teraz
                 </div>
-                <div className="font-serif text-3xl">+48 123 456 789</div>
+                <div className="font-serif text-3xl">{PHONE_DISPLAY}</div>
               </div>
             </a>
             <div className="mt-6 flex items-center gap-2 text-sm text-primary-foreground/60">
-              <Mail className="h-4 w-4" /> kontakt@localweb.pl
+              <Mail className="h-4 w-4" /> {EMAIL}
             </div>
           </div>
 
           <form
+            action={`mailto:no-reply@twojastrona.czest.pl`}
+            method="POST"
+            encType="text/plain"
             onSubmit={(e) => {
               e.preventDefault();
-              alert("Dziękuję! Oddzwonię dziś.");
+              const form = e.currentTarget;
+              const data = new FormData(form);
+              const body = Array.from(data.entries())
+                .map(([k, v]) => `${k}: ${v}`)
+                .join("\n");
+              window.location.href = `mailto:no-reply@twojastrona.czest.pl?subject=${encodeURIComponent(
+                "Nowe zapytanie ze strony"
+              )}&body=${encodeURIComponent(body)}`;
             }}
             className="lg:col-span-7 space-y-5 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-8"
           >
@@ -785,6 +795,7 @@ function Index() {
               <Field label="Imię" name="name" placeholder="Jan Kowalski" />
               <Field label="Telefon" name="phone" type="tel" placeholder="+48 ..." />
             </div>
+
             <div>
               <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
                 Branża
