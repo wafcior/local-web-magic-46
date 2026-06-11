@@ -519,7 +519,7 @@ function Index() {
             <div className="lg:sticky lg:top-28">
               <SectionLabel>O mnie</SectionLabel>
               <h2 className="mt-4 font-serif text-5xl md:text-6xl text-balance">
-                Cześć, jestem <span className="italic text-accent">Marek</span>.
+                Cześć, jestem <span className="italic text-accent">Fabian</span>.
               </h2>
 
               {/* Portrait card */}
@@ -528,16 +528,18 @@ function Index() {
                 onMouseMove={spotlightMove}
               >
                 <div className="relative z-10 flex items-center gap-5">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary font-serif text-3xl text-primary-foreground">
-                    M
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-accent font-serif text-3xl text-accent-foreground">
+                    F
                     <span
                       className="absolute -inset-1 rounded-full border border-accent/40 animate-ping opacity-60"
                       aria-hidden
                     />
                   </div>
                   <div>
-                    <div className="font-serif text-2xl">Marek</div>
-                    <div className="text-sm text-muted-foreground">Założyciel · LocalWeb.pl</div>
+                    <div className="font-serif text-2xl">Fabian</div>
+                    <div className="text-sm text-muted-foreground">
+                      Założyciel · <DomainFull />
+                    </div>
                     <div className="mt-1 flex items-center gap-1 text-xs text-accent">
                       <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                       Dostępny dziś
@@ -547,9 +549,9 @@ function Index() {
 
                 <div className="relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
                   {[
-                    { n: "4+", l: "lata doświadczenia" },
+                    { n: "1+", l: "rok doświadczenia" },
                     { n: "47", l: "projektów" },
-                    { n: "100%", l: "zwrotów: 0" },
+                    { n: "100%", l: "zadowolonych klientów" },
                   ].map((s) => (
                     <div key={s.l}>
                       <div className="font-serif text-2xl text-foreground">{s.n}</div>
@@ -561,14 +563,7 @@ function Index() {
                 </div>
 
                 <div className="relative z-10 mt-6 flex flex-wrap gap-1.5">
-                  {[
-                    "WordPress",
-                    "React",
-                    "SEO lokalne",
-                    "Google Maps",
-                    "Copywriting",
-                    "Mobile-first",
-                  ].map((c) => (
+                  {PROJECT_CHIPS.map((c) => (
                     <span
                       key={c}
                       className="rounded-full border border-border bg-secondary/60 px-2.5 py-1 text-xs text-muted-foreground"
@@ -578,6 +573,7 @@ function Index() {
                   ))}
                 </div>
               </Reveal>
+
             </div>
           </div>
 
