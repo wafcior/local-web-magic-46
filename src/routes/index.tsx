@@ -581,40 +581,45 @@ function Index() {
           <div className="lg:col-span-7">
             <div className="space-y-6 text-[17px] leading-relaxed text-muted-foreground">
               <p>
-                Od ponad <span className="text-foreground font-medium">4 lat</span> pomagam lokalnym
-                firmom zaistnieć w internecie. Zaczynałem od stron dla znajomych — dziś mam na
-                koncie ponad{" "}
-                <span className="text-foreground font-medium">47 projektów w 23 branżach</span>.
+                Jako <span className="text-foreground font-medium"><DomainFull /></span> od roku
+                pomagamy lokalnym firmom budować silną i nowoczesną pozycję w sieci. W tym czasie z
+                powodzeniem zrealizowaliśmy ponad{" "}
+                <span className="text-foreground font-medium">47 projektów</span> dla
+                najróżniejszych branż.
               </p>
               <p>
-                Specjalizuję się <span className="text-foreground">wyłącznie</span> w firmach
-                lokalnych. Wiem, czego klient szukający mechanika, kwiaciarni czy gabinetu w Google
-                oczekuje — i jak zaprojektować stronę, która przekonuje go do kontaktu.
+                Specjalizujemy się w tworzeniu stron dla sektorów usługowych. Doskonale wiemy,
+                czego szukają użytkownicy potrzebujący szybkiego kontaktu z mechanikiem,
+                kwiaciarnią czy hydraulikiem. Projektujemy witryny w taki sposób, aby każdy
+                odwiedzający od razu wiedział, dlaczego warto wybrać właśnie Twoją ofertę.
               </p>
             </div>
 
             {/* Timeline */}
-            <div className="mt-12 border-l border-border pl-8">
+            <div className="mt-6 text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              Nasza historia
+            </div>
+            <div className="mt-6 border-l border-border pl-8">
               {[
                 {
-                  y: "2021",
-                  t: "Pierwsza strona",
-                  d: "Strona dla warsztatu kolegi. Przyniosła mu 4 telefony w tydzień.",
+                  y: "Rok temu",
+                  t: "Pierwszy sukces",
+                  d: "Tworzymy pierwszą stronę dla warsztatu. Przyniosła mu 4 telefony już w pierwszym tygodniu działania.",
                 },
                 {
-                  y: "2022",
-                  t: "Pełen etat",
-                  d: "Rzucam korpo. Skupiam się na lokalnych firmach z całej Polski.",
+                  y: "Ostatnie miesiące",
+                  t: "Szybki rozwój",
+                  d: "Rozszerzamy działalność na lokalne firmy w całym kraju. Skupiamy się na realnych wynikach dla klientów.",
                 },
                 {
-                  y: "2024",
+                  y: "W tym roku",
                   t: "47 projektów",
-                  d: 'Model „płacisz po akceptacji" — 0 zwrotów, 100% klientów poleca dalej.',
+                  d: "Model płatności po akceptacji. Zero rezygnacji i sto procent zadowolonych przedsiębiorców.",
                 },
                 {
                   y: "Dziś",
-                  t: "Twoja firma?",
-                  d: "Pokażę Ci gotową stronę za 5–10 dni. Bez zaliczki, bez ryzyka.",
+                  t: "Twoja firma",
+                  d: "Pokażemy Ci gotową stronę w ciągu 5–10 dni. Bez zaliczki i bez ryzyka.",
                 },
               ].map((m, i) => (
                 <Reveal key={m.y} className={`timeline-item sr-d${(i % 4) + 1} pb-8 last:pb-0`}>
@@ -624,6 +629,7 @@ function Index() {
                 </Reveal>
               ))}
             </div>
+
 
             {/* Trust badges */}
             <div className="mt-12 grid gap-4 sm:grid-cols-2">
