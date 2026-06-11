@@ -361,26 +361,10 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
 
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
-          {/* trust pill */}
-          <div className="reveal-1 mb-6 inline-flex items-center gap-3 rounded-full border border-border bg-card/70 py-1.5 pl-1.5 pr-4 text-xs text-muted-foreground backdrop-blur-sm">
-            <span className="flex -space-x-1.5">
-              {["MK", "PN", "TM", "AW"].map((i, k) => (
-                <span
-                  key={i}
-                  className="flex h-5 w-5 items-center justify-center rounded-full border border-background bg-secondary text-[9px] font-medium text-foreground"
-                  style={{ zIndex: 4 - k }}
-                >
-                  {i}
-                </span>
-              ))}
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-              </span>
-              47 firm zaufało · <span className="text-foreground">dostępny dziś</span>
-            </span>
+          {/* location pill */}
+          <div className="reveal-1 mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground backdrop-blur-sm">
+            <MapPin className="h-3 w-3 text-accent" />
+            Polska · Częstochowa
           </div>
 
           <div className="flex h-5 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -394,13 +378,14 @@ function Index() {
             <span className="reveal-1 inline-block">Strony internetowe</span>
             <br />
             <span className="reveal-2 inline-block italic text-accent accent-underline">
-              dla lokalnych firm.
+              dla Twojego biznesu.
             </span>
           </h1>
           <p className="reveal-3 mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Projektuję strony dla kwiaciarni, mechaników, hydraulików i dziesiątek innych branż.
-            Pokazuję gotową stronę — płacisz tylko jeśli ci się spodoba.
+            Projektuję profesjonalne strony dla małych i dużych biznesów. Działasz bez żadnego
+            ryzyka: najpierw oglądasz gotowy projekt, a płacisz tylko wtedy, gdy Ci się spodoba.
           </p>
+
 
           <div className="reveal-4 mt-10 flex flex-wrap items-center gap-3">
             <a
