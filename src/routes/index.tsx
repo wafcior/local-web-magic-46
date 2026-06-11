@@ -732,7 +732,21 @@ function Index() {
             ))}
           </div>
         </div>
+
+        {/* Localizations served */}
+        <div className="mx-auto mt-14 max-w-7xl px-6">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            <span>Obsługujemy Częstochowę i okolice:</span>
+            {CZESTOCHOWA_DISTRICTS.map((d, i) => (
+              <span key={d} className="text-foreground/70">
+                {d}
+                {i < CZESTOCHOWA_DISTRICTS.length - 1 ? " ·" : ""}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
+
 
       {/* KONTAKT */}
       <section id="kontakt" className="border-t border-border bg-primary text-primary-foreground">
