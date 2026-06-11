@@ -302,9 +302,10 @@ function Index() {
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-2 font-serif text-xl">
-            <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-            LocalWeb<span className="text-muted-foreground">.pl</span>
+            <BrandLogo size={14} />
+            <BrandName />
           </a>
+
           <nav className="hidden items-center gap-8 text-sm md:flex">
             {nav.map((n) => (
               <a
