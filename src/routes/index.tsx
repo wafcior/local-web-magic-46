@@ -402,11 +402,12 @@ function Index() {
               Zobacz projekty
             </a>
             <a
-              href="tel:+48123456789"
+              href={PHONE_HREF}
               className="btn-press ml-1 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
             >
-              <Phone className="h-4 w-4" /> +48 123 456 789
+              <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
             </a>
+
           </div>
 
           {/* stats + bullets card */}
