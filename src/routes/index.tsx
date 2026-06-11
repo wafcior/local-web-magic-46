@@ -74,6 +74,14 @@ const nav = [
   { href: "#opinie", label: "Opinie" },
 ];
 
+const PROJECT_CHIPS = [
+  "Tworzenie stron www",
+  "Wizytówki Google",
+  "Pisanie tekstów",
+  "Wersje na telefon",
+  "Szybki kontakt",
+];
+
 const projects = [
   {
     tag: "Handel",
@@ -81,8 +89,8 @@ const projects = [
     year: "2024",
     name: 'Kwiaciarnia „Różany Ogród"',
     desc: "Galeria bukietów, formularz zamówień, mapa. Wzrost zapytań o 180% w 3 miesiące.",
-    chips: ["Galeria", "Zamówienia"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/rozany-ogrod",
   },
   {
     tag: "Usługi",
@@ -90,8 +98,8 @@ const projects = [
     year: "2024",
     name: "Auto-Serwis Nowak",
     desc: 'Lista usług, cennik, zapis na wizytę. Pozycja #1 w Google Maps na „mechanik Kraków".',
-    chips: ["Cennik", "Zapis online", "SEO"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/auto-serwis-nowak",
   },
   {
     tag: "Usługi",
@@ -99,8 +107,8 @@ const projects = [
     year: "2023",
     name: "Hydraulik – P. Malinowski",
     desc: "Numer alarmowy na górze, zakres usług, opinie Google. Wdrożenie w 5 dni.",
-    chips: ["Alarm 24h", "Opinie"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/hydraulik-malinowski",
   },
   {
     tag: "Gastronomia",
@@ -108,8 +116,8 @@ const projects = [
     year: "2024",
     name: 'Piekarnia „Złoty Kłos"',
     desc: "Menu sezonowe, galeria wypieków, zamówienie tortu przez stronę.",
-    chips: ["Menu", "Galeria"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/zloty-klos",
   },
   {
     tag: "Zdrowie",
@@ -117,8 +125,8 @@ const projects = [
     year: "2023",
     name: "Gabinet dr Wiśniewska",
     desc: "Profile lekarzy, cennik zabiegów, formularz rejestracji. Integracja z Docplanner.",
-    chips: ["Rejestracja", "Zespół"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/dr-wisniewska",
   },
   {
     tag: "Gastronomia",
@@ -126,8 +134,8 @@ const projects = [
     year: "2024",
     name: 'Restauracja „Pod Lipą"',
     desc: "Menu PDF, rezerwacja stolików, integracja z Glovo. Wersja w 3 językach.",
-    chips: ["Rezerwacje", "Dostawa"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/pod-lipa",
   },
   {
     tag: "Usługi",
@@ -135,8 +143,8 @@ const projects = [
     year: "2024",
     name: 'Salon Piękności „Aura"',
     desc: "Galeria realizacji, cennik zabiegów, rezerwacja online przez Booksy.",
-    chips: ["Booksy", "Galeria"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/aura",
   },
   {
     tag: "Usługi",
@@ -144,8 +152,8 @@ const projects = [
     year: "2024",
     name: "Elektryk Kamil – Instalacje",
     desc: "Zakres usług, zdjęcia realizacji, kontakt alarmowy. Widoczność w Google od 1. tygodnia.",
-    chips: ["Zakres", "Kontakt 24h"],
-    url: "#",
+    chips: PROJECT_CHIPS,
+    url: "https://example.com/elektryk-kamil",
   },
 ];
 
