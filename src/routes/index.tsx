@@ -943,7 +943,7 @@ function ProjectsSticky() {
       id="projekty"
       ref={sectionRef}
       className="relative border-t border-border bg-background"
-      style={{ height: `${projects.length * 100}vh` }}
+      style={{ height: `${projects.length * 55}vh` }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <div
