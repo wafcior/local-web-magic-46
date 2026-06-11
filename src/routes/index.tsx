@@ -863,19 +863,27 @@ function Index() {
       <footer className="border-t border-border bg-background">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-12 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="font-serif text-xl">
-              LocalWeb<span className="text-muted-foreground">.pl</span>
+            <div className="flex items-center gap-2 font-serif text-xl">
+              <BrandLogo size={12} />
+              <BrandName />
             </div>
             <p className="mt-1 text-sm text-muted-foreground">
-              Strony internetowe dla lokalnych firm · Spotkania przez Google Meet · Cała Polska
+              <DomainFull /> · Strony internetowe dla firm · Spotkania przez Google Meet
+            </p>
+            <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+              Polska · Częstochowa
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-            <a href="tel:+48123456789" className="flex items-center gap-2 hover:text-foreground">
-              <Phone className="h-4 w-4" /> +48 123 456 789
+            <a href={PHONE_HREF} className="flex items-center gap-2 hover:text-foreground">
+              <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
             </a>
-            <span>© 2025 LocalWeb.pl</span>
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-2 hover:text-foreground">
+              <Mail className="h-4 w-4" /> {EMAIL}
+            </a>
+            <span>© 2026 TwojaStrona</span>
           </div>
+
         </div>
       </footer>
     </div>
