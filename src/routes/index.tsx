@@ -800,13 +800,13 @@ function Index() {
               <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
                 Branża
               </label>
-              <select className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent">
-                <option className="text-foreground">Usługi (mechanik, hydraulik, elektryk…)</option>
-                <option className="text-foreground">Handel (sklep, kwiaciarnia…)</option>
-                <option className="text-foreground">Gastronomia (restauracja, piekarnia…)</option>
-                <option className="text-foreground">Zdrowie (dentysta, fizjoterapeuta…)</option>
-                <option className="text-foreground">Inna branża</option>
-              </select>
+              <input
+                type="text"
+                name="branza"
+                placeholder="usługi (mechanik, hydraulik, elektryk...)"
+                className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground placeholder:text-primary-foreground/30 outline-none transition-colors focus:border-accent"
+              />
+
             </div>
             <div>
               <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
