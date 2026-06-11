@@ -16,16 +16,16 @@ import heroBg from "@/assets/hero-bg.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LocalWeb.pl — Strony internetowe dla lokalnych firm" },
+      { title: "TwojaStrona — Strony internetowe dla małych i dużych biznesów" },
       {
         name: "description",
         content:
-          "Projektuję strony dla kwiaciarni, mechaników, hydraulików i lokalnych firm w całej Polsce. Płacisz tylko jeśli strona Ci się spodoba.",
+          "Projektujemy profesjonalne strony dla małych i dużych biznesów. Najpierw oglądasz gotowy projekt, a płacisz tylko gdy Ci się spodoba.",
       },
-      { property: "og:title", content: "LocalWeb.pl — Strony dla lokalnych firm" },
+      { property: "og:title", content: "TwojaStrona — Strony dla Twojego biznesu" },
       {
         property: "og:description",
-        content: "Pokazuję gotową stronę przed zakupem. Bez zaliczek, bez ryzyka.",
+        content: "Pokazujemy gotową stronę przed zakupem. Bez zaliczek, bez ryzyka.",
       },
     ],
     links: [
@@ -39,6 +39,33 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+// Brand helpers
+const PHONE_DISPLAY = "+48 726 142 917";
+const PHONE_HREF = "tel:+48726142917";
+const EMAIL = "kontakt@twojastrona.czest.pl";
+
+function BrandLogo({ size = 8 }: { size?: number }) {
+  return (
+    <span
+      aria-hidden
+      className="inline-block rounded-full bg-accent shadow-[0_0_0_3px_color-mix(in_oklab,var(--accent-warm)_25%,transparent)]"
+      style={{ width: `${size}px`, height: `${size}px` }}
+    />
+  );
+}
+
+function BrandName({ className = "" }: { className?: string }) {
+  return <span className={className}>TwojaStrona</span>;
+}
+
+function DomainFull({ className = "" }: { className?: string }) {
+  return (
+    <span className={className}>
+      TwojaStrona<span className="opacity-50">.czest.pl</span>
+    </span>
+  );
+}
 
 const nav = [
   { href: "#projekty", label: "Projekty" },
