@@ -1071,7 +1071,7 @@ function ProjectBrowserMockup({
         <span className="h-2 w-2 rounded-full bg-border" />
         <span className="h-2 w-2 rounded-full bg-border" />
         <span className="ml-3 truncate text-[10px] uppercase tracking-wider text-muted-foreground">
-          preview.localweb.pl/{project.city.toLowerCase()}
+          twojastrona.czest.pl/{project.city.toLowerCase()}
         </span>
       </div>
 
