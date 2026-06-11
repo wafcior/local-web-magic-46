@@ -158,32 +158,36 @@ const projects = [
 ];
 
 const steps = [
-  { n: "01", t: "Kontakt", d: "Krótka rozmowa o Twojej firmie — bez zobowiązań i bez opłat." },
+  {
+    n: "01",
+    t: "Szybka rozmowa",
+    d: "Rozmawiamy o tym, czym zajmuje się Twoja firma i czego dokładnie potrzebujesz. To krótkie spotkanie jest całkowicie darmowe i niezobowiązujące.",
+  },
   {
     n: "02",
-    t: "Tworzę stronę",
-    d: "Projektuję gotową stronę dopasowaną do Twojej branży, zanim cokolwiek zapłacisz.",
+    t: "Projekt testowy",
+    d: "Przygotowuję dla Ciebie pełną wersję demonstracyjną strony. Widzisz gotowy projekt przed dokonaniem opłaty.",
   },
   {
     n: "03",
-    t: "Oglądamy razem",
-    d: "Spotykamy się na Google Meet — pokazuję Ci stronę i omawiam każdy detal.",
+    t: "Prezentacja strony",
+    d: "Łączymy się na platformie Google Meet, gdzie wspólnie przeglądamy gotową witrynę i omawiamy zastosowane rozwiązania.",
   },
   {
     n: "04",
-    t: "Decydujesz",
-    d: "Podoba się — uruchamiamy. Nie podoba się — rozchodzimy się bez żadnych kosztów.",
+    t: "Zielone światło",
+    d: "Jeśli projekt spełnia Twoje oczekiwania, rozliczamy się i wdrażamy stronę na Twoją domenę. W przeciwnym razie możesz zrezygnować bez żadnych kosztów.",
   },
 ];
 
 const trust = [
   {
     t: "Zero ryzyka dla Ciebie",
-    d: "Nie biorę zaliczek. Płacisz dopiero po tym, jak zobaczysz gotową stronę i ją zaakceptujesz.",
+    d: "Nie bierzemy zaliczek. Płacisz dopiero po tym, jak zobaczysz gotową stronę i ją zaakceptujesz.",
   },
   {
-    t: "Znam Twoją branżę",
-    d: "Strony dla mechaników, hydraulików, kwiaciarni, restauracji, gabinetów i wielu innych. Wiem co działa.",
+    t: "Znamy Twoją branżę",
+    d: "Strony dla mechaników, hydraulików, kwiaciarni, restauracji, gabinetów i wielu innych. Wiemy co działa.",
   },
   {
     t: "Mobilna i szybka",
@@ -191,53 +195,65 @@ const trust = [
   },
   {
     t: "Wsparcie po wdrożeniu",
-    d: "Nie znikam po uruchomieniu. Pomagam z poprawkami, aktualizacjami i pytaniami.",
+    d: "Nie znikamy po uruchomieniu. Pomagamy z poprawkami, aktualizacjami i pytaniami.",
   },
 ];
 
 const reviews = [
   {
-    i: "MK",
-    n: "Maria Kowalczyk",
-    r: 'Kwiaciarnia „Różany Ogród", Warszawa',
-    q: "Marek zadzwonił i powiedział że zrobił stronę dla mojej kwiaciarni. Byłam sceptyczna, ale na Google Meet zobaczyłam gotową stronę i od razu kupiłam. Teraz mam 3x więcej zamówień.",
+    i: "MA",
+    n: "Maria",
+    r: 'Kwiaciarnia, Częstochowa',
+    q: "Zadzwonili do mnie z informacją, że przygotowali projekt strony dla mojej kwiaciarni tutaj w Częstochowie. Na początku byłam sceptyczna, ale gdy na spotkaniu online zobaczyłam gotowy, działający szablon, od razu się zdecydowałam. Od tamtej pory mam trzy razy więcej zamówień na bukiety.",
   },
   {
     i: "PN",
     n: "Piotr Nowak",
     r: "Auto-Serwis Nowak, Kraków",
-    q: 'Pokazał mi gotową stronę dla mojego warsztatu. Po 2 miesiącach jestem #1 w Google Maps na „mechanik Kraków". Nie zapłaciłem złotówki zanim zobaczyłem efekt.',
+    q: 'Pokazali mi gotową stronę dla mojego warsztatu. Po 2 miesiącach jestem #1 w Google Maps na „mechanik Kraków". Nie zapłaciłem złotówki zanim zobaczyłem efekt.',
   },
   {
     i: "TM",
     n: "Tomasz Malinowski",
     r: "Hydraulik, Wrocław",
-    q: "Nie miałem strony i nie wiedziałem że mi potrzeba. Marek pokazał jak będzie wyglądać zanim zapłaciłem. W tydzień miałem gotową stronę i nowych klientów z Google.",
+    q: "Nie miałem strony i nie wiedziałem, że jej potrzebuję. Pokazali jak będzie wyglądać zanim zapłaciłem. W tydzień miałem gotową stronę i nowych klientów z Google.",
   },
   {
     i: "AW",
     n: "Anna Wiśniewska",
     r: "Gabinet stomatologiczny, Poznań",
-    q: "Strona wygląda lepiej niż u konkurencji. Pacjenci często pytają kto ją robił. Mogę sama edytować treści, Marek wszystko wytłumaczył. Termin dotrzymany co do dnia.",
+    q: "Strona wygląda lepiej niż u konkurencji. Pacjenci często pytają kto ją robił. Mogę sama edytować treści, wszystko zostało mi wytłumaczone. Termin dotrzymany co do dnia.",
   },
+];
+
+const CZESTOCHOWA_DISTRICTS = [
+  "Śródmieście",
+  "Tysiąclecie",
+  "Północ",
+  "Stradom",
+  "Ostatni Grosz",
+  "Raków",
+  "Błeszno",
+  "Gnaszyn-Kawodrza",
+  "Mirów",
 ];
 
 const faqs = [
   {
-    q: "Ile kosztuje strona?",
-    a: "Cena zależy od zakresu projektu — zadzwoń, omówimy szczegóły i dopasuję ofertę do Twojej firmy i budżetu.",
+    q: "Ile kosztuje stworzenie strony?",
+    a: "Cena zależy od stopnia rozbudowania witryny oraz funkcji, jakich potrzebujesz. Zadzwoń lub napisz, żeby omówić szczegóły, a stworzę dla Ciebie bezpłatną i niezobowiązującą wycenę.",
   },
   {
-    q: "Co jeśli strona mi się nie spodoba?",
-    a: "Nic nie płacisz — to moje ryzyko. Kupujesz tylko jeśli strona Ci się podoba. Żadnych zaliczek, żadnych umów na start.",
+    q: "Co jeśli projekt mi się nie spodoba?",
+    a: "Pracuję etapami i na bieżąco wprowadzam Twoje poprawki. Strona powstaje w stałym kontakcie z Tobą, więc masz pewność, że finalny efekt będzie dokładnie taki, jak chcesz.",
   },
   {
     q: "Jak szybko będzie gotowa?",
     a: "Zazwyczaj 5–10 dni roboczych od akceptacji projektu do uruchomienia strony w internecie.",
   },
   {
-    q: "Czy mogę sam edytować treści?",
-    a: "Tak — po wdrożeniu uczę Cię jak samodzielnie aktualizować teksty, zdjęcia i godziny otwarcia.",
+    q: "Co jeśli będę chciał coś zmienić na stronie?",
+    a: "Oczywiście jest taka możliwość. Strona jest w pełni edytowalna, więc po jej uruchomieniu pomagam w sprawnym wprowadzaniu nowych treści, aktualizacji czy modyfikacji wizualnych.",
   },
 ];
 
