@@ -905,7 +905,7 @@ function Index() {
               <DomainFull /> · Strony internetowe dla firm · Spotkania przez Google Meet
             </p>
             <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-              Polska · Częstochowa
+              Częstochowa · Polska
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
