@@ -808,56 +808,8 @@ function Index() {
             </div>
           </div>
 
-          <form
-            action={`mailto:no-reply@twojastrona.czest.pl`}
-            method="POST"
-            encType="text/plain"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.currentTarget;
-              const data = new FormData(form);
-              const body = Array.from(data.entries())
-                .map(([k, v]) => `${k}: ${v}`)
-                .join("\n");
-              window.location.href = `mailto:no-reply@twojastrona.czest.pl?subject=${encodeURIComponent(
-                "Nowe zapytanie ze strony"
-              )}&body=${encodeURIComponent(body)}`;
-            }}
-            className="lg:col-span-7 space-y-5 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-8"
-          >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Imię" name="name" placeholder="Jan Kowalski" />
-              <Field label="Telefon" name="phone" type="tel" placeholder="+48 ..." />
-            </div>
+          <ContactForm />
 
-            <div>
-              <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
-                Branża
-              </label>
-              <input
-                type="text"
-                name="branza"
-                placeholder="usługi (mechanik, hydraulik, elektryk...)"
-                className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground placeholder:text-primary-foreground/30 outline-none transition-colors focus:border-accent"
-              />
-
-            </div>
-            <div>
-              <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
-                Krótko o firmie (opcjonalnie)
-              </label>
-              <textarea
-                rows={4}
-                className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent"
-                placeholder="Czym się zajmujesz, w jakim mieście…"
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn-press inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground hover:opacity-90"
-            >
-              Wyślij — oddzwonię dziś <ArrowUpRight className="h-4 w-4" />
-            </button>
           </form>
         </div>
 
