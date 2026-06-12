@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
-import logoAsset from "@/assets/logo-twojastrona.png.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
