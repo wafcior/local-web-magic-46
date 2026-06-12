@@ -50,9 +50,10 @@ const EMAIL = "kontakt@twojastrona.czest.pl";
 
 function BrandLogo({ size = 8 }: { size?: number }) {
   return (
-    <span
-      aria-hidden
-      className="inline-block rounded-full bg-accent shadow-[0_0_0_3px_color-mix(in_oklab,var(--accent-warm)_25%,transparent)]"
+    <img
+      src={logoAsset.url}
+      alt="Logo TwojaStrona.czest.pl"
+      className="inline-block rounded-full object-cover"
       style={{ width: `${size}px`, height: `${size}px` }}
     />
   );
