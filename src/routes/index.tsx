@@ -809,8 +809,6 @@ function Index() {
           </div>
 
           <ContactForm />
-
-          </form>
         </div>
 
         {/* FAQ */}
