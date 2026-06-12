@@ -13,19 +13,22 @@ import {
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
+import logoAsset from "@/assets/logo-twojastrona.png.asset.json";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TwojaStrona — Strony internetowe dla małych i dużych biznesów" },
+      { title: "TwojaStrona - Profesjonalne strony internetowe Częstochowa" },
       {
         name: "description",
         content:
-          "Projektujemy profesjonalne strony dla małych i dużych biznesów. Najpierw oglądasz gotowy projekt, a płacisz tylko gdy Ci się spodoba.",
+          "Tworzymy nowoczesne strony www dla małych i dużych biznesów. Działasz bez ryzyka: najpierw oglądasz gotowy projekt, płacisz tylko jeśli Ci się spodoba!",
       },
-      { property: "og:title", content: "TwojaStrona — Strony dla Twojego biznesu" },
+      { property: "og:title", content: "TwojaStrona - Profesjonalne strony internetowe Częstochowa" },
       {
         property: "og:description",
-        content: "Pokazujemy gotową stronę przed zakupem. Bez zaliczek, bez ryzyka.",
+        content:
+          "Tworzymy nowoczesne strony www dla małych i dużych biznesów. Działasz bez ryzyka: najpierw oglądasz gotowy projekt, płacisz tylko jeśli Ci się spodoba!",
       },
     ],
     links: [
