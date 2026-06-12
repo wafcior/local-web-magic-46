@@ -323,7 +323,7 @@ function spotlightMove(e: React.MouseEvent<HTMLElement>) {
 
 function Index() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
+  const typed = useTypewriter("Częstochowa · Polska", 50, 0);
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
   const progress = useScrollProgress();
