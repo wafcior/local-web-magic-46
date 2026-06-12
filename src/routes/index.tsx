@@ -13,19 +13,22 @@ import {
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
+import logoAsset from "@/assets/logo-twojastrona.png.asset.json";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TwojaStrona — Strony internetowe dla małych i dużych biznesów" },
+      { title: "TwojaStrona - Profesjonalne strony internetowe Częstochowa" },
       {
         name: "description",
         content:
-          "Projektujemy profesjonalne strony dla małych i dużych biznesów. Najpierw oglądasz gotowy projekt, a płacisz tylko gdy Ci się spodoba.",
+          "Tworzymy nowoczesne strony www dla małych i dużych biznesów. Działasz bez ryzyka: najpierw oglądasz gotowy projekt, płacisz tylko jeśli Ci się spodoba!",
       },
-      { property: "og:title", content: "TwojaStrona — Strony dla Twojego biznesu" },
+      { property: "og:title", content: "TwojaStrona - Profesjonalne strony internetowe Częstochowa" },
       {
         property: "og:description",
-        content: "Pokazujemy gotową stronę przed zakupem. Bez zaliczek, bez ryzyka.",
+        content:
+          "Tworzymy nowoczesne strony www dla małych i dużych biznesów. Działasz bez ryzyka: najpierw oglądasz gotowy projekt, płacisz tylko jeśli Ci się spodoba!",
       },
     ],
     links: [
@@ -47,9 +50,10 @@ const EMAIL = "kontakt@twojastrona.czest.pl";
 
 function BrandLogo({ size = 8 }: { size?: number }) {
   return (
-    <span
-      aria-hidden
-      className="inline-block rounded-full bg-accent shadow-[0_0_0_3px_color-mix(in_oklab,var(--accent-warm)_25%,transparent)]"
+    <img
+      src={logoAsset.url}
+      alt="Logo TwojaStrona.czest.pl"
+      className="inline-block rounded-full object-cover"
       style={{ width: `${size}px`, height: `${size}px` }}
     />
   );
@@ -203,26 +207,62 @@ const reviews = [
   {
     i: "MA",
     n: "Maria",
-    r: 'Kwiaciarnia, Częstochowa',
-    q: "Zadzwonili do mnie z informacją, że przygotowali projekt strony dla mojej kwiaciarni tutaj w Częstochowie. Na początku byłam sceptyczna, ale gdy na spotkaniu online zobaczyłam gotowy, działający szablon, od razu się zdecydowałam. Od tamtej pory mam trzy razy więcej zamówień na bukiety.",
+    r: "Kwiaciarnia, Częstochowa",
+    q: "zadzwonili ze zrobili projekt dla mojej kwiaciarni, na poczatku podchodzilam do tego z dystansem ale jak pokazali gotowy szablon na spotkaniu to sie zdecydowalam. zamówień mam teraz duzo wiecej wiec warto było",
   },
   {
-    i: "PN",
-    n: "Piotr Nowak",
-    r: "Auto-Serwis Nowak, Kraków",
-    q: 'Pokazali mi gotową stronę dla mojego warsztatu. Po 2 miesiącach jestem #1 w Google Maps na „mechanik Kraków". Nie zapłaciłem złotówki zanim zobaczyłem efekt.',
+    i: "PI",
+    n: "Piotr",
+    r: "Mechanik, Częstochowa",
+    q: "strona wyglada i prezentuje sie super oraz robi to co powinna. kontakt bezproblemowy i wszystko szybko zrobione",
   },
   {
-    i: "TM",
-    n: "Tomasz Malinowski",
-    r: "Hydraulik, Wrocław",
-    q: "Nie miałem strony i nie wiedziałem, że jej potrzebuję. Pokazali jak będzie wyglądać zanim zapłaciłem. W tydzień miałem gotową stronę i nowych klientów z Google.",
+    i: "KA",
+    n: "Kamil",
+    r: "Wykończenia wnętrz, Częstochowa",
+    q: "Wszystko sprawnie i bez żadnego naciągania. Projekt dostałem szybko do wglądu i od razu mi podpasował, strona działa szybko i nie ma z nią żadnych problemów.",
   },
   {
-    i: "AW",
-    n: "Anna Wiśniewska",
-    r: "Gabinet stomatologiczny, Poznań",
-    q: "Strona wygląda lepiej niż u konkurencji. Pacjenci często pytają kto ją robił. Mogę sama edytować treści, wszystko zostało mi wytłumaczone. Termin dotrzymany co do dnia.",
+    i: "TO",
+    n: "Tomasz",
+    r: "Hydraulik, Częstochowa",
+    q: "Nie miałem strony i nie wiedziałem czy mi to potrzebne. Pokazali jak to bedzie wygladac zanim cokolwiek zapłacilem. W tydzień strona była gotowa i pierwsi ludzie z google już dzwonią.",
+  },
+  {
+    i: "AN",
+    n: "Anna",
+    r: "Gabinet stomatologiczny, Częstochowa",
+    q: "strona prezentuje sie o wiele lepiej niz u konkurencji, klienci czasem sami pytaja kto ja robil. wszystko jasno wytłumaczone i termin dotrzymany co do dnia, polecam",
+  },
+  {
+    i: "MR",
+    n: "Marcin",
+    r: "Autodetailing, Częstochowa",
+    q: "fajne podejście do klienta, najpierw zobaczyłem gotowy projekt na komputerze a płaciłem dopiero jak wszystko było zatwierdzone. strona śmiga bez zarzutów",
+  },
+  {
+    i: "KR",
+    n: "Krzysztof",
+    r: "Elektryk, Częstochowa",
+    q: "Wszystko działa jak należy. Kontakt bardzo sprawny, poprawki wprowadzane od ręki podczas rozmowy. Szczerze polecam bo rzadko trafia się na tak słownych ludzi.",
+  },
+  {
+    i: "JA",
+    n: "Janusz",
+    r: "Pomoc drogowa, Częstochowa",
+    q: "jestem zadowolony, strona zrobiona prosto, czytelnie i bez zbędnych bajerów, klient od razu widzi numer i dzwoni, o to mi chodziło",
+  },
+  {
+    i: "AD",
+    n: "Andrzej",
+    r: "Usługi dekarskie, Częstochowa",
+    q: "Długo zbierałem się do zrobienia strony bo przerażały mnie koszty u agencji. Tutaj bez żadnego ryzyka dostałem projekt próbny i od razu wiedziałem za co płacę. Super robota.",
+  },
+  {
+    i: "SY",
+    n: "Sylwia",
+    r: "Salon fryzjerski, Częstochowa",
+    q: "szybko, konkretnie i na temat. strona ładnie wygląda na telefonie a to dla mnie było najważniejsze, polecam serdecznie",
   },
 ];
 
@@ -283,7 +323,7 @@ function spotlightMove(e: React.MouseEvent<HTMLElement>) {
 
 function Index() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const typed = useTypewriter("Twoje miasto · Polska", 50, 0);
+  const typed = useTypewriter("Częstochowa · Polska", 50, 0);
   const navHidden = useHideOnScroll();
   const scrollY = useScrollY();
   const progress = useScrollProgress();
@@ -361,13 +401,7 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
 
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
-          {/* location pill */}
-          <div className="reveal-1 mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground backdrop-blur-sm">
-            <MapPin className="h-3 w-3 text-accent" />
-            Polska · Częstochowa
-          </div>
-
-          <div className="flex h-5 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="flex h-5 items-center gap-2 text-[13px] uppercase tracking-[0.2em] text-muted-foreground">
             <MapPin className="h-3.5 w-3.5" />
             <span className="caret">{typed}</span>
           </div>
@@ -549,7 +583,7 @@ function Index() {
 
                 <div className="relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
                   {[
-                    { n: "1+", l: "rok doświadczenia" },
+                    { n: "4+", l: "lat doświadczenia" },
                     { n: "47", l: "projektów" },
                     { n: "100%", l: "zadowolonych klientów" },
                   ].map((s) => (
@@ -774,57 +808,7 @@ function Index() {
             </div>
           </div>
 
-          <form
-            action={`mailto:no-reply@twojastrona.czest.pl`}
-            method="POST"
-            encType="text/plain"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.currentTarget;
-              const data = new FormData(form);
-              const body = Array.from(data.entries())
-                .map(([k, v]) => `${k}: ${v}`)
-                .join("\n");
-              window.location.href = `mailto:no-reply@twojastrona.czest.pl?subject=${encodeURIComponent(
-                "Nowe zapytanie ze strony"
-              )}&body=${encodeURIComponent(body)}`;
-            }}
-            className="lg:col-span-7 space-y-5 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-8"
-          >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Imię" name="name" placeholder="Jan Kowalski" />
-              <Field label="Telefon" name="phone" type="tel" placeholder="+48 ..." />
-            </div>
-
-            <div>
-              <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
-                Branża
-              </label>
-              <input
-                type="text"
-                name="branza"
-                placeholder="usługi (mechanik, hydraulik, elektryk...)"
-                className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground placeholder:text-primary-foreground/30 outline-none transition-colors focus:border-accent"
-              />
-
-            </div>
-            <div>
-              <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
-                Krótko o firmie (opcjonalnie)
-              </label>
-              <textarea
-                rows={4}
-                className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent"
-                placeholder="Czym się zajmujesz, w jakim mieście…"
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn-press inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground hover:opacity-90"
-            >
-              Wyślij — oddzwonię dziś <ArrowUpRight className="h-4 w-4" />
-            </button>
-          </form>
+          <ContactForm />
         </div>
 
         {/* FAQ */}
@@ -871,7 +855,7 @@ function Index() {
               <DomainFull /> · Strony internetowe dla firm · Spotkania przez Google Meet
             </p>
             <p className="mt-1 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-              Polska · Częstochowa
+              Częstochowa · Polska
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
@@ -1153,6 +1137,87 @@ function Field({
         className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground placeholder:text-primary-foreground/30 outline-none transition-colors focus:border-accent"
       />
     </div>
+  );
+}
+
+function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload: Record<string, string> = { _subject: "Nowe zapytanie ze strony TwojaStrona" };
+    data.forEach((v, k) => {
+      payload[k] = String(v);
+    });
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/no-reply@twojastrona.czest.pl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("send failed");
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className="lg:col-span-7 space-y-5 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-8"
+    >
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Imię" name="name" placeholder="Jan Kowalski" />
+        <Field label="Telefon" name="phone" type="tel" placeholder="+48 ..." />
+      </div>
+      <div>
+        <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
+          Branża
+        </label>
+        <input
+          type="text"
+          name="branza"
+          placeholder="usługi (mechanik, hydraulik, elektryk...)"
+          className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground placeholder:text-primary-foreground/30 outline-none transition-colors focus:border-accent"
+        />
+      </div>
+      <div>
+        <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
+          Krótko o firmie (opcjonalnie)
+        </label>
+        <textarea
+          name="message"
+          rows={4}
+          className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent"
+          placeholder="Czym się zajmujesz, w jakim mieście…"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="btn-press inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground hover:opacity-90 disabled:opacity-70"
+      >
+        {status === "sending" ? "Wysyłanie..." : (<>Wyślij — oddzwonię dziś <ArrowUpRight className="h-4 w-4" /></>)}
+      </button>
+      {status === "success" && (
+        <p className="text-center text-sm font-medium text-green-400">
+          Wiadomość została wysłana pomyślnie!
+        </p>
+      )}
+      {status === "error" && (
+        <p className="text-center text-sm font-medium text-red-300">
+          Coś poszło nie tak. Spróbuj ponownie lub zadzwoń bezpośrednio.
+        </p>
+      )}
+    </form>
   );
 }
 
