@@ -583,7 +583,7 @@ function Index() {
 
                 <div className="relative z-10 mt-8 grid grid-cols-3 gap-4 border-t border-border pt-6">
                   {[
-                    { n: "1+", l: "rok doświadczenia" },
+                    { n: "4+", l: "lat doświadczenia" },
                     { n: "47", l: "projektów" },
                     { n: "100%", l: "zadowolonych klientów" },
                   ].map((s) => (
