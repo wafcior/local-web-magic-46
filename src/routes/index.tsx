@@ -401,13 +401,7 @@ function Index() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
 
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 md:pt-28">
-          {/* location pill */}
-          <div className="reveal-1 mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-muted-foreground backdrop-blur-sm">
-            <MapPin className="h-3 w-3 text-accent" />
-            Polska · Częstochowa
-          </div>
-
-          <div className="flex h-5 items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="flex h-5 items-center gap-2 text-[13px] uppercase tracking-[0.2em] text-muted-foreground">
             <MapPin className="h-3.5 w-3.5" />
             <span className="caret">{typed}</span>
           </div>
