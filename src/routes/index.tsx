@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
-import logoAsset from "@/assets/logo-twojastrona.png.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -50,10 +50,9 @@ const EMAIL = "kontakt@twojastrona.czest.pl";
 
 function BrandLogo({ size = 8 }: { size?: number }) {
   return (
-    <img
-      src={logoAsset.url}
-      alt="Logo TwojaStrona.czest.pl"
-      className="inline-block rounded-full object-cover"
+    <span
+      aria-hidden
+      className="inline-block rounded-full bg-accent shadow-[0_0_0_3px_color-mix(in_oklab,var(--accent-warm)_25%,transparent)]"
       style={{ width: `${size}px`, height: `${size}px` }}
     />
   );
