@@ -30,6 +30,11 @@ export const Route = createFileRoute("/")({
         content:
           "Tworzymy nowoczesne strony www dla małych i dużych biznesów. Działasz bez ryzyka: najpierw oglądasz gotowy projekt, płacisz tylko jeśli Ci się spodoba!",
       },
+      {
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: 'src/assets/logo-twojastrona-transparent.ico',
+    },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
