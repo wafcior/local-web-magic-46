@@ -1140,6 +1140,87 @@ function Field({
   );
 }
 
+function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload: Record<string, string> = { _subject: "Nowe zapytanie ze strony TwojaStrona" };
+    data.forEach((v, k) => {
+      payload[k] = String(v);
+    });
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/no-reply@twojastrona.czest.pl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("send failed");
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className="lg:col-span-7 space-y-5 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-8"
+    >
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Imię" name="name" placeholder="Jan Kowalski" />
+        <Field label="Telefon" name="phone" type="tel" placeholder="+48 ..." />
+      </div>
+      <div>
+        <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
+          Branża
+        </label>
+        <input
+          type="text"
+          name="branza"
+          placeholder="usługi (mechanik, hydraulik, elektryk...)"
+          className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground placeholder:text-primary-foreground/30 outline-none transition-colors focus:border-accent"
+        />
+      </div>
+      <div>
+        <label className="mb-2 block text-xs uppercase tracking-wider text-primary-foreground/60">
+          Krótko o firmie (opcjonalnie)
+        </label>
+        <textarea
+          name="message"
+          rows={4}
+          className="w-full rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-3 text-primary-foreground outline-none transition-colors focus:border-accent"
+          placeholder="Czym się zajmujesz, w jakim mieście…"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="btn-press inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-medium text-accent-foreground hover:opacity-90 disabled:opacity-70"
+      >
+        {status === "sending" ? "Wysyłanie..." : (<>Wyślij — oddzwonię dziś <ArrowUpRight className="h-4 w-4" /></>)}
+      </button>
+      {status === "success" && (
+        <p className="text-center text-sm font-medium text-green-400">
+          Wiadomość została wysłana pomyślnie!
+        </p>
+      )}
+      {status === "error" && (
+        <p className="text-center text-sm font-medium text-red-300">
+          Coś poszło nie tak. Spróbuj ponownie lub zadzwoń bezpośrednio.
+        </p>
+      )}
+    </form>
+  );
+}
+
 function useTypewriter(text: string, speed = 60, startDelay = 0) {
   const [out, setOut] = useState("");
   const startedRef = useRef(false);
